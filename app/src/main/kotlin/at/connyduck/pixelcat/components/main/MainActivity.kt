@@ -32,37 +32,38 @@ class MainActivity : BaseActivity() {
 
     private lateinit var mainFragmentAdapter: MainFragmentAdapter
 
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        return@OnNavigationItemSelectedListener when (item.itemId) {
-            R.id.navigation_home -> {
-                binding.mainViewPager.setCurrentItem(0, false)
-                true
-            }
-            R.id.navigation_search -> {
-                binding.mainViewPager.setCurrentItem(1, false)
-                true
-            }
-            R.id.navigation_compose -> {
-                val options = Options.init()
-                    .setRequestCode(100)
-                    .setImageQuality(ImageQuality.HIGH)
-                    .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
+    private val onNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            return@OnNavigationItemSelectedListener when (item.itemId) {
+                R.id.navigation_home -> {
+                    binding.mainViewPager.setCurrentItem(0, false)
+                    true
+                }
+                R.id.navigation_search -> {
+                    binding.mainViewPager.setCurrentItem(1, false)
+                    true
+                }
+                R.id.navigation_compose -> {
+                    val options = Options.init()
+                        .setRequestCode(100)
+                        .setImageQuality(ImageQuality.HIGH)
+                        .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
 
-                Pix.start(this, options)
-                false
-            }
-            R.id.navigation_notifications -> {
-                binding.mainViewPager.setCurrentItem(2, false)
-                true
-            }
-            R.id.navigation_profile -> {
-                binding.mainViewPager.setCurrentItem(3, false)
-                true
-            }
-            else -> false
+                    Pix.start(this, options)
+                    false
+                }
+                R.id.navigation_notifications -> {
+                    binding.mainViewPager.setCurrentItem(2, false)
+                    true
+                }
+                R.id.navigation_profile -> {
+                    binding.mainViewPager.setCurrentItem(3, false)
+                    true
+                }
+                else -> false
 
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,13 +72,13 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.container.setOnApplyWindowInsetsListener { _, insets ->
-             val top = insets.systemWindowInsetTop
+            val top = insets.systemWindowInsetTop
 
-             val toolbarParams = binding.mainViewPager.layoutParams as LinearLayout.LayoutParams
-             toolbarParams.topMargin = top
+            val viewPagerParams = binding.mainViewPager.layoutParams as LinearLayout.LayoutParams
+            viewPagerParams.topMargin = top
 
-             insets.consumeSystemWindowInsets()
-         }
+            insets.consumeSystemWindowInsets()
+        }
 
         mainFragmentAdapter = MainFragmentAdapter(this)
         binding.mainViewPager.adapter = mainFragmentAdapter

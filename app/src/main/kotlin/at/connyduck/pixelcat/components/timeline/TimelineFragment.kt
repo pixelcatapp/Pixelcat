@@ -1,6 +1,7 @@
 package at.connyduck.pixelcat.components.timeline
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import at.connyduck.pixelcat.dagger.ViewModelFactory
 import at.connyduck.pixelcat.databinding.FragmentTimelineBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity
 import at.connyduck.pixelcat.util.viewBinding
+import com.google.android.material.appbar.AppBarLayout
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -38,15 +40,6 @@ class TimelineFragment: DaggerFragment(R.layout.fragment_timeline), TimeLineActi
         binding.toolbar.setNavigationOnClickListener {
             binding.timelineRecyclerView.scrollToPosition(0)
         }
-      /*  binding.timelineContainer.setOnApplyWindowInsetsListener { _, insets ->
-            val top = insets.systemWindowInsetTop
-
-            val toolbarParams = binding.toolbar.layoutParams as AppBarLayout.LayoutParams
-            toolbarParams.topMargin = top
-
-            insets.consumeSystemWindowInsets()
-
-        }*/
 
         val adapter = TimelineListAdapter(this)
 
