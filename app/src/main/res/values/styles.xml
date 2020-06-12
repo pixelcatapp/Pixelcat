@@ -1,0 +1,67 @@
+<resources>
+
+    <style name="Warm">
+        <item name="colorPrimary">@color/pixelcat_gradient_warm_middle</item>
+        <item name="colorSecondary">@color/pixelcat_gradient_warm_middle</item>
+        <item name="pixelcat_gradient_color_start">@color/pixelcat_gradient_warm_start</item>
+        <item name="pixelcat_gradient_color_end">@color/pixelcat_gradient_warm_end</item>
+    </style>
+
+    <style name="Cold">
+        <item name="colorPrimary">@color/pixelcat_gradient_cold_middle</item>
+        <item name="colorSecondary">@color/pixelcat_gradient_cold_middle</item>
+        <item name="pixelcat_gradient_color_start">@color/pixelcat_gradient_cold_start</item>
+        <item name="pixelcat_gradient_color_end">@color/pixelcat_gradient_cold_end</item>
+    </style>
+
+    <style name="NunitoFont">
+        <item name="fontFamily">@font/nunito</item>
+    </style>
+
+    <style name="AppTheme" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
+
+        <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Surface</item>
+
+    </style>
+
+    <style name="AppTheme.Fullscreen">
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+
+    <style name="TextAppearanceToolbar" parent="@style/TextAppearance.MaterialComponents.Headline6">
+
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetModalTheme</item>
+    </style>
+
+    <style name="BottomSheetModalTheme" parent="@style/Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearance">@style/ShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="ShapeAppearanceBottomSheetDialog" >
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="WhiteButton" parent="@style/Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="rippleColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="WhiteButton.Outlined" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="rippleColor">@color/white</item>
+
+    </style>
+
+    <bool name="light_navigation_bar">true</bool>
+
+</resources>

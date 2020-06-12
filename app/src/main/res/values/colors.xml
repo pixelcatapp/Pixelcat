@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#0000</color>
+    <color name="white">#FFF</color>
+
+    <color name="pixelcat_gradient_cold_start">#26D0CE</color>
+    <color name="pixelcat_gradient_cold_end">#1A2980</color>
+    <color name="pixelcat_gradient_cold_middle">#207da7</color>
+
+    <color name="pixelcat_gradient_warm_start">#F27121</color>
+    <color name="pixelcat_gradient_warm_end">#8A2387</color>
+    <color name="pixelcat_gradient_warm_middle">#E94057</color>
+
+
+    <color name="divider_color">#e0e0e0</color>
+
+    <color name="heart_button_primary">#f00</color>
+    <color name="heart_button_secondary">#f90</color>
+
+    <color name="boost_button_primary">#1A2980</color>
+    <color name="boost_button_secondary">#207da7</color>
+
+</resources>

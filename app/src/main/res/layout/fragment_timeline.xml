@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/timelineContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:navigationIcon="@drawable/ic_cat_small"
+                app:title="@string/app_name"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:titleTextAppearance="@style/TextAppearanceToolbar"
+                app:titleTextColor="?attr/colorPrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/timelineSwipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/timelineRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

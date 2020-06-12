@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Pixelcat</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="login_button">Login</string>
+    <string name="instance_input_hint">Which instance?</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_info">Information</string>
+    <string name="pref_title_appearance_settings">Appearance</string>
+
+    <string name="pref_title_app_color">App Colors</string>
+
+    <string name="pref_app_color_warm">Warm</string>
+    <string name="pref_app_color_cold">Cold</string>
+
+    <string name="pref_title_night_mode">Night mode</string>
+
+    <string name="pref_night_mode_off">Off</string>
+    <string name="pref_night_mode_on">On</string>
+    <string name="pref_night_mode_auto">Auto</string>
+    <string name="pref_night_mode_follow_system">Follow system</string>
+
+    <string name="pref_title_black_night_mode">Pure black night mode</string>
+
+    <string name="pref_title_font_size">Font size</string>
+
+    <string name="pref_font_size_small">Small</string>
+    <string name="pref_font_size_normal">Normal</string>
+    <string name="pref_font_size_large">Large</string>
+    <string name="pref_font_size_larger">Larger</string>
+
+    <string name="pref_title_system_font">Use system font</string>
+
+    <string name="pref_title_browser_settings">In-App Browser</string>
+    <string name="pref_title_browser_summary">Open external links within the app</string>
+    <string name="title_activity_settings">Settings</string>
+
+
+    <string name="about_version">Version %1$s</string>
+    <string name="title_licenses">Licenses</string>
+    <string name="title_about">About</string>
+
+    <string name="license_description">Pixelcat contains code and assets from the following open source projects:
+    </string>
+    <string name="license_apache_2">Licensed under the Apache License (copy below)</string>
+
+    <string name="title_following">Following</string>
+    <string name="title_followers">Followers</string>
+    <string name="title_posts">Posts</string>
+
+    <string name="profile_action_message">Message</string>
+    <string name="profile_action_follow">Follow</string>
+    <string name="profile_following">Following</string>
+    <string name="profile_follows_you">Follows you</string>
+
+    <string name="error_generic">An error occurred</string>
+    <string name="action_retry">Retry</string>
+    <string name="compose_new_post">New post</string>
+    <string name="compose_action_share">Share</string>
+    <string name="compose_write_caption">Write a caption...</string>
+    <string name="compose_visibility_public">Public</string>
+    <string name="compose_visibility_unlisted">Unlisted</string>
+    <string name="compose_visibility_followers_only">Followers Only</string>
+    <string name="compose_visibility">Visibility %s</string>
+    <string name="compose_contains_nsfw_media">Contains NSFW Media</string>
+
+    <string name="send_status_notification_channel_name">Sending statuses</string>
+    <string name="send_status_notification_title">Sending status...</string>
+    <string name="send_status_notification_error_title">Error sending status</string>
+    <string name="send_status_notification_cancel_title">Sending cancelled</string>
+
+    <string name="navigation_menu">Menu</string>
+    <string name="navigation_accounts">Accounts</string>
+    <string name="action_add_new_account">Add Account</string>
+
+</resources>

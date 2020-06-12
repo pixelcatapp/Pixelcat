@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <View
+            android:layout_width="50dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bottomsheet_drag_handle" />
+
+    <TextView
+            android:id="@+id/menuFavourites"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/background_selectable"
+            android:drawableStart="@drawable/ic_heart"
+            android:drawablePadding="8dp"
+            android:drawableTint="?android:attr/textColorTertiary"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:text="Favourites" />
+
+    <TextView
+            android:id="@+id/menuSettings"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/background_selectable"
+            android:drawableStart="@drawable/ic_settings"
+            android:drawablePadding="8dp"
+            android:drawableTint="?android:attr/textColorTertiary"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:text="Settings" />
+
+    <TextView
+            android:id="@+id/menuAbout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/background_selectable"
+            android:drawableStart="@drawable/ic_info"
+            android:drawablePadding="8dp"
+            android:drawableTint="?android:attr/textColorTertiary"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:text="About" />
+
+
+</LinearLayout>

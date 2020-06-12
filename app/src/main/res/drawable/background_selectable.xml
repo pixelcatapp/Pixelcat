@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="?attr/colorPrimary">
+
+    <!-- mask here... -->
+    <item android:id="@android:id/mask">
+        <shape>
+            <corners android:radius="10dp" />
+            <solid android:color="#000" />
+        </shape>
+    </item>
+
+    <item>
+
+        <selector>
+            <item android:state_selected="true">
+                <shape>
+                    <corners android:radius="10dp" />
+                    <solid android:color="?attr/colorPrimary" />
+                </shape>
+            </item>
+            <item android:state_selected="false">
+                <shape>
+                    <corners android:radius="10dp" />
+                    <solid android:color="@color/transparent" />
+                </shape>
+            </item>
+
+        </selector>
+    </item>
+
+
+</ripple>

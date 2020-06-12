@@ -1,0 +1,16 @@
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
+
+        <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Surface</item>
+
+
+        <item name="android:navigationBarColor">?android:colorBackground</item>
+        <item name="android:navigationBarDividerColor">@color/divider_color</item>
+        <item name="android:windowLightNavigationBar">@bool/light_navigation_bar</item>
+
+    </style>
+
+</resources>

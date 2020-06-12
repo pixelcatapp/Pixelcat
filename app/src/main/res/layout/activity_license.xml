@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:license="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/licenseContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/licenseAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pixelcat_gradient"
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/licenseToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/title_licenses"
+            app:titleTextAppearance="@style/TextAppearanceToolbar"
+            app:titleTextColor="#fff" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:orientation="vertical"
+            android:paddingBottom="12dp"
+            android:textDirection="anyRtl">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="18dp"
+                android:gravity="center_vertical"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/license_description" />
+
+            <at.connyduck.pixelcat.components.about.licenses.LicenseCard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                license:license="@string/license_apache_2"
+                license:link="https://developer.android.com/topic/libraries/support-library/"
+                license:name="AndroidX" />
+
+            <at.connyduck.pixelcat.components.about.licenses.LicenseCard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                license:license="@string/license_apache_2"
+                license:link="https://square.github.io/okhttp/"
+                license:name="OkHttp" />
+
+            <at.connyduck.pixelcat.components.about.licenses.LicenseCard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                license:license="@string/license_apache_2"
+                license:link="https://square.github.io/retrofit/"
+                license:name="Retrofit" />
+
+            <at.connyduck.pixelcat.components.about.licenses.LicenseCard
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    license:license="@string/license_apache_2"
+                    license:link="https://github.com/square/moshi"
+                    license:name="Moshi" />
+
+            <at.connyduck.pixelcat.components.about.licenses.LicenseCard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                license:license="@string/license_apache_2"
+                license:link="https://github.com/coil-kt/coil"
+                license:name="Coil" />
+
+            <at.connyduck.pixelcat.components.about.licenses.LicenseCard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                license:license="@string/license_apache_2"
+                license:link="https://google.github.io/dagger/"
+                license:name="Dagger 2" />
+
+            <at.connyduck.pixelcat.components.about.licenses.LicenseCard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                license:license="@string/license_apache_2"
+                license:link="https://github.com/connyduck/SparkButton"
+                license:name="SparkButton" />
+
+            <TextView
+                android:id="@+id/licenseApacheTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="18dp"
+                android:lineSpacingMultiplier="1.1"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

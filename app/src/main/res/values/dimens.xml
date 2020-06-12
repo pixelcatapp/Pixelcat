@@ -1,0 +1,11 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <dimen name="license_card_radius">12dp</dimen>
+
+    <dimen name="profile_images_spacing">3dp</dimen>
+
+</resources>

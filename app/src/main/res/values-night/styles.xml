@@ -1,0 +1,3 @@
+<resources>
+    <bool name="light_navigation_bar">false</bool>
+</resources>

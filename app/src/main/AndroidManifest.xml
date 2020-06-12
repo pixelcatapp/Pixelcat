@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="at.connyduck.pixelcat">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+            android:name=".PixelcatApplication"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            android:usesCleartextTraffic="false"
+            tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+<!-- TODO order activities -->
+        <activity android:name=".components.splash.SplashActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+        </activity>
+
+
+
+        <activity android:name=".components.login.LoginWebViewActivity">
+        </activity>
+        <activity
+                android:name=".components.settings.SettingsActivity"
+                android:label="@string/title_activity_settings">
+        </activity>
+        <activity
+                android:name=".components.login.LoginActivity"
+                android:theme="@style/AppTheme.Fullscreen">
+
+        </activity>
+        <activity
+                android:name=".components.main.MainActivity"
+                android:label="@string/app_name">
+        </activity>
+        <activity
+                android:name=".components.about.AboutActivity"
+                android:theme="@style/AppTheme.Fullscreen"/>
+        <activity android:name=".components.about.licenses.LicenseActivity"/>
+        <activity android:name="at.connyduck.pixelcat.components.compose.ComposeActivity" />
+        <activity android:name=".components.profile.ProfileActivity" />
+
+        <service android:name=".components.compose.SendStatusService" />
+
+
+    </application>
+
+</manifest>

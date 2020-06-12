@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App colors -->
+
+    <string name="key_pref_app_color">APP_COLOR</string>
+    <string name="key_pref_app_color_warm">WARM</string>
+    <string name="key_pref_app_color_cold">COLD</string>
+
+    <string name="key_pref_app_color_default">@string/key_pref_app_color_warm</string>
+
+
+    <string-array name="app_color_values">
+        <item>@string/key_pref_app_color_warm</item>
+        <item>@string/key_pref_app_color_cold</item>
+    </string-array>
+
+    <string-array name="app_color_names">
+        <item>@string/pref_app_color_warm</item>
+        <item>@string/pref_app_color_cold</item>
+    </string-array>
+
+    <!-- Night mode -->
+
+    <string name="key_pref_night_mode">NIGHT_MODE</string>
+    <string name="key_pref_night_mode_off">OFF</string>
+    <string name="key_pref_night_mode_on">ON</string>
+    <string name="key_pref_night_mode_auto">AUTO</string>
+    <string name="key_pref_night_mode_follow_system">FOLLOW_SYSTEM</string>
+
+    <string name="key_pref_night_mode_default">@string/key_pref_night_mode_off</string>
+
+    <string-array name="night_mode_values">
+        <item>@string/key_pref_night_mode_off</item>
+        <item>@string/key_pref_night_mode_on</item>
+        <item>@string/key_pref_night_mode_auto</item>
+        <item>@string/key_pref_night_mode_follow_system</item>
+    </string-array>
+
+    <string-array name="night_mode_names">
+        <item>@string/pref_night_mode_off</item>
+        <item>@string/pref_night_mode_on</item>
+        <item>@string/pref_night_mode_auto</item>
+        <item>@string/pref_night_mode_follow_system</item>
+    </string-array>
+
+    <!-- pure black night mode -->
+
+    <string name="key_pref_black_night_mode">BLACK_NIGHT_MODE</string>
+
+    <bool name="pref_title_black_night_mode_default">false</bool>
+
+    <!-- font size -->
+
+    <string name="key_pref_font_size">FONT_SIZE</string>
+    <string name="key_pref_font_size_small">SMALL</string>
+    <string name="key_pref_font_size_normal">NORMAL</string>
+    <string name="key_pref_font_size_large">LARGE</string>
+    <string name="key_pref_font_size_larger">LARGER</string>
+
+    <string name="key_pref_font_size_default">@string/key_pref_font_size_normal</string>
+
+    <string-array name="app_font_size_values">
+        <item>@string/key_pref_font_size_small</item>
+        <item>@string/key_pref_font_size_normal</item>
+        <item>@string/key_pref_font_size_large</item>
+        <item>@string/key_pref_font_size_larger</item>
+    </string-array>
+
+    <string-array name="app_font_size_names">
+        <item>@string/pref_font_size_small</item>
+        <item>@string/pref_font_size_normal</item>
+        <item>@string/pref_font_size_large</item>
+        <item>@string/pref_font_size_larger</item>
+    </string-array>
+
+    <!-- use system font -->
+
+    <string name="key_pref_system_font">SYSTEM_FONT</string>
+
+    <bool name="pref_title_system_font_default">false</bool>
+
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_title_appearance_settings">
+
+        <ListPreference
+                android:defaultValue="@string/key_pref_app_color_default"
+                android:entries="@array/app_color_names"
+                android:entryValues="@array/app_color_values"
+                android:key="@string/key_pref_app_color"
+                android:summary="%s"
+                android:title="@string/pref_title_app_color" />
+
+        <ListPreference
+                android:defaultValue="@string/key_pref_night_mode_default"
+                android:entries="@array/night_mode_names"
+                android:entryValues="@array/night_mode_values"
+                android:key="@string/key_pref_night_mode"
+                android:summary="%s"
+                android:title="@string/pref_title_night_mode" />
+
+        <SwitchPreference
+                android:defaultValue="@bool/pref_title_black_night_mode_default"
+                android:key="@string/key_pref_black_night_mode"
+                android:title="@string/pref_title_black_night_mode" />
+
+        <ListPreference
+                android:defaultValue="@string/key_pref_font_size_default"
+                android:entries="@array/app_font_size_names"
+                android:entryValues="@array/app_font_size_values"
+                android:key="@string/key_pref_font_size"
+                android:summary="%s"
+                android:title="@string/pref_title_font_size" />
+
+        <SwitchPreference
+                android:defaultValue="@string/key_pref_system_font"
+                android:key="@string/key_pref_system_font"
+                android:title="@string/pref_title_system_font" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_title_browser_settings">
+        <SwitchPreference
+                android:defaultValue="false"
+                android:key="customTabs"
+                android:summary="@string/pref_title_browser_summary"
+                android:title="@string/pref_title_browser_settings" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
