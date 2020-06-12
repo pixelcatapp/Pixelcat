@@ -9,7 +9,7 @@ android {
     compileSdkVersion(29)
     defaultConfig {
         applicationId = "at.connyduck.pixelcat"
-        minSdkVersion(23)
+        minSdkVersion(24)
         targetSdkVersion(29)
         versionCode = 1
         versionName = "0.0"
