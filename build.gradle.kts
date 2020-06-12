@@ -11,14 +11,13 @@ buildscript {
     }
 }
 
-apply(plugin = "org.jlleitschuh.gradle.ktlint")
-
 allprojects {
     repositories {
         google()
         jcenter()
         maven(url = "https://jitpack.io")
     }
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 }
 
 tasks.register("clean", Delete::class.java) {

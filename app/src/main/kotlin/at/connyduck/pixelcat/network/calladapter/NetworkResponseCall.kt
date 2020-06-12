@@ -28,21 +28,37 @@ internal class NetworkResponseCall<S : Any>(
                         // Response is successful but the body is null
                         callback.onResponse(
                             this@NetworkResponseCall,
-                            Response.success(NetworkResponse.Failure(NetworkResponseError.ApiError(response.code())))
+                            Response.success(
+                                NetworkResponse.Failure(
+                                    NetworkResponseError.ApiError(
+                                        response.code()
+                                    )
+                                )
+                            )
                         )
                     }
                 } else {
-                        callback.onResponse(
-                            this@NetworkResponseCall,
-                            Response.success(NetworkResponse.Failure(NetworkResponseError.ApiError(response.code())))
+                    callback.onResponse(
+                        this@NetworkResponseCall,
+                        Response.success(
+                            NetworkResponse.Failure(
+                                NetworkResponseError.ApiError(
+                                    response.code()
+                                )
+                            )
                         )
+                    )
                 }
             }
 
             override fun onFailure(call: Call<S>, throwable: Throwable) {
                 Log.d("NetworkResponseCall", "Network response failed", throwable)
                 val networkResponse = when (throwable) {
-                    is IOException -> NetworkResponse.Failure(NetworkResponseError.NetworkError(throwable))
+                    is IOException -> NetworkResponse.Failure(
+                        NetworkResponseError.NetworkError(
+                            throwable
+                        )
+                    )
                     else -> NetworkResponse.Failure(NetworkResponseError.UnknownError(throwable))
                 }
                 callback.onResponse(this@NetworkResponseCall, Response.success(networkResponse))

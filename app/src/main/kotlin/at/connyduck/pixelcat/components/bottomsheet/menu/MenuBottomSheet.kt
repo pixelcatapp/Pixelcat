@@ -34,13 +34,10 @@ class MenuBottomSheet : BottomSheetDialogFragment() {
             startActivity(AboutActivity.newIntent(it.context))
             dismiss()
         }
-
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

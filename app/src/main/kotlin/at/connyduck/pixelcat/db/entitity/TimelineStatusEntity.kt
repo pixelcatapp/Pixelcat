@@ -8,11 +8,9 @@ import androidx.room.TypeConverters
 import at.connyduck.pixelcat.db.Converters
 import at.connyduck.pixelcat.model.Attachment
 import at.connyduck.pixelcat.model.Status
-import java.util.*
+import java.util.Date
 
-@Entity(
-    primaryKeys = ["accountId", "id"]
-    )
+@Entity(primaryKeys = ["accountId", "id"])
 @TypeConverters(Converters::class)
 data class StatusEntity(
     val accountId: Long,

@@ -10,13 +10,10 @@ import okhttp3.Route
 class RefreshTokenAuthenticator(private val accountManager: AccountManager) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
 
-
         val currentAccount = runBlocking { accountManager.activeAccount() }
-
 
         // TODO
 
         return null
     }
-
 }

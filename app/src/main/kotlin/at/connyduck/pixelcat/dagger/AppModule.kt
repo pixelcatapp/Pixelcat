@@ -16,7 +16,7 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
-    fun providesApp(app: PixelcatApplication): Application  = app
+    fun providesApp(app: PixelcatApplication): Application = app
 
     @Provides
     fun providesContext(app: Application): Context = app
@@ -39,8 +39,4 @@ class AppModule {
     fun providesAccountManager(db: AppDatabase): AccountManager {
         return AccountManager(db)
     }
-
-
-
-
 }

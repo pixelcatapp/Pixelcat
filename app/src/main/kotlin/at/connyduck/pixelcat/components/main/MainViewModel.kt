@@ -10,21 +10,21 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val fediverseApi: FediverseApi,
     private val accountManager: AccountManager
-): ViewModel() {
+) : ViewModel() {
 
     fun whatever() {
-
     }
 
     init {
         viewModelScope.launch {
 
-                fediverseApi.accountVerifyCredentials().fold({ account ->
+            fediverseApi.accountVerifyCredentials().fold(
+                { account ->
                     accountManager.updateActiveAccount(account)
-                }, {
-
-                })
+                },
+                {
+                }
+            )
         }
     }
-
 }

@@ -13,7 +13,6 @@ import at.connyduck.pixelcat.db.AccountManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
-
 class AccountSelectionBottomSheet(
     private val accountManager: AccountManager
 ) : BottomSheetDialogFragment() {
@@ -21,7 +20,6 @@ class AccountSelectionBottomSheet(
     private var _binding: BottomsheetAccountsBinding? = null
     private val binding
         get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +48,7 @@ class AccountSelectionBottomSheet(
     }
 
     private fun onNewAccount() {
-        //TODO don't create intent here
+        // TODO don't create intent here
         startActivity(Intent(requireContext(), LoginActivity::class.java))
     }
 
@@ -58,5 +56,4 @@ class AccountSelectionBottomSheet(
         super.onDestroyView()
         _binding = null
     }
-
 }

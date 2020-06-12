@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Relationship (
+data class Relationship(
     val id: String,
     val following: Boolean,
     @Json(name = "followed_by") val followedBy: Boolean,

@@ -1,7 +1,11 @@
 package at.connyduck.pixelcat.db
 
 import androidx.paging.PagingSource
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import at.connyduck.pixelcat.db.entitity.StatusEntity
 
 @Dao
@@ -21,5 +25,4 @@ interface TimelineDao {
 
     @Query("DELETE FROM StatusEntity WHERE accountId = :accountId")
     suspend fun clearAll(accountId: Long)
-
 }

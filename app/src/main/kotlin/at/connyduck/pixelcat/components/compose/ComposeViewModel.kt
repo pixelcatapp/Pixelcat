@@ -12,22 +12,16 @@ import javax.inject.Inject
 class ComposeViewModel @Inject constructor(
     val context: Context,
     val accountManager: AccountManager
-): ViewModel() {
-
+) : ViewModel() {
 
     val images = MutableLiveData<List<String>>()
 
     val visibility = MutableLiveData(VISIBILITY.PUBLIC)
 
-
-
     fun addImage(imageUri: String) {
 
         images.value = images.value.orEmpty() + imageUri
-
-
     }
-
 
     fun setVisibility(visibility: VISIBILITY) {
         this.visibility.value = visibility
@@ -47,10 +41,7 @@ class ComposeViewModel @Inject constructor(
             val intent = SendStatusService.sendStatusIntent(context, statusToSend)
             ContextCompat.startForegroundService(context, intent)
         }
-
     }
-
-
 }
 
 enum class VISIBILITY(val serverName: String) {

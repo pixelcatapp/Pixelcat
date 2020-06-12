@@ -18,7 +18,6 @@ import at.connyduck.pixelcat.databinding.ActivityLoginBinding
 import at.connyduck.pixelcat.util.viewBinding
 import javax.inject.Inject
 
-
 class LoginActivity : BaseActivity(), Observer<LoginModel> {
 
     @Inject
@@ -58,7 +57,7 @@ class LoginActivity : BaseActivity(), Observer<LoginModel> {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         val authCode = data?.getStringExtra(LoginWebViewActivity.RESULT_AUTHORIZATION_CODE)
-        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK && !authCode.isNullOrEmpty()) {
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK && !authCode.isNullOrEmpty()) {
             loginViewModel.authCode(authCode)
             return
         }
@@ -72,7 +71,7 @@ class LoginActivity : BaseActivity(), Observer<LoginModel> {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.navigation_settings -> {
                 startActivity(SettingsActivity.newIntent(this))
                 return true
@@ -89,17 +88,16 @@ class LoginActivity : BaseActivity(), Observer<LoginModel> {
     override fun onChanged(loginModel: LoginModel?) {
         binding.loginInput.setText(loginModel?.input)
 
-        if(loginModel == null) {
+        if (loginModel == null) {
             return
         }
 
-        when(loginModel.state) {
+        when (loginModel.state) {
             LoginState.NO_ERROR -> binding.loginInputLayout.error = null
             LoginState.AUTH_ERROR -> binding.loginInputLayout.error = "auth error"
             LoginState.INVALID_DOMAIN -> binding.loginInputLayout.error = "invalid domain"
             LoginState.NETWORK_ERROR -> binding.loginInputLayout.error = "network error"
             LoginState.LOADING -> {
-
             }
             LoginState.SUCCESS -> {
                 startActivityForResult(LoginWebViewActivity.newIntent(loginModel.domain!!, loginModel.clientId!!, loginModel.clientSecret!!, this), REQUEST_CODE)
@@ -114,5 +112,4 @@ class LoginActivity : BaseActivity(), Observer<LoginModel> {
     companion object {
         private const val REQUEST_CODE = 14
     }
-
 }

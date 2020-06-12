@@ -8,10 +8,10 @@ import at.connyduck.pixelcat.components.profile.ProfileFragment
 import at.connyduck.pixelcat.components.search.SearchFragment
 import at.connyduck.pixelcat.components.timeline.TimelineFragment
 
-class MainFragmentAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+class MainFragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
     override fun createFragment(position: Int): Fragment {
-        return when(position) {
+        return when (position) {
             0 -> TimelineFragment.newInstance()
             1 -> SearchFragment.newInstance()
             2 -> NotificationsFragment.newInstance()
@@ -23,5 +23,4 @@ class MainFragmentAdapter(fragmentActivity: FragmentActivity): FragmentStateAdap
     }
 
     override fun getItemCount() = 4
-
 }

@@ -8,14 +8,16 @@ import dagger.android.AndroidInjector
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [
-    AppModule::class,
-    NetworkModule::class,
-    AndroidInjectionModule::class,
-    ActivityModule::class,
-    ViewModelModule::class,
-    ServiceModule::class
-])
+@Component(
+    modules = [
+        AppModule::class,
+        NetworkModule::class,
+        AndroidInjectionModule::class,
+        ActivityModule::class,
+        ViewModelModule::class,
+        ServiceModule::class
+    ]
+)
 interface AppComponent : AndroidInjector<PixelcatApplication> {
 
     @Component.Builder

@@ -22,13 +22,12 @@ class ProfileDataSourceFactory(
     }
 }
 
-
 class ProfileImageDataSource(
     private val api: FediverseApi,
     private val accountId: String?,
     private val accountManager: AccountManager,
     private val scope: CoroutineScope
-): ItemKeyedDataSource<String, Status>() {
+) : ItemKeyedDataSource<String, Status>() {
     override fun loadInitial(
         params: LoadInitialParams<String>,
         callback: LoadInitialCallback<Status>
@@ -40,11 +39,13 @@ class ProfileImageDataSource(
                 limit = params.requestedLoadSize,
                 onlyMedia = true,
                 excludeReblogs = true
-            ).fold({
-                callback.onResult(it)
-            }, {
-
-            })
+            ).fold(
+                {
+                    callback.onResult(it)
+                },
+                {
+                }
+            )
         }
     }
 
@@ -57,11 +58,13 @@ class ProfileImageDataSource(
                 limit = params.requestedLoadSize,
                 onlyMedia = true,
                 excludeReblogs = true
-            ).fold({
-                callback.onResult(it)
-            }, {
-
-            })
+            ).fold(
+                {
+                    callback.onResult(it)
+                },
+                {
+                }
+            )
         }
     }
 

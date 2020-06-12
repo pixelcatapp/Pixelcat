@@ -12,7 +12,7 @@ import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import java.text.NumberFormat
 
-class ProfileHeaderAdapter: RecyclerView.Adapter<ProfileHeaderViewHolder>() {
+class ProfileHeaderAdapter : RecyclerView.Adapter<ProfileHeaderViewHolder>() {
 
     private var account: Account? = null
     private var isSelf: Boolean = false
@@ -61,7 +61,7 @@ class ProfileHeaderAdapter: RecyclerView.Adapter<ProfileHeaderViewHolder>() {
         }
         if (payloads.isEmpty() || payloads.contains(RELATIONSHIP_CHANGED)) {
             relationship?.let {
-                if(it.following) {
+                if (it.following) {
                     holder.binding.profileFollowButton.setText(R.string.profile_follows_you)
                 } else {
                     holder.binding.profileFollowButton.setText(R.string.profile_action_follow)
@@ -79,5 +79,4 @@ class ProfileHeaderAdapter: RecyclerView.Adapter<ProfileHeaderViewHolder>() {
     }
 }
 
-
-class ProfileHeaderViewHolder(val binding: ItemProfileHeaderBinding): RecyclerView.ViewHolder(binding.root)
+class ProfileHeaderViewHolder(val binding: ItemProfileHeaderBinding) : RecyclerView.ViewHolder(binding.root)

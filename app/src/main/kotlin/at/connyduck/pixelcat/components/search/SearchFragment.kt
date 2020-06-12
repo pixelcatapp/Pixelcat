@@ -6,7 +6,7 @@ import at.connyduck.pixelcat.dagger.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class SearchFragment: DaggerFragment(R.layout.fragment_search) {
+class SearchFragment : DaggerFragment(R.layout.fragment_search) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -16,5 +16,4 @@ class SearchFragment: DaggerFragment(R.layout.fragment_search) {
     companion object {
         fun newInstance() = SearchFragment()
     }
-
 }

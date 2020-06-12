@@ -9,6 +9,4 @@ abstract class ServiceModule {
 
     @ContributesAndroidInjector
     abstract fun contributesSendStatusService(): SendStatusService
-
-
 }

@@ -18,7 +18,7 @@ import com.fxn.pix.Pix
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import javax.inject.Inject
 
-class ComposeActivity: BaseActivity() {
+class ComposeActivity : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -35,7 +35,6 @@ class ComposeActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
         binding.root.setOnApplyWindowInsetsListener { _, insets ->
             val top = insets.systemWindowInsetTop
 
@@ -45,10 +44,9 @@ class ComposeActivity: BaseActivity() {
             insets.consumeSystemWindowInsets()
         }
 
-        if(viewModel.images.value.isNullOrEmpty()) {
+        if (viewModel.images.value.isNullOrEmpty()) {
             viewModel.addImage(intent.getStringExtra(EXTRA_MEDIA_URI)!!)
         }
-
 
         setSupportActionBar(binding.composeToolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -75,22 +73,26 @@ class ComposeActivity: BaseActivity() {
             changeVisibility(VISIBILITY.FOLLOWERS_ONLY)
         }
 
-        viewModel.images.observe(this, Observer {
-            adapter.submitList(it)
-        })
-
-        viewModel.visibility.observe(this, Observer {
-            val visibilityString = when(it) {
-                VISIBILITY.PUBLIC -> R.string.compose_visibility_public
-                VISIBILITY.UNLISTED -> R.string.compose_visibility_unlisted
-                VISIBILITY.FOLLOWERS_ONLY -> R.string.compose_visibility_followers_only
+        viewModel.images.observe(
+            this,
+            Observer {
+                adapter.submitList(it)
             }
+        )
 
-            binding.composeVisibilityButton.text = getString(R.string.compose_visibility, getString(visibilityString))
+        viewModel.visibility.observe(
+            this,
+            Observer {
+                val visibilityString = when (it) {
+                    VISIBILITY.PUBLIC -> R.string.compose_visibility_public
+                    VISIBILITY.UNLISTED -> R.string.compose_visibility_unlisted
+                    VISIBILITY.FOLLOWERS_ONLY -> R.string.compose_visibility_followers_only
+                }
 
-        })
+                binding.composeVisibilityButton.text = getString(R.string.compose_visibility, getString(visibilityString))
+            }
+        )
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -99,7 +101,6 @@ class ComposeActivity: BaseActivity() {
                 data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)
             Log.e("Result", returnValue.toString())
             viewModel.addImage(returnValue?.first()!!)
-
         }
     }
 
@@ -107,7 +108,6 @@ class ComposeActivity: BaseActivity() {
         viewModel.setVisibility(visibility)
         visibilityBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
     }
-
 
     companion object {
         private const val REQUEST_CODE_PICK_MEDIA = 123

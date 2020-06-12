@@ -21,5 +21,4 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun profileFragment(): ProfileFragment
-
 }

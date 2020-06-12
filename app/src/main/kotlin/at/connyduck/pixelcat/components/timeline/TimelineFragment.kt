@@ -1,7 +1,6 @@
 package at.connyduck.pixelcat.components.timeline
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,13 +13,12 @@ import at.connyduck.pixelcat.dagger.ViewModelFactory
 import at.connyduck.pixelcat.databinding.FragmentTimelineBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity
 import at.connyduck.pixelcat.util.viewBinding
-import com.google.android.material.appbar.AppBarLayout
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TimelineFragment: DaggerFragment(R.layout.fragment_timeline), TimeLineActionListener {
+class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineActionListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -61,9 +59,7 @@ class TimelineFragment: DaggerFragment(R.layout.fragment_timeline), TimeLineActi
             binding.timelineSwipeRefresh.isRefreshing = false
         }
 
-
-        //viewModel.posts.observe(viewLifecycleOwner, Observer { t -> adapter.submitList(t) })
-
+        // viewModel.posts.observe(viewLifecycleOwner, Observer { t -> adapter.submitList(t) })
     }
 
     companion object {
@@ -81,5 +77,4 @@ class TimelineFragment: DaggerFragment(R.layout.fragment_timeline), TimeLineActi
     override fun onReply(status: StatusEntity) {
         TODO("Not yet implemented")
     }
-
 }

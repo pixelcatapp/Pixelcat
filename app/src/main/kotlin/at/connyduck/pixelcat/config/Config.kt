@@ -10,5 +10,4 @@ object Config {
     const val oAuthScopes = "read write follow"
 
     val domainExceptions = arrayOf("gab.com", "gab.ai", "gabfed.com")
-
 }

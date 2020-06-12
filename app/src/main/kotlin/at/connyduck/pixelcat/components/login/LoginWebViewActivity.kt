@@ -12,7 +12,6 @@ import at.connyduck.pixelcat.config.Config
 import android.webkit.WebViewClient
 import at.connyduck.pixelcat.databinding.ActivityLoginWebViewBinding
 
-
 class LoginWebViewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginWebViewBinding
@@ -36,10 +35,10 @@ class LoginWebViewActivity : AppCompatActivity() {
 
         val url = "https://" + domain + endpoint + "?" + toQueryString(parameters)
 
-        binding.loginWebView.webViewClient = object: WebViewClient() {
+        binding.loginWebView.webViewClient = object : WebViewClient() {
 
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-                if(request.url.scheme == Config.oAuthScheme && request.url.host == Config.oAuthHost) {
+                if (request.url.scheme == Config.oAuthScheme && request.url.host == Config.oAuthHost) {
                     loginSuccess(request.url.getQueryParameter("code").orEmpty())
                     return true
                 }
@@ -48,7 +47,6 @@ class LoginWebViewActivity : AppCompatActivity() {
             }
         }
         binding.loginWebView.loadUrl(url)
-
     }
 
     private fun loginSuccess(authCode: String) {
@@ -58,7 +56,6 @@ class LoginWebViewActivity : AppCompatActivity() {
         setResult(Activity.RESULT_OK, successIntent)
         finish()
     }
-
 
     private fun toQueryString(parameters: Map<String, String>): String {
         return parameters.map { "${it.key}=${Uri.encode(it.value)}" }

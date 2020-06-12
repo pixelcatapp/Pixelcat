@@ -5,7 +5,7 @@ import at.connyduck.pixelcat.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class UserAgentInterceptor: Interceptor {
+class UserAgentInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestWithUserAgent = chain.request()
@@ -14,5 +14,4 @@ class UserAgentInterceptor: Interceptor {
             .build()
         return chain.proceed(requestWithUserAgent)
     }
-
 }

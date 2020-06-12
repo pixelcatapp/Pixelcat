@@ -8,7 +8,7 @@ import androidx.annotation.ColorInt
 @ColorInt
 fun Context.getColorForAttr(@AttrRes attr: Int): Int {
     val value = TypedValue()
-    if(theme.resolveAttribute(attr, value, true)) {
+    if (theme.resolveAttribute(attr, value, true)) {
         return value.data
     }
     throw IllegalStateException("Attribute not found")

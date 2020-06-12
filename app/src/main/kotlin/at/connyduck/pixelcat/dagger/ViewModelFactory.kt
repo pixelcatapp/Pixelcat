@@ -47,7 +47,6 @@ abstract class ViewModelModule {
     @ViewModelKey(MainViewModel::class)
     internal abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
 
-
     @Binds
     @IntoMap
     @ViewModelKey(TimelineViewModel::class)
@@ -72,5 +71,5 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ComposeViewModel::class)
     internal abstract fun composeViewModel(viewModel: ComposeViewModel): ViewModel
-    //Add more ViewModels here
+    // Add more ViewModels here
 }

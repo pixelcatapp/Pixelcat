@@ -18,7 +18,7 @@ class GridSpacingItemDecoration(
         state: RecyclerView.State
     ) {
         val position = parent.getChildAdapterPosition(view) // item position
-        if(position < topOffset) return
+        if (position < topOffset) return
 
         val column = (position - topOffset) % spanCount // item column
 
@@ -28,7 +28,5 @@ class GridSpacingItemDecoration(
         if (position - topOffset >= spanCount) {
             outRect.top = spacing // item top
         }
-
     }
-
 }

@@ -1,22 +1,25 @@
 package at.connyduck.pixelcat.components.timeline
 
-import androidx.lifecycle.*
-import androidx.paging.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.db.AppDatabase
-import at.connyduck.pixelcat.db.entitity.AccountEntity
 import at.connyduck.pixelcat.db.entitity.StatusEntity
 import at.connyduck.pixelcat.network.FediverseApi
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TimelineViewModel @Inject constructor(
-   // private val repository: TimelineRepo,
+    // private val repository: TimelineRepo,
     private val accountManager: AccountManager,
     private val db: AppDatabase,
     fediverseApi: FediverseApi
-):  ViewModel() {
+) : ViewModel() {
 
     private val accountId = MutableLiveData<Long>()
 
@@ -38,8 +41,7 @@ class TimelineViewModel @Inject constructor(
 
     fun onFavorite(status: StatusEntity) {
         viewModelScope.launch {
-          //  repository.onFavorite(status, accountManager.activeAccount()?.id!!)
+            //  repository.onFavorite(status, accountManager.activeAccount()?.id!!)
         }
     }
-
 }

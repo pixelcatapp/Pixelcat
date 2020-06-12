@@ -1,10 +1,24 @@
 package at.connyduck.pixelcat.network
 
-import at.connyduck.pixelcat.model.*
+import at.connyduck.pixelcat.model.AccessToken
+import at.connyduck.pixelcat.model.Account
+import at.connyduck.pixelcat.model.AppCredentials
+import at.connyduck.pixelcat.model.Attachment
+import at.connyduck.pixelcat.model.NewStatus
+import at.connyduck.pixelcat.model.Relationship
+import at.connyduck.pixelcat.model.Status
 import at.connyduck.pixelcat.network.calladapter.NetworkResponse
 import okhttp3.MultipartBody
-import retrofit2.http.*
+import retrofit2.http.Body
 import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface FediverseApi {
 
@@ -26,12 +40,12 @@ interface FediverseApi {
     @FormUrlEncoded
     @POST("oauth/token")
     suspend fun fetchOAuthToken(
-    @Header(DOMAIN_HEADER) domain: String,
-    @Field("client_id") clientId: String,
-    @Field("client_secret") clientSecret: String,
-    @Field("redirect_uri") redirectUri: String,
-    @Field("code") code: String,
-    @Field("grant_type") grantType: String = "authorization_code"
+        @Header(DOMAIN_HEADER) domain: String,
+        @Field("client_id") clientId: String,
+        @Field("client_secret") clientSecret: String,
+        @Field("redirect_uri") redirectUri: String,
+        @Field("code") code: String,
+        @Field("grant_type") grantType: String = "authorization_code"
     ): NetworkResponse<AccessToken>
 
     @FormUrlEncoded
@@ -44,7 +58,6 @@ interface FediverseApi {
         @Field("grant_type") grantType: String = "refresh_token"
     ): NetworkResponse<AccessToken>
 
-
     @GET("api/v1/accounts/verify_credentials")
     suspend fun accountVerifyCredentials(): NetworkResponse<Account>
 
@@ -53,7 +66,7 @@ interface FediverseApi {
         @Query("max_id") maxId: String? = null,
         @Query("since_id") sinceId: String? = null,
         @Query("limit") limit: Int? = null
-        ): NetworkResponse<List<Status>>
+    ): NetworkResponse<List<Status>>
 
     @GET("api/v1/accounts/{id}/statuses")
     suspend fun accountTimeline(

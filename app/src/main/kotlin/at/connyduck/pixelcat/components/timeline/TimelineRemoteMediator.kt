@@ -16,7 +16,7 @@ class TimelineRemoteMediator(
     private val accountId: Long,
     private val api: FediverseApi,
     private val db: AppDatabase
-): RemoteMediator<Int, StatusEntity>() {
+) : RemoteMediator<Int, StatusEntity>() {
 
     override suspend fun load(
         loadType: LoadType,
@@ -36,19 +36,20 @@ class TimelineRemoteMediator(
             }
         }
 
-        return apiCall.fold({ statusResult ->
+        return apiCall.fold(
+            { statusResult ->
                 db.withTransaction {
                     if (loadType == LoadType.REFRESH) {
                         db.statusDao().clearAll(accountId)
                     }
                     db.statusDao().insertOrReplace(statusResult.map { it.toEntity(accountId) })
                 }
-            MediatorResult.Success(endOfPaginationReached = statusResult.isEmpty())
-        }, {
-            MediatorResult.Error(it)
-        })
-
-
+                MediatorResult.Success(endOfPaginationReached = statusResult.isEmpty())
+            },
+            {
+                MediatorResult.Error(it)
+            }
+        )
     }
 
     override suspend fun initialize() = InitializeAction.SKIP_INITIAL_REFRESH

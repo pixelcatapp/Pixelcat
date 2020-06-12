@@ -1,13 +1,11 @@
 package at.connyduck.pixelcat.db
 
-
 import androidx.room.TypeConverter
 import at.connyduck.pixelcat.model.Attachment
 import at.connyduck.pixelcat.model.Status
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
-
-import java.util.*
+import java.util.Date
 
 class Converters {
 
@@ -25,16 +23,16 @@ class Converters {
 
     @TypeConverter
     fun attachmentListToJson(attachmentList: List<Attachment>?): String {
-    val type = Types.newParameterizedType(
-        List::class.java,
-        Attachment::class.java
-    )
+        val type = Types.newParameterizedType(
+            List::class.java,
+            Attachment::class.java
+        )
         return moshi.adapter<List<Attachment>>(type).toJson(attachmentList)
     }
 
     @TypeConverter
     fun jsonToAttachmentList(attachmentListJson: String?): List<Attachment>? {
-        if(attachmentListJson == null) {
+        if (attachmentListJson == null) {
             return null
         }
         val type = Types.newParameterizedType(
@@ -53,5 +51,4 @@ class Converters {
     fun longToDate(date: Long): Date {
         return Date(date)
     }
-
 }

@@ -38,7 +38,6 @@ class LicenseActivity : BaseActivity() {
         }
 
         loadFileIntoTextView(R.raw.apache, binding.licenseApacheTextView)
-
     }
 
     private fun loadFileIntoTextView(@RawRes fileId: Int, textView: TextView) {
@@ -61,7 +60,6 @@ class LicenseActivity : BaseActivity() {
         br.close()
 
         textView.text = sb.toString()
-
     }
 
     companion object {

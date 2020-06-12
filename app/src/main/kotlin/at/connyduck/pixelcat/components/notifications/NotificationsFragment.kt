@@ -6,7 +6,7 @@ import at.connyduck.pixelcat.dagger.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class NotificationsFragment: DaggerFragment(R.layout.fragment_notifications) {
+class NotificationsFragment : DaggerFragment(R.layout.fragment_notifications) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -16,5 +16,4 @@ class NotificationsFragment: DaggerFragment(R.layout.fragment_notifications) {
     companion object {
         fun newInstance() = NotificationsFragment()
     }
-
 }

@@ -35,7 +35,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
 }
 
 android.sourceSets["main"].java.srcDir("src/main/kotlin")
@@ -45,6 +44,11 @@ tasks {
         kotlinOptions.jvmTarget = "1.8"
         kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
+}
+
+ktlint {
+    version.set("0.37.1")
+    disabledRules.set(setOf("import-ordering"))
 }
 
 dependencies {
@@ -94,7 +98,7 @@ dependencies {
     implementation("com.google.dagger:dagger:2.28")
 
     implementation("com.fxn769:pix:1.4.4")
-    implementation( "com.github.yalantis:ucrop:2.2.5")
+    implementation("com.github.yalantis:ucrop:2.2.5")
 
     implementation("me.relex:circleindicator:2.1.4")
 

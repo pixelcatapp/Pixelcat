@@ -52,9 +52,7 @@ class AccountSelectionAdapter(
             }
         }
     }
-
 }
-
 
 class AccountSelectionViewHolder(val binding: ItemAccountSelectionBinding) :
     RecyclerView.ViewHolder(binding.root)

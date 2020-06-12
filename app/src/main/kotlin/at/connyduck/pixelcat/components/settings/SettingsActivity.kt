@@ -48,11 +48,10 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
         preferences.registerOnSharedPreferenceChangeListener(this)
 
         restartActivitiesOnExit = intent.getBooleanExtra(EXTRA_RESTART_ACTIVITIES, false)
-
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        when(key) {
+        when (key) {
             getString(R.string.key_pref_app_color) -> restartCurrentActivity()
             getString(R.string.key_pref_night_mode) -> AppCompatDelegate.setDefaultNightMode(appSettings.getNightMode())
         }
@@ -68,7 +67,7 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
 
     override fun onBackPressed() {
         val parentActivityName = intent.getStringExtra(EXTRA_PARENT_ACTIVITY)
-        if(restartActivitiesOnExit && parentActivityName != null) {
+        if (restartActivitiesOnExit && parentActivityName != null) {
             val restartIntent = Intent()
             restartIntent.component = ComponentName(this, intent.getStringExtra(EXTRA_PARENT_ACTIVITY)!!)
             restartIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -100,6 +99,4 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
             }
         }
     }
-
-
 }

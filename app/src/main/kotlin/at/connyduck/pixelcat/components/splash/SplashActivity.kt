@@ -10,7 +10,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SplashActivity: DaggerAppCompatActivity() {
+class SplashActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var accountManager: AccountManager
@@ -24,7 +24,7 @@ class SplashActivity: DaggerAppCompatActivity() {
                 Intent(
                     this@SplashActivity,
                     MainActivity::class.java
-                )  //TODO don't create intents here
+                ) // TODO don't create intents here
             } else {
                 Intent(this@SplashActivity, LoginActivity::class.java)
             }

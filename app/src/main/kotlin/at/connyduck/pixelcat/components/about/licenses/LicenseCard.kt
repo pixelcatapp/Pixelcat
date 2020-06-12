@@ -10,9 +10,9 @@ import com.google.android.material.card.MaterialCardView
 
 class LicenseCard
 @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
     private val binding =
@@ -31,14 +31,11 @@ class LicenseCard
 
         binding.licenseCardName.text = name
         binding.licenseCardLicense.text = license
-        if(link.isNullOrBlank()) {
+        if (link.isNullOrBlank()) {
             binding.licenseCardLink.hide()
         } else {
             binding.licenseCardLink.text = link
-           // setOnClickListener { LinkHelper.openLink(link, context) }
+            // setOnClickListener { LinkHelper.openLink(link, context) }
         }
-
     }
-
 }
-

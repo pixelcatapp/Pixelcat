@@ -3,7 +3,7 @@ package at.connyduck.pixelcat.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import java.util.*
+import java.util.Date
 
 @JsonClass(generateAdapter = true)
 data class Status(
@@ -62,7 +62,7 @@ data class Status(
     }
 
     @JsonClass(generateAdapter = true)
-    data class Mention (
+    data class Mention(
         val id: String,
         val url: String,
         val acct: String,
@@ -70,9 +70,8 @@ data class Status(
     )
 
     @JsonClass(generateAdapter = true)
-    data class Application (
+    data class Application(
         val name: String,
         val website: String?
     )
-
 }

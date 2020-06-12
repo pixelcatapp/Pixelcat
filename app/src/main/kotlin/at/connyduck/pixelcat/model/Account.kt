@@ -8,7 +8,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parceler
 import kotlinx.android.parcel.Parcelize
-import java.util.*
+import java.util.Date
 
 @JsonClass(generateAdapter = true)
 data class Account(
@@ -26,8 +26,8 @@ data class Account(
     @Json(name = "statuses_count") val statusesCount: Int,
     val source: AccountSource?,
     val bot: Boolean,
-      //  val emojis: List<Emoji>,  // nullable for backward compatibility
-    val fields: List<Field>?,  //nullable for backward compatibility
+    //  val emojis: List<Emoji>,  // nullable for backward compatibility
+    val fields: List<Field>?, // nullable for backward compatibility
     val moved: Account?
 
 ) {
@@ -43,26 +43,26 @@ data class Account(
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class AccountSource(
-      //  val privacy: Status.Visibility,
-        val sensitive: Boolean,
-        val note: String,
-        val fields: List<StringField>?
-): Parcelable
+    //  val privacy: Status.Visibility,
+    val sensitive: Boolean,
+    val note: String,
+    val fields: List<StringField>?
+) : Parcelable
 
 @JsonClass(generateAdapter = true)
 @Parcelize
-data class Field (
-        val name: String,
-      //  val value: @WriteWith<SpannedParceler>() Spanned,
-        @Json(name = "verified_at") val verifiedAt: Date?
-): Parcelable
+data class Field(
+    val name: String,
+    //  val value: @WriteWith<SpannedParceler>() Spanned,
+    @Json(name = "verified_at") val verifiedAt: Date?
+) : Parcelable
 
 @JsonClass(generateAdapter = true)
 @Parcelize
-data class StringField (
-        val name: String,
-        val value: String
-): Parcelable
+data class StringField(
+    val name: String,
+    val value: String
+) : Parcelable
 
 object SpannedParceler : Parceler<Spanned> {
     override fun create(parcel: Parcel): Spanned = HtmlCompat.fromHtml(parcel.readString() ?: "", HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)

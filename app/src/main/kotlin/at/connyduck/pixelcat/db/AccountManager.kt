@@ -12,7 +12,7 @@ import at.connyduck.pixelcat.model.Account
  * @author ConnyDuck
  */
 
-//TODO check if the comments are up to date
+// TODO check if the comments are up to date
 
 private const val TAG = "AccountManager"
 
@@ -23,9 +23,8 @@ class AccountManager(db: AppDatabase) {
     private var accounts: MutableList<AccountEntity> = mutableListOf()
     private val accountDao: AccountDao = db.accountDao()
 
-
     suspend fun activeAccount(): AccountEntity? {
-        if(activeAccount == null) {
+        if (activeAccount == null) {
             accounts = accountDao.loadAll().toMutableList()
 
             activeAccount = accounts.find { acc ->
@@ -34,7 +33,6 @@ class AccountManager(db: AppDatabase) {
         }
         return activeAccount
     }
-
 
     /**
      * Adds a new empty account and makes it the active account.
@@ -60,7 +58,6 @@ class AccountManager(db: AppDatabase) {
             auth = authData,
             isActive = true
         )
-
     }
 
     /**
@@ -73,7 +70,6 @@ class AccountManager(db: AppDatabase) {
             Log.d(TAG, "saveAccount: saving account with id " + account.id)
             accountDao.insertOrReplace(account)
         }
-
     }
 
     /**
@@ -97,9 +93,7 @@ class AccountManager(db: AppDatabase) {
                 activeAccount = null
             }
             return activeAccount
-
         }
-
     }
 
     /**
@@ -113,9 +107,9 @@ class AccountManager(db: AppDatabase) {
             it.username = account.username
             it.displayName = account.name
             it.profilePictureUrl = account.avatar
-          //  it.defaultPostPrivacy = account.source?.privacy ?: Status.Visibility.PUBLIC
+            //  it.defaultPostPrivacy = account.source?.privacy ?: Status.Visibility.PUBLIC
             it.defaultMediaSensitivity = account.source?.sensitive ?: false
-          //  it.emojis = account.emojis ?: emptyList()
+            //  it.emojis = account.emojis ?: emptyList()
 
             Log.d(TAG, "updateActiveAccount: saving account with id " + it.id)
             it.id = accountDao.insertOrReplace(it)
@@ -123,13 +117,12 @@ class AccountManager(db: AppDatabase) {
             val accountIndex = accounts.indexOf(it)
 
             if (accountIndex != -1) {
-                //in case the user was already logged in with this account, remove the old information
+                // in case the user was already logged in with this account, remove the old information
                 accounts.removeAt(accountIndex)
                 accounts.add(accountIndex, it)
             } else {
                 accounts.add(it)
             }
-
         }
     }
 
@@ -187,5 +180,4 @@ class AccountManager(db: AppDatabase) {
             acc.id == accountId
         }
     }
-
 }

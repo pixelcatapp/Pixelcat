@@ -61,7 +61,6 @@ class MainActivity : BaseActivity() {
                     true
                 }
                 else -> false
-
             }
         }
 
@@ -87,7 +86,6 @@ class MainActivity : BaseActivity() {
         binding.navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         mainViewModel.whatever()
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -100,7 +98,4 @@ class MainActivity : BaseActivity() {
             startActivity(ComposeActivity.newIntent(this, returnValue?.firstOrNull()!!))
         }
     }
-
-
 }
-

@@ -15,8 +15,8 @@ import coil.api.load
 
 class ProfileImageAdapter(
     private val imageSizePx: Int
-): PagedListAdapter<Status, ProfileImageViewHolder>(
-    object: DiffUtil.ItemCallback<Status>() {
+) : PagedListAdapter<Status, ProfileImageViewHolder>(
+    object : DiffUtil.ItemCallback<Status>() {
         override fun areItemsTheSame(old: Status, new: Status): Boolean {
             return false
         }
@@ -54,8 +54,6 @@ class ProfileImageAdapter(
             }
         }
     }
-
 }
 
-
-class ProfileImageViewHolder(val binding: ItemProfileImageBinding): RecyclerView.ViewHolder(binding.root)
+class ProfileImageViewHolder(val binding: ItemProfileImageBinding) : RecyclerView.ViewHolder(binding.root)

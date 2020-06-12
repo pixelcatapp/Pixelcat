@@ -14,7 +14,7 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityModule {
 
-    //TODO order stuff here
+    // TODO order stuff here
     @ContributesAndroidInjector(modules = [FragmentModule::class])
     abstract fun contributesMainActivity(): MainActivity
 
@@ -38,5 +38,4 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun contributesComposeActivity(): ComposeActivity
-
 }

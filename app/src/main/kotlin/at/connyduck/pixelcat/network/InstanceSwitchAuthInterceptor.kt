@@ -27,7 +27,7 @@ class InstanceSwitchAuthInterceptor(private val accountManager: AccountManager) 
                 builder.url(swapHost(originalRequest.url, instanceHeader))
                 builder.removeHeader(FediverseApi.DOMAIN_HEADER)
             } else if (currentAccount != null) {
-                //use domain of current account
+                // use domain of current account
                 builder.url(swapHost(originalRequest.url, currentAccount.domain))
                     .header(
                         "Authorization",
@@ -37,7 +37,6 @@ class InstanceSwitchAuthInterceptor(private val accountManager: AccountManager) 
             val newRequest = builder.build()
 
             return chain.proceed(newRequest)
-
         } else {
             return chain.proceed(originalRequest)
         }
@@ -46,6 +45,4 @@ class InstanceSwitchAuthInterceptor(private val accountManager: AccountManager) 
     private fun swapHost(url: HttpUrl, host: String): HttpUrl {
         return url.newBuilder().host(host).build()
     }
-
-
 }

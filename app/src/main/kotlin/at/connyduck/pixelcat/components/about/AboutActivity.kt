@@ -40,7 +40,6 @@ class AboutActivity : BaseActivity() {
         binding.aboutLicensesButton.setOnClickListener {
             startActivity(LicenseActivity.newIntent(this))
         }
-
     }
 
     companion object {

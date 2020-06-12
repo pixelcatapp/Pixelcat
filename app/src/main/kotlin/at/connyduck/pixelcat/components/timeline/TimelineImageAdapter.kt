@@ -7,7 +7,7 @@ import at.connyduck.pixelcat.databinding.ItemTimelineImageBinding
 import at.connyduck.pixelcat.model.Attachment
 import coil.api.load
 
-class TimelineImageAdapter: RecyclerView.Adapter<TimelineImageViewHolder>() {
+class TimelineImageAdapter : RecyclerView.Adapter<TimelineImageViewHolder>() {
 
     var images: List<Attachment> = emptyList()
         set(value) {
@@ -25,10 +25,7 @@ class TimelineImageAdapter: RecyclerView.Adapter<TimelineImageViewHolder>() {
     override fun onBindViewHolder(holder: TimelineImageViewHolder, position: Int) {
 
         holder.binding.timelineImageView.load(images[position].previewUrl)
-
     }
-
 }
 
-
-class TimelineImageViewHolder(val binding: ItemTimelineImageBinding): RecyclerView.ViewHolder(binding.root)
+class TimelineImageViewHolder(val binding: ItemTimelineImageBinding) : RecyclerView.ViewHolder(binding.root)

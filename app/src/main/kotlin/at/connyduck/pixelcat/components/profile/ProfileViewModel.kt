@@ -19,11 +19,11 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val fediverseApi: FediverseApi,
     private val accountManager: AccountManager
-):  ViewModel() {
+) : ViewModel() {
 
     val profile = MutableLiveData<UiState<Account>>()
     val relationship = MutableLiveData<UiState<Relationship>>()
-    val profileImages =  MutableLiveData<PagedList<Status>>()
+    val profileImages = MutableLiveData<PagedList<Status>>()
 
     val isSelf: Boolean
         get() = accountId == null
@@ -46,11 +46,14 @@ class ProfileViewModel @Inject constructor(
     private fun loadAccount(reload: Boolean = false) {
         if (profile.value == null || reload) {
             viewModelScope.launch {
-                fediverseApi.account(getAccountId()).fold({
-                    profile.value = Success(it)
-                }, {
-                    profile.value = Error(cause = it)
-                })
+                fediverseApi.account(getAccountId()).fold(
+                    {
+                        profile.value = Success(it)
+                    },
+                    {
+                        profile.value = Error(cause = it)
+                    }
+                )
             }
         }
     }
@@ -58,24 +61,28 @@ class ProfileViewModel @Inject constructor(
     private fun loadRelationship(reload: Boolean = false) {
         if (relationship.value == null || reload) {
             viewModelScope.launch {
-                fediverseApi.relationships(listOf(getAccountId())).fold({
-                    relationship.value = Success(it.first())
-                }, {
-                    relationship.value = Error(cause = it)
-                })
+                fediverseApi.relationships(listOf(getAccountId())).fold(
+                    {
+                        relationship.value = Success(it.first())
+                    },
+                    {
+                        relationship.value = Error(cause = it)
+                    }
+                )
             }
         }
     }
 
     private fun loadImages(reload: Boolean = false) {
-        if(profileImages.value == null || reload) {
+        if (profileImages.value == null || reload) {
             profileImages.value = PagedList.Builder(
                 ProfileImageDataSource(
                     fediverseApi,
                     accountId,
                     accountManager,
                     viewModelScope
-                ), 20
+                ),
+                20
             ).setNotifyExecutor(Executors.mainThreadExecutor())
                 .setFetchExecutor(java.util.concurrent.Executors.newSingleThreadExecutor())
                 .build()
@@ -85,5 +92,4 @@ class ProfileViewModel @Inject constructor(
     private suspend fun getAccountId(): String {
         return accountId ?: accountManager.activeAccount()?.accountId!!
     }
-
 }

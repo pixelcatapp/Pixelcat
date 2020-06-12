@@ -8,7 +8,7 @@ import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
 import at.connyduck.pixelcat.databinding.ActivityProfileBinding
 
-class ProfileActivity: BaseActivity() {
+class ProfileActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,6 @@ class ProfileActivity: BaseActivity() {
                 add(R.id.layoutContainer, ProfileFragment.newInstance(intent.getStringExtra(EXTRA_ACCOUNT_ID)))
             }
         }
-
     }
 
     companion object {

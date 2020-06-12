@@ -6,7 +6,7 @@ import at.connyduck.pixelcat.components.settings.AppSettings
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-abstract class BaseActivity: DaggerAppCompatActivity() {
+abstract class BaseActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var appSettings: AppSettings
@@ -15,10 +15,8 @@ abstract class BaseActivity: DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         theme.applyStyle(appSettings.getAppColorStyle(), true)
-        if(!appSettings.useSystemFont()) {
+        if (!appSettings.useSystemFont()) {
             theme.applyStyle(R.style.NunitoFont, true)
         }
-
     }
-
 }

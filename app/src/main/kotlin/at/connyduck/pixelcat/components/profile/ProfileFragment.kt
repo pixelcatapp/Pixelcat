@@ -1,7 +1,7 @@
 package at.connyduck.pixelcat.components.profile
 
 import android.os.Bundle
-import android.view.*
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -43,7 +43,7 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        if(activity is MainActivity) {
+        if (activity is MainActivity) {
             binding.toolbar.inflateMenu(R.menu.secondary_navigation)
             binding.toolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -58,7 +58,6 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
                             MenuBottomSheet()
                         bottomSheetDialog.show(childFragmentManager, "menuBottomSheet")
                     }
-
                 }
                 true
             }
@@ -74,9 +73,9 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
         val imageSize = (displayWidth - (IMAGE_COLUMN_COUNT - 1) * imageSpacing) / IMAGE_COLUMN_COUNT
         imageAdapter = ProfileImageAdapter(imageSize)
         val layoutManager = GridLayoutManager(view.context, IMAGE_COLUMN_COUNT)
-        layoutManager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup() {
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                if(position == 0) return IMAGE_COLUMN_COUNT
+                if (position == 0) return IMAGE_COLUMN_COUNT
                 return 1
             }
         }
@@ -88,21 +87,30 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
 
         viewModel.setAccountInfo(arg(ACCOUNT_ID))
 
-        viewModel.profile.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is Success -> onAccountChanged(it.data)
-                is Error -> showError()
+        viewModel.profile.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    is Success -> onAccountChanged(it.data)
+                    is Error -> showError()
+                }
             }
-        })
-        viewModel.relationship.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is Success -> onRelationshipChanged(it.data)
-                is Error -> showError()
+        )
+        viewModel.relationship.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    is Success -> onRelationshipChanged(it.data)
+                    is Error -> showError()
+                }
             }
-        })
-        viewModel.profileImages.observe(viewLifecycleOwner, Observer {
-            imageAdapter.submitList(it)
-        })
+        )
+        viewModel.profileImages.observe(
+            viewLifecycleOwner,
+            Observer {
+                imageAdapter.submitList(it)
+            }
+        )
     }
 
     private fun onAccountChanged(account: Account?) {
@@ -112,7 +120,6 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
         binding.toolbar.title = account.displayName
 
         headerAdapter.setAccount(account, viewModel.isSelf)
-
     }
 
     private fun onRelationshipChanged(relation: Relationship?) {
@@ -138,5 +145,4 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
         fun newInstance(accountId: String? = null) =
             ProfileFragment().withArgs { putString(ACCOUNT_ID, accountId) }
     }
-
 }

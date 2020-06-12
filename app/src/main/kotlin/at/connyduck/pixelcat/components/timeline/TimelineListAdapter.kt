@@ -20,7 +20,7 @@ interface TimeLineActionListener {
     fun onReply(status: StatusEntity)
 }
 
-object TimelineDiffUtil: DiffUtil.ItemCallback<StatusEntity>() {
+object TimelineDiffUtil : DiffUtil.ItemCallback<StatusEntity>() {
     override fun areItemsTheSame(oldItem: StatusEntity, newItem: StatusEntity): Boolean {
         return oldItem.id == newItem.id
     }
@@ -28,7 +28,6 @@ object TimelineDiffUtil: DiffUtil.ItemCallback<StatusEntity>() {
     override fun areContentsTheSame(oldItem: StatusEntity, newItem: StatusEntity): Boolean {
         return oldItem == newItem
     }
-
 }
 
 class TimelineListAdapter(
@@ -83,22 +82,17 @@ class TimelineListAdapter(
             holder.binding.postDescription.text = status.content.parseAsHtml().trim()
 
             holder.binding.postDate.text = dateTimeFormatter.format(status.createdAt)
-
         }
-
     }
 }
 
-
-
-class TimelineViewHolder(val binding: ItemStatusBinding): RecyclerView.ViewHolder(binding.root) {
+class TimelineViewHolder(val binding: ItemStatusBinding) : RecyclerView.ViewHolder(binding.root) {
     init {
         binding.postImages.adapter = TimelineImageAdapter()
 
-
         binding.postIndicator.setViewPager(binding.postImages)
         (binding.postImages.adapter as TimelineImageAdapter).registerAdapterDataObserver(binding.postIndicator.adapterDataObserver)
-       // val snapHelper = PagerSnapHelper()
-       // snapHelper.attachToRecyclerView(binding.postImages)
+        // val snapHelper = PagerSnapHelper()
+        // snapHelper.attachToRecyclerView(binding.postImages)
     }
 }

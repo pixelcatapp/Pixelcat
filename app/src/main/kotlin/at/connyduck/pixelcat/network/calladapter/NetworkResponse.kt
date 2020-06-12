@@ -14,7 +14,7 @@ sealed class NetworkResponse<out A : Any> {
     }
 }
 
-sealed class NetworkResponseError: Throwable() {
+sealed class NetworkResponseError : Throwable() {
 
     data class ApiError(val code: Int) : NetworkResponseError()
 

@@ -10,14 +10,13 @@ import at.connyduck.pixelcat.db.entitity.AccountAuthData
 import at.connyduck.pixelcat.network.FediverseApi
 import kotlinx.coroutines.launch
 import okhttp3.HttpUrl
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     private val fediverseApi: FediverseApi,
     private val accountManager: AccountManager
-): ViewModel() {
-
+) : ViewModel() {
 
     val loginState = MutableLiveData<LoginModel>().apply {
         value = LoginModel(state = LoginState.NO_ERROR)
@@ -35,17 +34,16 @@ class LoginViewModel @Inject constructor(
             return
         }
 
-        val exceptionMatch = Config.domainExceptions.any {exception ->
+        val exceptionMatch = Config.domainExceptions.any { exception ->
             domainInput.equals(exception, true) || domainInput.endsWith(".$exception", true)
         }
 
-        if(exceptionMatch) {
+        if (exceptionMatch) {
             loginState.value = LoginModel(input, LoginState.AUTH_ERROR)
             return
         }
 
         loginState.value = LoginModel(input, LoginState.LOADING)
-
 
         viewModelScope.launch {
             fediverseApi.authenticateAppAsync(
@@ -54,14 +52,15 @@ class LoginViewModel @Inject constructor(
                 clientWebsite = Config.website,
                 redirectUris = Config.oAuthRedirect,
                 scopes = Config.oAuthScopes
-            ).fold({ appData ->
-                loginState.postValue(LoginModel(input, LoginState.SUCCESS, domainInput, appData.clientId, appData.clientSecret))
-            }, {
-                loginState.postValue(LoginModel(input, LoginState.AUTH_ERROR))
-            })
+            ).fold(
+                { appData ->
+                    loginState.postValue(LoginModel(input, LoginState.SUCCESS, domainInput, appData.clientId, appData.clientSecret))
+                },
+                {
+                    loginState.postValue(LoginModel(input, LoginState.AUTH_ERROR))
+                }
+            )
         }
-
-
     }
 
     @MainThread
@@ -75,24 +74,26 @@ class LoginViewModel @Inject constructor(
                 clientSecret = loginModel.clientSecret!!,
                 redirectUri = Config.oAuthRedirect,
                 code = authCode
-            ).fold({ tokenResponse ->
-                val authData = AccountAuthData(
-                    accessToken = tokenResponse.accessToken,
-                    refreshToken = tokenResponse.refreshToken,
-                    tokenExpiresAt = tokenResponse.createdAt ?: 0 + (tokenResponse.expiresIn
-                        ?: 0),
-                    clientId = loginModel.clientId,
-                    clientSecret = loginModel.clientSecret
-                )
-                accountManager.addAccount(loginModel.domain, authData)
-                loginState.postValue(loginState.value?.copy(state = LoginState.SUCCESS_FINAL))
-            }, {
-
-            })
-
+            ).fold(
+                { tokenResponse ->
+                    val authData = AccountAuthData(
+                        accessToken = tokenResponse.accessToken,
+                        refreshToken = tokenResponse.refreshToken,
+                        tokenExpiresAt = tokenResponse.createdAt ?: 0 + (
+                            tokenResponse.expiresIn
+                                ?: 0
+                            ),
+                        clientId = loginModel.clientId,
+                        clientSecret = loginModel.clientSecret
+                    )
+                    accountManager.addAccount(loginModel.domain, authData)
+                    loginState.postValue(loginState.value?.copy(state = LoginState.SUCCESS_FINAL))
+                },
+                {
+                }
+            )
         }
     }
-
 
     private fun canonicalizeDomain(domain: String): String {
         // Strip any schemes out.

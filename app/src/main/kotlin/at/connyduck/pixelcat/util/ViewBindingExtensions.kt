@@ -17,10 +17,10 @@ import kotlin.reflect.KProperty
  */
 
 inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
-    crossinline bindingInflater: (LayoutInflater) -> T) =
-    lazy(LazyThreadSafetyMode.NONE) {
-        bindingInflater(layoutInflater)
-    }
+    crossinline bindingInflater: (LayoutInflater) -> T
+) = lazy(LazyThreadSafetyMode.NONE) {
+    bindingInflater(layoutInflater)
+}
 
 class FragmentViewBindingDelegate<T : ViewBinding>(
     val fragment: Fragment,
@@ -31,14 +31,16 @@ class FragmentViewBindingDelegate<T : ViewBinding>(
     init {
         fragment.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onCreate(owner: LifecycleOwner) {
-                fragment.viewLifecycleOwnerLiveData.observe(fragment,
+                fragment.viewLifecycleOwnerLiveData.observe(
+                    fragment,
                     Observer { t ->
                         t?.lifecycle?.addObserver(object : DefaultLifecycleObserver {
                             override fun onDestroy(owner: LifecycleOwner) {
                                 binding = null
                             }
                         })
-                    })
+                    }
+                )
             }
         })
     }

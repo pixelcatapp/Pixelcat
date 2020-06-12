@@ -34,5 +34,4 @@ class PixelcatApplication : DaggerApplication() {
             .application(this)
             .build()
     }
-
 }

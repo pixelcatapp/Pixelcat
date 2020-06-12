@@ -48,9 +48,9 @@ data class Attachment(
      */
     @JsonClass(generateAdapter = true)
     @Parcelize
-    data class MetaData (
-            val focus: Focus?,
-            val duration: Float?
+    data class MetaData(
+        val focus: Focus?,
+        val duration: Float?
     ) : Parcelable
 
     /**
@@ -61,8 +61,8 @@ data class Attachment(
      */
     @JsonClass(generateAdapter = true)
     @Parcelize
-    data class Focus (
-            val x: Float,
-            val y: Float
+    data class Focus(
+        val x: Float,
+        val y: Float
     ) : Parcelable
 }
