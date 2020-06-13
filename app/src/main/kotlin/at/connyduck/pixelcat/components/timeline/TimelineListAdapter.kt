@@ -18,6 +18,7 @@ interface TimeLineActionListener {
     fun onFavorite(post: StatusEntity)
     fun onBoost(post: StatusEntity)
     fun onReply(status: StatusEntity)
+    fun onMediaVisibilityChanged(status: StatusEntity)
 }
 
 object TimelineDiffUtil : DiffUtil.ItemCallback<StatusEntity>() {
@@ -82,6 +83,12 @@ class TimelineListAdapter(
             holder.binding.postDescription.text = status.content.parseAsHtml().trim()
 
             holder.binding.postDate.text = dateTimeFormatter.format(status.createdAt)
+
+            holder.binding.postSensitiveMediaOverlay.visible = status.attachments.isNotEmpty() && !status.mediaVisible
+
+            holder.binding.postSensitiveMediaOverlay.setOnClickListener {
+                listener.onMediaVisibilityChanged(status)
+            }
         }
     }
 }

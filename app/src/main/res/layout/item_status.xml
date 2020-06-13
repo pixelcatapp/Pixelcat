@@ -1,137 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:sparkbutton="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sparkbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
 
     <ImageView
-            android:id="@+id/postAvatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:importantForAccessibility="no"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="#f00" />
+        android:id="@+id/postAvatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="#f00" />
 
     <androidx.emoji.widget.EmojiTextView
-            android:id="@+id/postDisplayName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/postName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/postAvatar"
-            app:layout_constraintTop_toTopOf="@id/postAvatar"
-            tools:text="Conny Duck" />
+        android:id="@+id/postDisplayName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/postName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/postAvatar"
+        app:layout_constraintTop_toTopOf="@id/postAvatar"
+        tools:text="Conny Duck" />
 
     <TextView
-            android:id="@+id/postName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:ellipsize="end"
-            android:lines="1"
-            app:layout_constraintBottom_toBottomOf="@id/postAvatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/postAvatar"
-            app:layout_constraintTop_toBottomOf="@id/postDisplayName"
-            tools:text="\@connyduck\@chaos.social" />
+        android:id="@+id/postName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ellipsize="end"
+        android:lines="1"
+        app:layout_constraintBottom_toBottomOf="@id/postAvatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/postAvatar"
+        app:layout_constraintTop_toBottomOf="@id/postDisplayName"
+        tools:text="\@connyduck\@chaos.social" />
 
     <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/postImages"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="8dp"
-            android:background="#000"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/postAvatar" />
-
-    <at.connyduck.sparkbutton.SparkButton
-            android:id="@+id/postLikeButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/postImages"
-            sparkbutton:activeImage="@drawable/ic_heart_filled"
-            sparkbutton:iconSize="24dp"
-            sparkbutton:inactiveImage="@drawable/ic_heart"
-            sparkbutton:primaryColor="@color/heart_button_primary"
-            sparkbutton:secondaryColor="@color/heart_button_secondary" />
-
-    <at.connyduck.sparkbutton.SparkButton
-            android:id="@+id/postBoostButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toEndOf="@id/postLikeButton"
-            app:layout_constraintTop_toBottomOf="@id/postImages"
-            sparkbutton:activeImage="@drawable/ic_repeat"
-            sparkbutton:iconSize="24dp"
-            sparkbutton:inactiveImage="@drawable/ic_repeat"
-            sparkbutton:primaryColor="@color/boost_button_primary"
-            sparkbutton:secondaryColor="@color/boost_button_secondary" />
-
-    <ImageButton
-            android:id="@+id/postReplyButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_message"
-            app:layout_constraintStart_toEndOf="@id/postBoostButton"
-            app:layout_constraintTop_toBottomOf="@id/postImages" />
-
-    <me.relex.circleindicator.CircleIndicator3
-            android:id="@+id/postIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="104dp"
-            app:ci_drawable="@drawable/pager_indicator_dot"
-            app:ci_drawable_unselected="@drawable/pager_indicator_dot"
-            app:layout_constraintBottom_toBottomOf="@id/postReplyButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/postReplyButton"
-            app:layout_constraintTop_toTopOf="@id/postReplyButton" />
-
-    <androidx.emoji.widget.EmojiTextView
-            android:id="@+id/postDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toBottomOf="@id/postLikeButton"
-            tools:text="This is the caption" />
+        android:id="@+id/postImages"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:background="#000"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/postAvatar" />
 
     <TextView
-            android:id="@+id/postDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/postDescription"
-            tools:text="4 hours ago" />
+        android:id="@+id/postSensitiveMediaOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#ccc"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="@string/sensitive_media"
+        app:layout_constraintBottom_toBottomOf="@id/postImages"
+        app:layout_constraintTop_toTopOf="@id/postImages" />
+
+    <at.connyduck.sparkbutton.SparkButton
+        android:id="@+id/postLikeButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postImages"
+        sparkbutton:activeImage="@drawable/ic_heart_filled"
+        sparkbutton:iconSize="24dp"
+        sparkbutton:inactiveImage="@drawable/ic_heart"
+        sparkbutton:primaryColor="@color/heart_button_primary"
+        sparkbutton:secondaryColor="@color/heart_button_secondary" />
+
+    <at.connyduck.sparkbutton.SparkButton
+        android:id="@+id/postBoostButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toEndOf="@id/postLikeButton"
+        app:layout_constraintTop_toBottomOf="@id/postImages"
+        sparkbutton:activeImage="@drawable/ic_repeat"
+        sparkbutton:iconSize="24dp"
+        sparkbutton:inactiveImage="@drawable/ic_repeat"
+        sparkbutton:primaryColor="@color/boost_button_primary"
+        sparkbutton:secondaryColor="@color/boost_button_secondary" />
+
+    <ImageButton
+        android:id="@+id/postReplyButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_message"
+        app:layout_constraintStart_toEndOf="@id/postBoostButton"
+        app:layout_constraintTop_toBottomOf="@id/postImages" />
+
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/postIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="104dp"
+        app:ci_drawable="@drawable/pager_indicator_dot"
+        app:ci_drawable_unselected="@drawable/pager_indicator_dot"
+        app:layout_constraintBottom_toBottomOf="@id/postReplyButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/postReplyButton"
+        app:layout_constraintTop_toTopOf="@id/postReplyButton" />
+
+    <androidx.emoji.widget.EmojiTextView
+        android:id="@+id/postDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/postLikeButton"
+        tools:text="This is the caption" />
+
+    <TextView
+        android:id="@+id/postDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postDescription"
+        tools:text="4 hours ago" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

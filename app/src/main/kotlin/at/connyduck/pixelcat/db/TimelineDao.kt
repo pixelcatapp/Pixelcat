@@ -25,4 +25,7 @@ interface TimelineDao {
 
     @Query("DELETE FROM StatusEntity WHERE accountId = :accountId")
     suspend fun clearAll(accountId: Long)
+
+    @Query("UPDATE StatusEntity SET mediaVisible = :visible WHERE id = :statusId AND accountId = :accountId")
+    suspend fun changeMediaVisibility(visible: Boolean, statusId: String, accountId: Long)
 }

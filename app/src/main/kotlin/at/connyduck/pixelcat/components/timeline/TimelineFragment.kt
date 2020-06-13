@@ -46,7 +46,7 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
         binding.timelineRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
 
         lifecycleScope.launch {
-            viewModel.flow.collectLatest { pagingData ->
+            viewModel.statusFlow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
             }
         }
@@ -76,5 +76,9 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
 
     override fun onReply(status: StatusEntity) {
         TODO("Not yet implemented")
+    }
+
+    override fun onMediaVisibilityChanged(status: StatusEntity) {
+        viewModel.onMediaVisibilityChanged(status)
     }
 }

@@ -32,7 +32,7 @@ data class StatusEntity(
     val mediaVisible: Boolean
 )
 
-fun Status.toEntity(accountId: Long, mediaPosition: Int = 0, mediaVisible: Boolean = this.sensitive) = StatusEntity(
+fun Status.toEntity(accountId: Long, mediaPosition: Int = 0, mediaVisible: Boolean = !this.sensitive) = StatusEntity(
     accountId = accountId,
     id = id,
     url = actionableStatus.url,
