@@ -25,23 +25,20 @@
     <string name="key_pref_night_mode">NIGHT_MODE</string>
     <string name="key_pref_night_mode_off">OFF</string>
     <string name="key_pref_night_mode_on">ON</string>
-    <string name="key_pref_night_mode_auto">AUTO</string>
     <string name="key_pref_night_mode_follow_system">FOLLOW_SYSTEM</string>
 
-    <string name="key_pref_night_mode_default">@string/key_pref_night_mode_off</string>
+    <string name="key_pref_night_mode_default">@string/key_pref_night_mode_follow_system</string>
 
     <string-array name="night_mode_values">
+        <item>@string/key_pref_night_mode_follow_system</item>
         <item>@string/key_pref_night_mode_off</item>
         <item>@string/key_pref_night_mode_on</item>
-        <item>@string/key_pref_night_mode_auto</item>
-        <item>@string/key_pref_night_mode_follow_system</item>
     </string-array>
 
     <string-array name="night_mode_names">
+        <item>@string/pref_night_mode_follow_system</item>
         <item>@string/pref_night_mode_off</item>
         <item>@string/pref_night_mode_on</item>
-        <item>@string/pref_night_mode_auto</item>
-        <item>@string/pref_night_mode_follow_system</item>
     </string-array>
 
     <!-- pure black night mode -->

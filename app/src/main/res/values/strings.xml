@@ -17,10 +17,9 @@
 
     <string name="pref_title_night_mode">Night mode</string>
 
+    <string name="pref_night_mode_follow_system">Follow system</string>
     <string name="pref_night_mode_off">Off</string>
     <string name="pref_night_mode_on">On</string>
-    <string name="pref_night_mode_auto">Auto</string>
-    <string name="pref_night_mode_follow_system">Follow system</string>
 
     <string name="pref_title_black_night_mode">Pure black night mode</string>
 

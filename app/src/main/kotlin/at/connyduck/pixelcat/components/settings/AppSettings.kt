@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.annotation.StyleRes
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_AUTO_TIME
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
@@ -40,7 +39,6 @@ class AppSettings @Inject constructor (
         return when (nightModePref) {
             context.getString(R.string.key_pref_night_mode_off) -> MODE_NIGHT_NO
             context.getString(R.string.key_pref_night_mode_on) -> MODE_NIGHT_YES
-            context.getString(R.string.key_pref_night_mode_auto) -> MODE_NIGHT_AUTO_TIME
             context.getString(R.string.key_pref_night_mode_follow_system) -> MODE_NIGHT_FOLLOW_SYSTEM
             else -> throw IllegalStateException()
         }
