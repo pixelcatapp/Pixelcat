@@ -14,10 +14,10 @@
 
     <color name="divider_color">#e0e0e0</color>
 
-    <color name="heart_button_primary">#f00</color>
-    <color name="heart_button_secondary">#f90</color>
+    <color name="heart_button_primary">@color/pixelcat_gradient_warm_end</color>
+    <color name="heart_button_secondary">@color/pixelcat_gradient_warm_start</color>
 
-    <color name="boost_button_primary">#1A2980</color>
-    <color name="boost_button_secondary">#207da7</color>
+    <color name="boost_button_primary">@color/pixelcat_gradient_cold_end</color>
+    <color name="boost_button_secondary">@color/pixelcat_gradient_cold_start</color>
 
 </resources>

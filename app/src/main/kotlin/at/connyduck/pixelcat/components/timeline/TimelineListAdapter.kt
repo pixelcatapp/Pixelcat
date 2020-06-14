@@ -67,6 +67,8 @@ class TimelineListAdapter(
                 true
             }
 
+            holder.binding.postBoostButton.isChecked = status.reblogged
+
             holder.binding.postBoostButton.setEventListener { button, buttonState ->
                 listener.onBoost(status)
                 true

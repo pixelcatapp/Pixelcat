@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clipChildren="false"
     android:paddingBottom="8dp">
 
     <ImageView
@@ -60,8 +61,8 @@
         android:layout_height="0dp"
         android:background="#ccc"
         android:gravity="center"
-        android:textStyle="bold"
         android:text="@string/sensitive_media"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/postImages"
         app:layout_constraintTop_toTopOf="@id/postImages" />
 
@@ -90,7 +91,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintStart_toEndOf="@id/postLikeButton"
         app:layout_constraintTop_toBottomOf="@id/postImages"
-        sparkbutton:activeImage="@drawable/ic_repeat"
+        sparkbutton:activeImage="@drawable/ic_repeat_active"
         sparkbutton:iconSize="24dp"
         sparkbutton:inactiveImage="@drawable/ic_repeat"
         sparkbutton:primaryColor="@color/boost_button_primary"

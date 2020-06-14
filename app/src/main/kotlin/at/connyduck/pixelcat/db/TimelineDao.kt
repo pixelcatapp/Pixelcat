@@ -12,7 +12,7 @@ import at.connyduck.pixelcat.db.entitity.StatusEntity
 interface TimelineDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrReplace(status: StatusEntity): Long
+    suspend fun insertOrReplace(status: StatusEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrReplace(statuses: List<StatusEntity>)

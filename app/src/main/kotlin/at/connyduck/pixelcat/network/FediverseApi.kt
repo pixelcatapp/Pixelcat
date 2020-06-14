@@ -154,4 +154,14 @@ interface FediverseApi {
     suspend fun unfavouriteStatus(
         @Path("id") statusId: String
     ): NetworkResponse<Status>
+
+    @POST("api/v1/statuses/{id}/reblog")
+    suspend fun reblogStatus(
+        @Path("id") statusId: String
+    ): NetworkResponse<Status>
+
+    @POST("api/v1/statuses/{id}/unreblog")
+    suspend fun unreblogStatus(
+        @Path("id") statusId: String
+    ): NetworkResponse<Status>
 }

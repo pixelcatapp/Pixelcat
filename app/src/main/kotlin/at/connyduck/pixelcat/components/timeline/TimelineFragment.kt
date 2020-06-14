@@ -71,7 +71,7 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
     }
 
     override fun onBoost(post: StatusEntity) {
-        TODO("Not yet implemented")
+        viewModel.onBoost(post)
     }
 
     override fun onReply(status: StatusEntity) {

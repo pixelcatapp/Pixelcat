@@ -9,7 +9,10 @@ import androidx.paging.cachedIn
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.db.AppDatabase
 import at.connyduck.pixelcat.db.entitity.StatusEntity
+import at.connyduck.pixelcat.db.entitity.toEntity
+import at.connyduck.pixelcat.model.Status
 import at.connyduck.pixelcat.network.FediverseApi
+import at.connyduck.pixelcat.network.calladapter.NetworkResponse
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flatMapConcat
@@ -19,7 +22,7 @@ import javax.inject.Inject
 class TimelineViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val db: AppDatabase,
-    fediverseApi: FediverseApi
+    private val fediverseApi: FediverseApi
 ) : ViewModel() {
 
     @OptIn(FlowPreview::class)
@@ -36,13 +39,46 @@ class TimelineViewModel @Inject constructor(
 
     fun onFavorite(status: StatusEntity) {
         viewModelScope.launch {
-            //  repository.onFavorite(status, accountManager.activeAccount()?.id!!)
+            val alreadyFavourited = status.favourited
+            if (alreadyFavourited) {
+                fediverseApi.unfavouriteStatus(status.actionableId)
+            } else {
+                fediverseApi.favouriteStatus(status.actionableId)
+            }.updateStatusInDb()
+        }
+    }
+
+    fun onBoost(status: StatusEntity) {
+        viewModelScope.launch {
+            val alreadyBoosted = status.reblogged
+            if (alreadyBoosted) {
+                fediverseApi.unreblogStatus(status.actionableId)
+            } else {
+                fediverseApi.reblogStatus(status.actionableId)
+            }.updateStatusInDb()
         }
     }
 
     fun onMediaVisibilityChanged(status: StatusEntity) {
         viewModelScope.launch {
-            db.statusDao().changeMediaVisibility(!status.mediaVisible, status.id, accountManager.activeAccount()?.id!!)
+            db.statusDao().changeMediaVisibility(
+                !status.mediaVisible,
+                status.id,
+                accountManager.activeAccount()?.id!!
+            )
         }
+    }
+
+    private suspend fun NetworkResponse<Status>.updateStatusInDb() {
+        fold<Any?>(
+            { updatedStatus ->
+                val accountId = accountManager.activeAccount()?.id!!
+                val updatedStatusEntity = updatedStatus.toEntity(accountId)
+                db.statusDao().insertOrReplace(updatedStatusEntity)
+            },
+            {
+                // Todo
+            }
+        )
     }
 }

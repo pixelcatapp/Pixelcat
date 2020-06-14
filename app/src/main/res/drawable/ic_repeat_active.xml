@@ -7,28 +7,28 @@
         android:fillColor="#00000000"
         android:pathData="M17,1l4,4l-4,4"
         android:strokeWidth="2"
-        android:strokeColor="?android:attr/textColorTertiary"
+        android:strokeColor="@color/pixelcat_gradient_cold_middle"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"
         android:pathData="M3,11V9a4,4 0,0 1,4 -4h14"
         android:strokeWidth="2"
-        android:strokeColor="?android:attr/textColorTertiary"
+        android:strokeColor="@color/pixelcat_gradient_cold_middle"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"
         android:pathData="M7,23l-4,-4l4,-4"
         android:strokeWidth="2"
-        android:strokeColor="?android:attr/textColorTertiary"
+        android:strokeColor="@color/pixelcat_gradient_cold_middle"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"
         android:pathData="M21,13v2a4,4 0,0 1,-4 4H3"
         android:strokeWidth="2"
-        android:strokeColor="?android:attr/textColorTertiary"
+        android:strokeColor="@color/pixelcat_gradient_cold_middle"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
 </vector>

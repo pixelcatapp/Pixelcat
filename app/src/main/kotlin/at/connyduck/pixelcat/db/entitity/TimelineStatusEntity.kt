@@ -15,6 +15,7 @@ import java.util.Date
 data class StatusEntity(
     val accountId: Long,
     val id: String,
+    val actionableId: String,
     val url: String?, // not present if it's reblog
     @Embedded(prefix = "a_") val account: TimelineAccountEntity,
     val content: String,
@@ -27,7 +28,6 @@ data class StatusEntity(
     val spoilerText: String,
     val visibility: Status.Visibility,
     val attachments: List<Attachment>,
-
     val mediaPosition: Int,
     val mediaVisible: Boolean
 )
@@ -35,6 +35,7 @@ data class StatusEntity(
 fun Status.toEntity(accountId: Long, mediaPosition: Int = 0, mediaVisible: Boolean = !this.sensitive) = StatusEntity(
     accountId = accountId,
     id = id,
+    actionableId = actionableStatus.id,
     url = actionableStatus.url,
     account = actionableStatus.account.toEntity(accountId),
     content = actionableStatus.content,
