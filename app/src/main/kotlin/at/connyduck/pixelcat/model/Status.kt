@@ -17,7 +17,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 package at.connyduck.pixelcat.model
 
 import com.squareup.moshi.Json

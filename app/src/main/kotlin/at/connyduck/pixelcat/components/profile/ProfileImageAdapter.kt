@@ -21,7 +21,7 @@ package at.connyduck.pixelcat.components.profile
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import at.connyduck.pixelcat.R
@@ -34,7 +34,7 @@ import coil.api.load
 
 class ProfileImageAdapter(
     private val imageSizePx: Int
-) : PagedListAdapter<Status, ProfileImageViewHolder>(
+) : PagingDataAdapter<Status, ProfileImageViewHolder>(
     object : DiffUtil.ItemCallback<Status>() {
         override fun areItemsTheSame(old: Status, new: Status): Boolean {
             return false

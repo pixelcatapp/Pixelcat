@@ -17,8 +17,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
-
 package at.connyduck.pixelcat.db.entitity
 
 import androidx.room.Embedded

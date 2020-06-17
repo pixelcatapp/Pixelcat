@@ -23,6 +23,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import at.connyduck.pixelcat.R
@@ -41,6 +43,8 @@ import at.connyduck.pixelcat.util.viewBinding
 import at.connyduck.pixelcat.util.withArgs
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
@@ -60,6 +64,7 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
     private val headerAdapter = ProfileHeaderAdapter()
     private lateinit var imageAdapter: ProfileImageAdapter
 
+    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         if (activity is MainActivity) {
@@ -124,12 +129,9 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
                 }
             }
         )
-        viewModel.profileImages.observe(
-            viewLifecycleOwner,
-            Observer {
-                imageAdapter.submitList(it)
-            }
-        )
+        lifecycleScope.launch {
+            viewModel.imageFlow.collectLatest { imageAdapter.submitData(it) }
+        }
     }
 
     private fun onAccountChanged(account: Account?) {

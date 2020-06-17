@@ -22,16 +22,18 @@ package at.connyduck.pixelcat.components.profile
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagedList
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import at.connyduck.pixelcat.components.util.Error
 import at.connyduck.pixelcat.components.util.Success
 import at.connyduck.pixelcat.components.util.UiState
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.model.Account
 import at.connyduck.pixelcat.model.Relationship
-import at.connyduck.pixelcat.model.Status
 import at.connyduck.pixelcat.network.FediverseApi
-import com.bumptech.glide.util.Executors
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,7 +44,14 @@ class ProfileViewModel @Inject constructor(
 
     val profile = MutableLiveData<UiState<Account>>()
     val relationship = MutableLiveData<UiState<Relationship>>()
-    val profileImages = MutableLiveData<PagedList<Status>>()
+
+    @OptIn(FlowPreview::class)
+    @ExperimentalPagingApi
+    val imageFlow = Pager(
+        config = PagingConfig(pageSize = 10, enablePlaceholders = false),
+        pagingSourceFactory = { ProfileImagePagingSource(fediverseApi, accountId, accountManager) }
+    ).flow
+        .cachedIn(viewModelScope)
 
     val isSelf: Boolean
         get() = accountId == null
@@ -54,7 +63,6 @@ class ProfileViewModel @Inject constructor(
         if (!isSelf) {
             loadRelationship(reload)
         }
-        loadImages(reload)
     }
 
     fun setAccountInfo(accountId: String?) {
@@ -89,22 +97,6 @@ class ProfileViewModel @Inject constructor(
                     }
                 )
             }
-        }
-    }
-
-    private fun loadImages(reload: Boolean = false) {
-        if (profileImages.value == null || reload) {
-            profileImages.value = PagedList.Builder(
-                ProfileImageDataSource(
-                    fediverseApi,
-                    accountId,
-                    accountManager,
-                    viewModelScope
-                ),
-                20
-            ).setNotifyExecutor(Executors.mainThreadExecutor())
-                .setFetchExecutor(java.util.concurrent.Executors.newSingleThreadExecutor())
-                .build()
         }
     }
 
