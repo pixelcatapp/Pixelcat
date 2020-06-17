@@ -24,6 +24,9 @@ import androidx.emoji.bundled.BundledEmojiCompatConfig
 import androidx.emoji.text.EmojiCompat
 import at.connyduck.pixelcat.components.settings.AppSettings
 import at.connyduck.pixelcat.dagger.DaggerAppComponent
+import coil.Coil
+import coil.ImageLoader
+import coil.util.CoilUtils
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import okhttp3.OkHttpClient
@@ -43,6 +46,15 @@ class PixelcatApplication : DaggerApplication() {
         AppCompatDelegate.setDefaultNightMode(appSettings.getNightMode())
 
         EmojiCompat.init(BundledEmojiCompatConfig(this))
+
+        Coil.setImageLoader(
+            ImageLoader.Builder(this)
+            .okHttpClient(
+                okhttpClient.newBuilder()
+                    .cache(CoilUtils.createDefaultCache(this))
+                    .build()
+            )
+            .build())
     }
 
     override fun applicationInjector(): AndroidInjector<PixelcatApplication> {
