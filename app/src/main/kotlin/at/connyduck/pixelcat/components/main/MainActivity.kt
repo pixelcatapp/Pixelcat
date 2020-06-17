@@ -3,7 +3,6 @@ package at.connyduck.pixelcat.components.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import at.connyduck.pixelcat.R
@@ -93,7 +92,6 @@ class MainActivity : BaseActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == 100) {
             val returnValue =
                 data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-            Log.e("Result", returnValue.toString())
 
             startActivity(ComposeActivity.newIntent(this, returnValue?.firstOrNull()!!))
         }

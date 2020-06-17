@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import at.connyduck.pixelcat.components.compose.ComposeImageAdapter.Companion.ADD_ITEM
 import at.connyduck.pixelcat.db.AccountManager
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ComposeViewModel @Inject constructor(
@@ -14,33 +13,41 @@ class ComposeViewModel @Inject constructor(
     val accountManager: AccountManager
 ) : ViewModel() {
 
-    val images = MutableLiveData<List<String>>()
+    private val images: MutableList<String> = mutableListOf()
+
+    val imageLiveData = MutableLiveData<List<String>>()
 
     val visibility = MutableLiveData(VISIBILITY.PUBLIC)
 
     fun addImage(imageUri: String) {
-
-        images.value = images.value.orEmpty() + imageUri
+        images.add(imageUri)
+        imageLiveData.value = if (images.size < MAX_IMAGE_COUNT) {
+            images + ADD_ITEM
+        } else {
+            images
+        }
     }
 
     fun setVisibility(visibility: VISIBILITY) {
         this.visibility.value = visibility
     }
 
-    fun sendStatus() {
+    suspend fun sendStatus(caption: String, sensitive: Boolean) {
 
-        viewModelScope.launch {
-            val statusToSend = StatusToSend(
-                accountId = accountManager.activeAccount()!!.id,
-                text = "test",
-                visibility = visibility.value!!.serverName,
-                sensitive = false,
-                mediaUris = images.value!!
-            )
+        val statusToSend = StatusToSend(
+            accountId = accountManager.activeAccount()!!.id,
+            text = caption,
+            visibility = visibility.value!!.serverName,
+            sensitive = sensitive,
+            mediaUris = images
+        )
 
-            val intent = SendStatusService.sendStatusIntent(context, statusToSend)
-            ContextCompat.startForegroundService(context, intent)
-        }
+        val intent = SendStatusService.sendStatusIntent(context, statusToSend)
+        ContextCompat.startForegroundService(context, intent)
+    }
+
+    companion object {
+        private const val MAX_IMAGE_COUNT = 4
     }
 }
 

@@ -4,21 +4,24 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
 import at.connyduck.pixelcat.dagger.ViewModelFactory
 import at.connyduck.pixelcat.databinding.ActivityComposeBinding
 import at.connyduck.pixelcat.util.viewBinding
+import com.fxn.pix.Options
 import com.fxn.pix.Pix
+import com.fxn.utility.ImageQuality
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ComposeActivity : BaseActivity() {
+class ComposeActivity : BaseActivity(), OnImageActionClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -27,7 +30,7 @@ class ComposeActivity : BaseActivity() {
 
     private val binding by viewBinding(ActivityComposeBinding::inflate)
 
-    private val adapter = ComposeImageAdapter()
+    private val adapter = ComposeImageAdapter(this)
 
     private lateinit var visibilityBottomSheet: BottomSheetBehavior<*>
 
@@ -44,20 +47,28 @@ class ComposeActivity : BaseActivity() {
             insets.consumeSystemWindowInsets()
         }
 
-        if (viewModel.images.value.isNullOrEmpty()) {
+        if (viewModel.imageLiveData.value.isNullOrEmpty()) {
             viewModel.addImage(intent.getStringExtra(EXTRA_MEDIA_URI)!!)
         }
 
-        setSupportActionBar(binding.composeToolBar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.composeToolBar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         binding.composeImages.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.composeImages.adapter = adapter
 
         visibilityBottomSheet = BottomSheetBehavior.from(binding.composeVisibilityBottomSheet)
+        visibilityBottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
 
         binding.composeShareButton.setOnClickListener {
-            viewModel.sendStatus()
+            lifecycleScope.launch {
+                viewModel.sendStatus(
+                    caption = binding.composeCaptionInput.text?.toString().orEmpty(),
+                    sensitive = binding.composeNsfwSwitch.isChecked
+                )
+                finish()
+            }
         }
 
         binding.composeVisibilityButton.setOnClickListener {
@@ -73,7 +84,7 @@ class ComposeActivity : BaseActivity() {
             changeVisibility(VISIBILITY.FOLLOWERS_ONLY)
         }
 
-        viewModel.images.observe(
+        viewModel.imageLiveData.observe(
             this,
             Observer {
                 adapter.submitList(it)
@@ -99,14 +110,22 @@ class ComposeActivity : BaseActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICK_MEDIA) {
             val returnValue =
                 data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-            Log.e("Result", returnValue.toString())
             viewModel.addImage(returnValue?.first()!!)
         }
     }
 
     private fun changeVisibility(visibility: VISIBILITY) {
         viewModel.setVisibility(visibility)
-        visibilityBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        visibilityBottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
+    }
+
+    override fun onAddImage() {
+        val options = Options.init()
+            .setRequestCode(REQUEST_CODE_PICK_MEDIA)
+            .setImageQuality(ImageQuality.HIGH)
+            .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
+
+        Pix.start(this, options)
     }
 
     companion object {
