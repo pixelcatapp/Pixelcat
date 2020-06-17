@@ -5,7 +5,6 @@ import androidx.emoji.bundled.BundledEmojiCompatConfig
 import androidx.emoji.text.EmojiCompat
 import at.connyduck.pixelcat.components.settings.AppSettings
 import at.connyduck.pixelcat.dagger.DaggerAppComponent
-import com.facebook.stetho.Stetho
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import okhttp3.OkHttpClient
@@ -21,8 +20,6 @@ class PixelcatApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
-        Stetho.initializeWithDefaults(this)
 
         AppCompatDelegate.setDefaultNightMode(appSettings.getNightMode())
 

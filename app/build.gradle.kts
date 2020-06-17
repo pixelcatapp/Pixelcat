@@ -113,6 +113,4 @@ dependencies {
     kapt("com.google.dagger:dagger-android-processor:$daggerVersion")
 
     testImplementation("junit:junit:4.13")
-
-    implementation("com.facebook.stetho:stetho:1.5.1")
 }
