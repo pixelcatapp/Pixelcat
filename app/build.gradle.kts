@@ -80,7 +80,6 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha01")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
-    implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
 
@@ -89,15 +88,15 @@ dependencies {
 
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
+
     implementation("com.squareup.moshi:moshi-kotlin:$moshiVersion")
     implementation("com.squareup.moshi:moshi-adapters:$moshiVersion")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7")
 
-    implementation("com.google.dagger:dagger:2.28")
-
     implementation("com.fxn769:pix:1.4.4")
+
     implementation("com.github.yalantis:ucrop:2.2.5")
 
     implementation("me.relex:circleindicator:2.1.4")
@@ -108,7 +107,6 @@ dependencies {
 
     implementation("com.google.dagger:dagger:$daggerVersion")
     kapt("com.google.dagger:dagger-compiler:$daggerVersion")
-    implementation("com.google.dagger:dagger-android:$daggerVersion")
     implementation("com.google.dagger:dagger-android-support:$daggerVersion")
     kapt("com.google.dagger:dagger-android-processor:$daggerVersion")
 
