@@ -5,7 +5,6 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Response
-
 import java.io.IOException
 
 class InstanceSwitchAuthInterceptor(private val accountManager: AccountManager) : Interceptor {
@@ -18,8 +17,12 @@ class InstanceSwitchAuthInterceptor(private val accountManager: AccountManager) 
         // only switch domains if the request comes from retrofit
         if (originalRequest.url.host == FediverseApi.PLACEHOLDER_DOMAIN) {
 
-            val currentAccount = runBlocking { accountManager.activeAccount() }
             val builder = originalRequest.newBuilder()
+
+            // when using retrofit we want json responses
+            builder.addHeader("Accept", "application/json")
+
+            val currentAccount = runBlocking { accountManager.activeAccount() }
 
             val instanceHeader = originalRequest.header(FediverseApi.DOMAIN_HEADER)
             if (instanceHeader != null) {
