@@ -74,5 +74,6 @@
     <string name="navigation_accounts">Accounts</string>
     <string name="action_add_new_account">Add Account</string>
     <string name="sensitive_media">Sensitive media</string>
+    <string name="about_license_description">Pixelcat is free and open-source software. It is licensed under the GNU General Public License Version 3.</string>
 
 </resources>
