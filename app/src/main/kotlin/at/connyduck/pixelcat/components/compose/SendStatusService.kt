@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.util.getColorForAttr
+import at.connyduck.pixelcat.components.util.getMimeType
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.model.NewStatus
 import at.connyduck.pixelcat.network.FediverseApi
@@ -113,25 +114,29 @@ class SendStatusService : DaggerService(), CoroutineScope {
 
         launch {
 
-            val mediaIds = statusToSend.mediaUris.map {
+            val mediaIds = statusToSend.mediaUris.map { mediaPath ->
 
-                var type: String? = null
-                val extension = MimeTypeMap.getFileExtensionFromUrl(it)
-                if (extension != null) {
-                    type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+                val mimeType = getMimeType(mediaPath)
+
+                if (mimeType == null) {
+                    // unrecoverable error
+                    onError(UnrecoverableError(), id)
+                    return@launch
                 }
 
-                val file = File(it)
-                val filePart = file.asRequestBody(type!!.toMediaType())
+                val fileExtension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType)
 
-                val body = MultipartBody.Part.create(filePart)
+                val filePart = File(mediaPath).asRequestBody(mimeType.toMediaType())
+
+                val body = MultipartBody.Part.createFormData("file", "test.$fileExtension", filePart)
 
                 api.uploadMedia(body).fold(
                     { attachment ->
                         attachment.id
                     },
-                    {
-                        ""
+                    { error ->
+                        onError(error, id)
+                        return@launch
                     }
                 )
             }
@@ -152,42 +157,50 @@ class SendStatusService : DaggerService(), CoroutineScope {
             ).fold<Any?>(
                 {
                     statusesToSend.remove(id)
+                    stopSelfWhenDone()
                 },
                 {
-                    when (it) {
-                        is NetworkResponseError.ApiError -> {
-                            // the server refused to accept the status, save toot & show error message
-                            // TODO saveToDrafts
-
-                            val builder = NotificationCompat.Builder(this@SendStatusService, CHANNEL_ID)
-                                .setSmallIcon(R.drawable.ic_cat)
-                                .setContentTitle(getString(R.string.send_status_notification_error_title))
-                                // .setContentText(getString(R.string.send_toot_notification_saved_content))
-                                .setColor(getColorForAttr(android.R.attr.colorPrimary))
-
-                            notificationManager.cancel(id)
-                            notificationManager.notify(errorNotificationId--, builder.build())
-                        }
-                        else -> {
-                            var backoff = TimeUnit.SECONDS.toMillis(statusToSend.retries.toLong())
-                            if (backoff > MAX_RETRY_INTERVAL) {
-                                backoff = MAX_RETRY_INTERVAL
-                            }
-
-                            timer.schedule(
-                                object : TimerTask() {
-                                    override fun run() {
-                                        sendStatus(id)
-                                    }
-                                },
-                                backoff
-                            )
-                        }
-                    }
+                    onError(it, id)
                 }
             )
         }.apply {
             sendJobs[id] = this
+        }
+    }
+
+    private fun onError(error: Throwable, id: Int) {
+
+        val statusToSend = statusesToSend[id] ?: return
+
+        when (error) {
+            is NetworkResponseError.ApiError, is UnrecoverableError -> {
+                // the server refused to accept the status, save toot & show error message
+                // TODO saveToDrafts
+
+                val builder = NotificationCompat.Builder(this@SendStatusService, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_cat)
+                    .setContentTitle(getString(R.string.send_status_notification_error_title))
+                    // .setContentText(getString(R.string.send_toot_notification_saved_content))
+                    .setColor(getColorForAttr(android.R.attr.colorPrimary))
+
+                notificationManager.cancel(id)
+                notificationManager.notify(errorNotificationId--, builder.build())
+            }
+            else -> {
+                var backoff = TimeUnit.SECONDS.toMillis(statusToSend.retries.toLong())
+                if (backoff > MAX_RETRY_INTERVAL) {
+                    backoff = MAX_RETRY_INTERVAL
+                }
+
+                timer.schedule(
+                    object : TimerTask() {
+                        override fun run() {
+                            sendStatus(id)
+                        }
+                    },
+                    backoff
+                )
+            }
         }
     }
 
@@ -248,7 +261,6 @@ class SendStatusService : DaggerService(), CoroutineScope {
         private var sendingNotificationId = -1 // use negative ids to not clash with other notis
         private var errorNotificationId = Int.MIN_VALUE // use even more negative ids to not clash with other notis
 
-        @JvmStatic
         fun sendStatusIntent(
             context: Context,
             statusToSend: StatusToSend
@@ -277,3 +289,5 @@ data class StatusToSend(
     val savedTootUid: Int = 0,
     var retries: Int = 0
 ) : Parcelable
+
+private class UnrecoverableError : Exception()
