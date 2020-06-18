@@ -23,6 +23,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import at.connyduck.pixelcat.R
+import at.connyduck.pixelcat.components.util.BindingHolder
 import at.connyduck.pixelcat.components.util.extension.visible
 import at.connyduck.pixelcat.databinding.ItemProfileHeaderBinding
 import at.connyduck.pixelcat.model.Account
@@ -31,7 +32,7 @@ import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import java.text.NumberFormat
 
-class ProfileHeaderAdapter : RecyclerView.Adapter<ProfileHeaderViewHolder>() {
+class ProfileHeaderAdapter : RecyclerView.Adapter<BindingHolder<ItemProfileHeaderBinding>>() {
 
     private var account: Account? = null
     private var isSelf: Boolean = false
@@ -48,16 +49,15 @@ class ProfileHeaderAdapter : RecyclerView.Adapter<ProfileHeaderViewHolder>() {
         notifyItemChanged(1, RELATIONSHIP_CHANGED)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileHeaderViewHolder {
-        val binding = ItemProfileHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ProfileHeaderViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemProfileHeaderBinding> {
+        return BindingHolder(ItemProfileHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: ProfileHeaderViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BindingHolder<ItemProfileHeaderBinding>, position: Int) {
         // nothing to do
     }
 
-    override fun onBindViewHolder(holder: ProfileHeaderViewHolder, position: Int, payloads: List<Any>) {
+    override fun onBindViewHolder(holder: BindingHolder<ItemProfileHeaderBinding>, position: Int, payloads: List<Any>) {
         if (payloads.isEmpty() || payloads.contains(ACCOUNT_CHANGED)) {
             account?.let {
                 holder.binding.profileName.text = it.username
@@ -97,5 +97,3 @@ class ProfileHeaderAdapter : RecyclerView.Adapter<ProfileHeaderViewHolder>() {
         const val RELATIONSHIP_CHANGED = "RELATIONSHIP"
     }
 }
-
-class ProfileHeaderViewHolder(val binding: ItemProfileHeaderBinding) : RecyclerView.ViewHolder(binding.root)

@@ -24,8 +24,8 @@ import android.view.ViewGroup
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import at.connyduck.pixelcat.R
+import at.connyduck.pixelcat.components.util.BindingHolder
 import at.connyduck.pixelcat.databinding.ItemComposeImageBinding
 import at.connyduck.sparkbutton.helpers.Utils
 import coil.api.load
@@ -37,7 +37,7 @@ interface OnImageActionClickListener {
 
 class ComposeImageAdapter(
     private val listener: OnImageActionClickListener
-) : ListAdapter<String, ComposeImageViewHolder>(
+) : ListAdapter<String, BindingHolder<ItemComposeImageBinding>>(
     object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(old: String, new: String): Boolean {
             return old == new
@@ -49,13 +49,13 @@ class ComposeImageAdapter(
     }
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComposeImageViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemComposeImageBinding> {
         val binding =
             ItemComposeImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ComposeImageViewHolder(binding)
+        return BindingHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ComposeImageViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BindingHolder<ItemComposeImageBinding>, position: Int) {
 
         getItem(position)?.let { uri ->
 
@@ -80,6 +80,3 @@ class ComposeImageAdapter(
         const val ADD_ITEM = "add_item"
     }
 }
-
-class ComposeImageViewHolder(val binding: ItemComposeImageBinding) :
-    RecyclerView.ViewHolder(binding.root)

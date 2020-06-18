@@ -23,8 +23,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import at.connyduck.pixelcat.R
+import at.connyduck.pixelcat.components.util.BindingHolder
 import at.connyduck.pixelcat.components.util.extension.hide
 import at.connyduck.pixelcat.components.util.extension.show
 import at.connyduck.pixelcat.databinding.ItemProfileImageBinding
@@ -34,7 +34,7 @@ import coil.api.load
 
 class ProfileImageAdapter(
     private val imageSizePx: Int
-) : PagingDataAdapter<Status, ProfileImageViewHolder>(
+) : PagingDataAdapter<Status, BindingHolder<ItemProfileImageBinding>>(
     object : DiffUtil.ItemCallback<Status>() {
         override fun areItemsTheSame(old: Status, new: Status): Boolean {
             return false
@@ -45,15 +45,15 @@ class ProfileImageAdapter(
     }
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileImageViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemProfileImageBinding> {
         val binding = ItemProfileImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         binding.root.layoutParams = ViewGroup.LayoutParams(imageSizePx, imageSizePx)
 
-        return ProfileImageViewHolder(binding)
+        return BindingHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ProfileImageViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BindingHolder<ItemProfileImageBinding>, position: Int) {
         getItem(position)?.let { status ->
 
             holder.binding.profileImageView.load(status.attachments.firstOrNull()?.previewUrl)
@@ -74,5 +74,3 @@ class ProfileImageAdapter(
         }
     }
 }
-
-class ProfileImageViewHolder(val binding: ItemProfileImageBinding) : RecyclerView.ViewHolder(binding.root)

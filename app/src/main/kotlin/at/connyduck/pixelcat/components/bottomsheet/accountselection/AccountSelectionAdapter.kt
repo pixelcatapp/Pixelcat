@@ -23,6 +23,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import at.connyduck.pixelcat.R
+import at.connyduck.pixelcat.components.util.BindingHolder
 import at.connyduck.pixelcat.components.util.extension.hide
 import at.connyduck.pixelcat.components.util.extension.show
 import at.connyduck.pixelcat.databinding.ItemAccountSelectionBinding
@@ -34,17 +35,17 @@ class AccountSelectionAdapter(
     private val accounts: List<AccountEntity>,
     private val onAccountSelected: (Long) -> Unit,
     private val onAddAccount: () -> Unit
-) : RecyclerView.Adapter<AccountSelectionViewHolder>() {
+) : RecyclerView.Adapter<BindingHolder<ItemAccountSelectionBinding>>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountSelectionViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemAccountSelectionBinding> {
         val binding =
             ItemAccountSelectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AccountSelectionViewHolder(binding)
+        return BindingHolder(binding)
     }
 
     override fun getItemCount() = accounts.size + 1
 
-    override fun onBindViewHolder(holder: AccountSelectionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BindingHolder<ItemAccountSelectionBinding>, position: Int) {
         val binding = holder.binding
         if (position == accounts.size) {
             binding.accountAvatar.load(R.drawable.ic_plus_background)
@@ -72,6 +73,3 @@ class AccountSelectionAdapter(
         }
     }
 }
-
-class AccountSelectionViewHolder(val binding: ItemAccountSelectionBinding) :
-    RecyclerView.ViewHolder(binding.root)

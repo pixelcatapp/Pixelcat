@@ -24,8 +24,8 @@ import android.view.ViewGroup
 import androidx.core.text.parseAsHtml
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import at.connyduck.pixelcat.components.profile.ProfileActivity
+import at.connyduck.pixelcat.components.util.BindingHolder
 import at.connyduck.pixelcat.components.util.extension.visible
 import at.connyduck.pixelcat.databinding.ItemStatusBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity
@@ -53,19 +53,19 @@ object TimelineDiffUtil : DiffUtil.ItemCallback<StatusEntity>() {
 class TimelineListAdapter(
     private val displayWidth: Int,
     private val listener: TimeLineActionListener
-) : PagingDataAdapter<StatusEntity, TimelineViewHolder>(TimelineDiffUtil) {
+) : PagingDataAdapter<StatusEntity, BindingHolder<ItemStatusBinding>>(TimelineDiffUtil) {
 
     private val dateTimeFormatter = SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.SHORT, SimpleDateFormat.SHORT)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimelineViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemStatusBinding> {
         val binding = ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         binding.postImages.adapter = TimelineImageAdapter()
         binding.postIndicator.setViewPager(binding.postImages)
         (binding.postImages.adapter as TimelineImageAdapter).registerAdapterDataObserver(binding.postIndicator.adapterDataObserver)
-        return TimelineViewHolder(binding)
+        return BindingHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TimelineViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BindingHolder<ItemStatusBinding>, position: Int) {
 
         getItem(position)?.let { status ->
 
@@ -128,5 +128,3 @@ class TimelineListAdapter(
         }
     }
 }
-
-class TimelineViewHolder(val binding: ItemStatusBinding) : RecyclerView.ViewHolder(binding.root)

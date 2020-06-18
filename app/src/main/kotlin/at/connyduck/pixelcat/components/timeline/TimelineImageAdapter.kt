@@ -22,11 +22,12 @@ package at.connyduck.pixelcat.components.timeline
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import at.connyduck.pixelcat.components.util.BindingHolder
 import at.connyduck.pixelcat.databinding.ItemTimelineImageBinding
 import at.connyduck.pixelcat.model.Attachment
 import coil.api.load
 
-class TimelineImageAdapter : RecyclerView.Adapter<TimelineImageViewHolder>() {
+class TimelineImageAdapter : RecyclerView.Adapter<BindingHolder<ItemTimelineImageBinding>>() {
 
     var images: List<Attachment> = emptyList()
         set(value) {
@@ -34,17 +35,14 @@ class TimelineImageAdapter : RecyclerView.Adapter<TimelineImageViewHolder>() {
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimelineImageViewHolder {
-        val binding = ItemTimelineImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TimelineImageViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemTimelineImageBinding> {
+        return BindingHolder(ItemTimelineImageBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun getItemCount() = images.size
 
-    override fun onBindViewHolder(holder: TimelineImageViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BindingHolder<ItemTimelineImageBinding>, position: Int) {
 
         holder.binding.timelineImageView.load(images[position].previewUrl)
     }
 }
-
-class TimelineImageViewHolder(val binding: ItemTimelineImageBinding) : RecyclerView.ViewHolder(binding.root)
