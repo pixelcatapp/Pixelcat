@@ -51,6 +51,7 @@ object TimelineDiffUtil : DiffUtil.ItemCallback<StatusEntity>() {
 }
 
 class TimelineListAdapter(
+    private val displayWidth: Int,
     private val listener: TimeLineActionListener
 ) : PagingDataAdapter<StatusEntity, TimelineViewHolder>(TimelineDiffUtil) {
 
@@ -58,6 +59,9 @@ class TimelineListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimelineViewHolder {
         val binding = ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding.postImages.adapter = TimelineImageAdapter()
+        binding.postIndicator.setViewPager(binding.postImages)
+        (binding.postImages.adapter as TimelineImageAdapter).registerAdapterDataObserver(binding.postIndicator.adapterDataObserver)
         return TimelineViewHolder(binding)
     }
 
@@ -68,6 +72,17 @@ class TimelineListAdapter(
             // TODO order the stuff here
 
             (holder.binding.postImages.adapter as TimelineImageAdapter).images = status.attachments
+
+            val maxImageRatio = status.attachments.map {
+                if(it.meta?.small?.width == null || it.meta.small.height == null) {
+                    1f
+                } else {
+                    it.meta.small.height.toFloat() / it.meta.small.width.toFloat()
+                }
+            }.max()?.coerceAtMost(1f) ?: 1f
+
+            holder.binding.postImages.layoutParams.height = (displayWidth * maxImageRatio).toInt()
+
             holder.binding.postAvatar.load(status.account.avatar) {
                 transformations(RoundedCornersTransformation(25f))
             }
@@ -81,14 +96,14 @@ class TimelineListAdapter(
 
             holder.binding.postLikeButton.isChecked = status.favourited
 
-            holder.binding.postLikeButton.setEventListener { button, buttonState ->
+            holder.binding.postLikeButton.setEventListener { _, _ ->
                 listener.onFavorite(status)
                 true
             }
 
             holder.binding.postBoostButton.isChecked = status.reblogged
 
-            holder.binding.postBoostButton.setEventListener { button, buttonState ->
+            holder.binding.postBoostButton.setEventListener { _, _ ->
                 listener.onBoost(status)
                 true
             }
@@ -114,13 +129,4 @@ class TimelineListAdapter(
     }
 }
 
-class TimelineViewHolder(val binding: ItemStatusBinding) : RecyclerView.ViewHolder(binding.root) {
-    init {
-        binding.postImages.adapter = TimelineImageAdapter()
-
-        binding.postIndicator.setViewPager(binding.postImages)
-        (binding.postImages.adapter as TimelineImageAdapter).registerAdapterDataObserver(binding.postIndicator.adapterDataObserver)
-        // val snapHelper = PagerSnapHelper()
-        // snapHelper.attachToRecyclerView(binding.postImages)
-    }
-}
+class TimelineViewHolder(val binding: ItemStatusBinding) : RecyclerView.ViewHolder(binding.root)

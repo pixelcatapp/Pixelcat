@@ -27,6 +27,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.SimpleItemAnimator
 import at.connyduck.pixelcat.R
+import at.connyduck.pixelcat.components.util.extension.getDisplayWidthInPx
 import at.connyduck.pixelcat.components.util.getColorForAttr
 import at.connyduck.pixelcat.dagger.ViewModelFactory
 import at.connyduck.pixelcat.databinding.FragmentTimelineBinding
@@ -58,7 +59,7 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
             binding.timelineRecyclerView.scrollToPosition(0)
         }
 
-        val adapter = TimelineListAdapter(this)
+        val adapter = TimelineListAdapter(view.context.getDisplayWidthInPx(), this)
 
         binding.timelineRecyclerView.adapter = adapter
         (binding.timelineRecyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
