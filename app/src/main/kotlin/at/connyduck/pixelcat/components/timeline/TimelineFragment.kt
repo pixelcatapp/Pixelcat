@@ -27,6 +27,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.SimpleItemAnimator
 import at.connyduck.pixelcat.R
+import at.connyduck.pixelcat.components.timeline.detail.DetailActivity
 import at.connyduck.pixelcat.components.util.extension.getDisplayWidthInPx
 import at.connyduck.pixelcat.components.util.getColorForAttr
 import at.connyduck.pixelcat.dagger.ViewModelFactory
@@ -100,5 +101,9 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
 
     override fun onMediaVisibilityChanged(status: StatusEntity) {
         viewModel.onMediaVisibilityChanged(status)
+    }
+
+    override fun onDetailsOpened(status: StatusEntity) {
+        startActivity(DetailActivity.newIntent(requireContext(), status.actionableId))
     }
 }

@@ -48,6 +48,7 @@
         <activity android:name=".components.about.licenses.LicenseActivity"/>
         <activity android:name="at.connyduck.pixelcat.components.compose.ComposeActivity" />
         <activity android:name=".components.profile.ProfileActivity" />
+        <activity android:name=".components.timeline.detail.DetailActivity" />
 
         <service android:name=".components.compose.SendStatusService" />
 
