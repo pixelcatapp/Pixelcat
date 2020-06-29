@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.MergeAdapter
+import androidx.recyclerview.widget.ConcatAdapter
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
 import at.connyduck.pixelcat.components.timeline.TimeLineActionListener
@@ -61,7 +61,7 @@ class DetailActivity: BaseActivity(), TimeLineActionListener {
         statusAdapter = DetailStatusAdapter(displayWidth, this)
         repliesAdapter = DetailReplyAdapter(this)
 
-        binding.detailRecyclerView.adapter = MergeAdapter(statusAdapter, repliesAdapter)
+        binding.detailRecyclerView.adapter = ConcatAdapter(statusAdapter, repliesAdapter)
 
         viewModel.currentStatus.observe(this, Observer {
             if(it is Success) {

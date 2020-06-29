@@ -49,12 +49,13 @@ class PixelcatApplication : DaggerApplication() {
 
         Coil.setImageLoader(
             ImageLoader.Builder(this)
-            .okHttpClient(
-                okhttpClient.newBuilder()
-                    .cache(CoilUtils.createDefaultCache(this))
-                    .build()
-            )
-            .build())
+                .okHttpClient(
+                    okhttpClient.newBuilder()
+                        .cache(CoilUtils.createDefaultCache(this))
+                        .build()
+                )
+                .build()
+        )
     }
 
     override fun applicationInjector(): AndroidInjector<PixelcatApplication> {

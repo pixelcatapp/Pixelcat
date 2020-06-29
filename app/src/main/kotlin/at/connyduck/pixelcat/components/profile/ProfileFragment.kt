@@ -26,7 +26,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.MergeAdapter
+import androidx.recyclerview.widget.ConcatAdapter
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.bottomsheet.accountselection.AccountSelectionBottomSheet
 import at.connyduck.pixelcat.components.bottomsheet.menu.MenuBottomSheet
@@ -106,7 +106,7 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
 
         binding.profileRecyclerView.layoutManager = layoutManager
 
-        binding.profileRecyclerView.adapter = MergeAdapter(headerAdapter, imageAdapter)
+        binding.profileRecyclerView.adapter = ConcatAdapter(headerAdapter, imageAdapter)
         binding.profileRecyclerView.addItemDecoration(GridSpacingItemDecoration(IMAGE_COLUMN_COUNT, imageSpacing, 1))
 
         viewModel.setAccountInfo(arg(ACCOUNT_ID))
