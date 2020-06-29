@@ -22,6 +22,7 @@ package at.connyduck.pixelcat.components.timeline.detail
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import at.connyduck.pixelcat.components.timeline.TimelineUseCases
 import at.connyduck.pixelcat.components.util.Loading
 import at.connyduck.pixelcat.components.util.Success
 import at.connyduck.pixelcat.components.util.UiState
@@ -35,9 +36,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(
-    val api: FediverseApi,
-    val db: AppDatabase,
-    val accountManager: AccountManager
+    private val api: FediverseApi,
+    private val db: AppDatabase,
+    private val accountManager: AccountManager,
+    private val useCases: TimelineUseCases
 ) : ViewModel() {
 
     val currentStatus = MutableLiveData<UiState<StatusEntity>>()
@@ -75,7 +77,6 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-
     private suspend fun loadStatus() {
         api.status(statusId).fold({
             val statusEntity = it.toEntity(accountManager.activeAccount()?.id!!)
@@ -94,6 +95,24 @@ class DetailViewModel @Inject constructor(
         }, {
             replies.value = Error(cause = it)
         })
+    }
+
+    fun onFavorite(status: StatusEntity) {
+        viewModelScope.launch {
+            useCases.onFavorite(status)
+        }
+    }
+
+    fun onBoost(status: StatusEntity) {
+        viewModelScope.launch {
+            useCases.onBoost(status)
+        }
+    }
+
+    fun onMediaVisibilityChanged(status: StatusEntity) {
+        viewModelScope.launch {
+            useCases.onMediaVisibilityChanged(status)
+        }
     }
 
 }

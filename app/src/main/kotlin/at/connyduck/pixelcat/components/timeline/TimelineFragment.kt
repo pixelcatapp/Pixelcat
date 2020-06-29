@@ -80,19 +80,14 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
             binding.timelineSwipeRefresh.isRefreshing = false
         }
 
-        // viewModel.posts.observe(viewLifecycleOwner, Observer { t -> adapter.submitList(t) })
     }
 
-    companion object {
-        fun newInstance() = TimelineFragment()
+    override fun onFavorite(status: StatusEntity) {
+        viewModel.onFavorite(status)
     }
 
-    override fun onFavorite(post: StatusEntity) {
-        viewModel.onFavorite(post)
-    }
-
-    override fun onBoost(post: StatusEntity) {
-        viewModel.onBoost(post)
+    override fun onBoost(status: StatusEntity) {
+        viewModel.onBoost(status)
     }
 
     override fun onReply(status: StatusEntity) {
@@ -105,5 +100,9 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
 
     override fun onDetailsOpened(status: StatusEntity) {
         startActivity(DetailActivity.newIntent(requireContext(), status.actionableId))
+    }
+
+    companion object {
+        fun newInstance() = TimelineFragment()
     }
 }

@@ -80,12 +80,12 @@ class DetailActivity: BaseActivity(), TimeLineActionListener {
 
     }
 
-    override fun onFavorite(post: StatusEntity) {
-        TODO("Not yet implemented")
+    override fun onFavorite(status: StatusEntity) {
+        viewModel.onFavorite(status)
     }
 
-    override fun onBoost(post: StatusEntity) {
-        TODO("Not yet implemented")
+    override fun onBoost(status: StatusEntity) {
+        viewModel.onBoost(status)
     }
 
     override fun onReply(status: StatusEntity) {
@@ -93,7 +93,7 @@ class DetailActivity: BaseActivity(), TimeLineActionListener {
     }
 
     override fun onMediaVisibilityChanged(status: StatusEntity) {
-        TODO("Not yet implemented")
+        viewModel.onMediaVisibilityChanged(status)
     }
 
     override fun onDetailsOpened(status: StatusEntity) {

@@ -35,8 +35,8 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 
 interface TimeLineActionListener {
-    fun onFavorite(post: StatusEntity)
-    fun onBoost(post: StatusEntity)
+    fun onFavorite(status: StatusEntity)
+    fun onBoost(status: StatusEntity)
     fun onReply(status: StatusEntity)
     fun onMediaVisibilityChanged(status: StatusEntity)
     fun onDetailsOpened(status: StatusEntity)
