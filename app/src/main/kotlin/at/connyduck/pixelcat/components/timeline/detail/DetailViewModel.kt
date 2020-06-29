@@ -62,9 +62,11 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun reload() {
-        currentStatus.value = Loading()
-        replies.value = Loading()
+    fun reload(showLoading: Boolean) {
+        if(showLoading) {
+            currentStatus.value = Loading()
+            replies.value = Loading()
+        }
         viewModelScope.launch {
             loadStatus()
         }

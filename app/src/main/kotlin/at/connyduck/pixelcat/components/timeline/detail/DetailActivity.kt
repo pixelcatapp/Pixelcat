@@ -6,12 +6,14 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.MergeAdapter
+import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
 import at.connyduck.pixelcat.components.timeline.TimeLineActionListener
 import at.connyduck.pixelcat.components.util.Success
 import at.connyduck.pixelcat.components.util.extension.getDisplayWidthInPx
 import at.connyduck.pixelcat.components.util.extension.hide
 import at.connyduck.pixelcat.components.util.extension.show
+import at.connyduck.pixelcat.components.util.getColorForAttr
 import at.connyduck.pixelcat.dagger.ViewModelFactory
 import at.connyduck.pixelcat.databinding.ActivityDetailBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity
@@ -31,7 +33,6 @@ class DetailActivity: BaseActivity(), TimeLineActionListener {
 
     private lateinit var repliesAdapter: DetailReplyAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -42,6 +43,15 @@ class DetailActivity: BaseActivity(), TimeLineActionListener {
             binding.root.setPadding(0, top, 0, 0)
 
             insets.consumeSystemWindowInsets()
+        }
+
+        binding.detailSwipeRefresh.setColorSchemeColors(
+            getColorForAttr(R.attr.pixelcat_gradient_color_start),
+            getColorForAttr(R.attr.pixelcat_gradient_color_end)
+        )
+
+        binding.detailSwipeRefresh.setOnRefreshListener {
+            viewModel.reload(false)
         }
 
         viewModel.setStatusId(intent.getStringExtra(EXTRA_STATUS_ID)!!)
@@ -56,6 +66,7 @@ class DetailActivity: BaseActivity(), TimeLineActionListener {
         viewModel.currentStatus.observe(this, Observer {
             if(it is Success) {
                 binding.detailProgress.hide()
+                binding.detailSwipeRefresh.isRefreshing = false
                 binding.detailRecyclerView.show()
                 statusAdapter.submitList(listOf(it.data))
             }
