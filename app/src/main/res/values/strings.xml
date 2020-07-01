@@ -76,4 +76,8 @@
     <string name="sensitive_media">Sensitive media</string>
     <string name="about_license_description">Pixelcat is free and open-source software. It is licensed under the GNU General Public License Version 3.</string>
 
+    <string name="status_general_error">An unexpected error occurred</string>
+    <string name="status_network_error">Failed to connect. Please check your internet connection-</string>
+
+
 </resources>

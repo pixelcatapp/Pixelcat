@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.ConcatAdapter
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
 import at.connyduck.pixelcat.components.timeline.TimeLineActionListener
+import at.connyduck.pixelcat.components.util.Error
+import at.connyduck.pixelcat.components.util.Loading
 import at.connyduck.pixelcat.components.util.Success
 import at.connyduck.pixelcat.components.util.extension.getDisplayWidthInPx
 import at.connyduck.pixelcat.components.util.extension.hide
@@ -54,6 +56,10 @@ class DetailActivity: BaseActivity(), TimeLineActionListener {
             viewModel.reload(false)
         }
 
+        binding.detailStatus.setOnRetryListener {
+            viewModel.reload(true)
+        }
+
         viewModel.setStatusId(intent.getStringExtra(EXTRA_STATUS_ID)!!)
 
         val displayWidth = getDisplayWidthInPx()
@@ -64,11 +70,27 @@ class DetailActivity: BaseActivity(), TimeLineActionListener {
         binding.detailRecyclerView.adapter = ConcatAdapter(statusAdapter, repliesAdapter)
 
         viewModel.currentStatus.observe(this, Observer {
-            if(it is Success) {
-                binding.detailProgress.hide()
-                binding.detailSwipeRefresh.isRefreshing = false
-                binding.detailRecyclerView.show()
-                statusAdapter.submitList(listOf(it.data))
+            when(it) {
+                is Success -> {
+                    binding.detailSwipeRefresh.show()
+                    binding.detailStatus.hide()
+                    binding.detailProgress.hide()
+                    binding.detailSwipeRefresh.isRefreshing = false
+                    binding.detailRecyclerView.show()
+                    statusAdapter.submitList(listOf(it.data))
+                }
+                is Loading -> {
+                    binding.detailSwipeRefresh.hide()
+                    binding.detailStatus.hide()
+                    binding.detailProgress.show()
+                }
+                is Error -> {
+                    binding.detailSwipeRefresh.hide()
+                    binding.detailStatus.show()
+                    binding.detailProgress.hide()
+                    binding.detailStatus.setOnRetryListener {  }
+                    binding.detailStatus.showGeneralError()
+                }
             }
         })
 
