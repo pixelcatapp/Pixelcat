@@ -18,31 +18,29 @@ class TimelineUseCases @Inject constructor(
 ) {
 
     suspend fun onFavorite(status: StatusEntity) {
-            val alreadyFavourited = status.favourited
-            if (alreadyFavourited) {
-                api.unfavouriteStatus(status.actionableId)
-            } else {
-                api.favouriteStatus(status.actionableId)
-            }.updateStatusInDb()
+        val alreadyFavourited = status.favourited
+        if (alreadyFavourited) {
+            api.unfavouriteStatus(status.actionableId)
+        } else {
+            api.favouriteStatus(status.actionableId)
+        }.updateStatusInDb()
     }
 
     suspend fun onBoost(status: StatusEntity) {
-            val alreadyBoosted = status.reblogged
-            if (alreadyBoosted) {
-                api.unreblogStatus(status.actionableId)
-            } else {
-                api.reblogStatus(status.actionableId)
-            }.updateStatusInDb()
-
+        val alreadyBoosted = status.reblogged
+        if (alreadyBoosted) {
+            api.unreblogStatus(status.actionableId)
+        } else {
+            api.reblogStatus(status.actionableId)
+        }.updateStatusInDb()
     }
 
     suspend fun onMediaVisibilityChanged(status: StatusEntity) {
-            db.statusDao().changeMediaVisibility(
-                !status.mediaVisible,
-                status.id,
-                accountManager.activeAccount()?.id!!
-            )
-
+        db.statusDao().changeMediaVisibility(
+            !status.mediaVisible,
+            status.id,
+            accountManager.activeAccount()?.id!!
+        )
     }
 
     private suspend fun NetworkResponse<Status>.updateStatusInDb() {
@@ -57,5 +55,4 @@ class TimelineUseCases @Inject constructor(
             }
         )
     }
-
 }

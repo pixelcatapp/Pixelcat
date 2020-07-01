@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 
 class DetailReplyAdapter(
     private val listener: TimeLineActionListener
-): ListAdapter<StatusEntity, BindingHolder<ItemReplyBinding>>(TimelineDiffUtil) {
+) : ListAdapter<StatusEntity, BindingHolder<ItemReplyBinding>>(TimelineDiffUtil) {
 
     private val dateTimeFormatter = SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.SHORT, SimpleDateFormat.SHORT)
 
@@ -51,8 +51,6 @@ class DetailReplyAdapter(
             holder.binding.postReplyButton.setOnClickListener {
                 listener.onReply(status)
             }
-
         }
     }
-
 }

@@ -79,7 +79,6 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
         adapter.addDataRefreshListener {
             binding.timelineSwipeRefresh.isRefreshing = false
         }
-
     }
 
     override fun onFavorite(status: StatusEntity) {

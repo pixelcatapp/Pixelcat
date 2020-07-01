@@ -65,7 +65,7 @@ class DetailViewModel @Inject constructor(
     }
 
     fun reload(showLoading: Boolean) {
-        if(showLoading) {
+        if (showLoading) {
             currentStatus.value = Loading()
             replies.value = Loading()
         }
@@ -78,23 +78,31 @@ class DetailViewModel @Inject constructor(
     }
 
     private suspend fun loadStatus() {
-        api.status(statusId).fold({
-            val statusEntity = it.toEntity(accountManager.activeAccount()?.id!!)
-            db.statusDao().insertOrReplace(statusEntity)
-            currentStatus.value = Success(statusEntity)
-        }, {
-            currentStatus.value = Error(cause = it)
-        })
+        api.status(statusId).fold(
+            {
+                val statusEntity = it.toEntity(accountManager.activeAccount()?.id!!)
+                db.statusDao().insertOrReplace(statusEntity)
+                currentStatus.value = Success(statusEntity)
+            },
+            {
+                currentStatus.value = Error(cause = it)
+            }
+        )
     }
 
     private suspend fun loadReplies() {
-        api.statusContext(statusId).fold({
-            replies.value = Success(it.descendants.map{
-                    descendant -> descendant.toEntity(accountManager.activeAccount()?.id!!)
-            })
-        }, {
-            replies.value = Error(cause = it)
-        })
+        api.statusContext(statusId).fold(
+            {
+                replies.value = Success(
+                    it.descendants.map { descendant ->
+                        descendant.toEntity(accountManager.activeAccount()?.id!!)
+                    }
+                )
+            },
+            {
+                replies.value = Error(cause = it)
+            }
+        )
     }
 
     fun onFavorite(status: StatusEntity) {
@@ -114,5 +122,4 @@ class DetailViewModel @Inject constructor(
             useCases.onMediaVisibilityChanged(status)
         }
     }
-
 }

@@ -71,5 +71,4 @@ class TimelineViewModel @Inject constructor(
             useCases.onMediaVisibilityChanged(status)
         }
     }
-
 }

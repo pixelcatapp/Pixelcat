@@ -12,11 +12,10 @@ import at.connyduck.pixelcat.databinding.ItemStatusBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity
 import java.text.SimpleDateFormat
 
-
 class DetailStatusAdapter(
     private val displayWidth: Int,
     private val listener: TimeLineActionListener
-): ListAdapter<StatusEntity, BindingHolder<ItemStatusBinding>>(TimelineDiffUtil) {
+) : ListAdapter<StatusEntity, BindingHolder<ItemStatusBinding>>(TimelineDiffUtil) {
 
     private val dateTimeFormatter = SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.SHORT, SimpleDateFormat.SHORT)
 
@@ -36,5 +35,4 @@ class DetailStatusAdapter(
             holder.bind(status, displayWidth, listener, dateTimeFormatter)
         }
     }
-
 }

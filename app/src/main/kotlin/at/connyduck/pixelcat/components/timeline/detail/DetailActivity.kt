@@ -22,7 +22,7 @@ import at.connyduck.pixelcat.db.entitity.StatusEntity
 import at.connyduck.pixelcat.util.viewBinding
 import javax.inject.Inject
 
-class DetailActivity: BaseActivity(), TimeLineActionListener {
+class DetailActivity : BaseActivity(), TimeLineActionListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -69,37 +69,41 @@ class DetailActivity: BaseActivity(), TimeLineActionListener {
 
         binding.detailRecyclerView.adapter = ConcatAdapter(statusAdapter, repliesAdapter)
 
-        viewModel.currentStatus.observe(this, Observer {
-            when(it) {
-                is Success -> {
-                    binding.detailSwipeRefresh.show()
-                    binding.detailStatus.hide()
-                    binding.detailProgress.hide()
-                    binding.detailSwipeRefresh.isRefreshing = false
-                    binding.detailRecyclerView.show()
-                    statusAdapter.submitList(listOf(it.data))
-                }
-                is Loading -> {
-                    binding.detailSwipeRefresh.hide()
-                    binding.detailStatus.hide()
-                    binding.detailProgress.show()
-                }
-                is Error -> {
-                    binding.detailSwipeRefresh.hide()
-                    binding.detailStatus.show()
-                    binding.detailProgress.hide()
-                    binding.detailStatus.setOnRetryListener {  }
-                    binding.detailStatus.showGeneralError()
+        viewModel.currentStatus.observe(
+            this,
+            Observer {
+                when (it) {
+                    is Success -> {
+                        binding.detailSwipeRefresh.show()
+                        binding.detailStatus.hide()
+                        binding.detailProgress.hide()
+                        binding.detailSwipeRefresh.isRefreshing = false
+                        binding.detailRecyclerView.show()
+                        statusAdapter.submitList(listOf(it.data))
+                    }
+                    is Loading -> {
+                        binding.detailSwipeRefresh.hide()
+                        binding.detailStatus.hide()
+                        binding.detailProgress.show()
+                    }
+                    is Error -> {
+                        binding.detailSwipeRefresh.hide()
+                        binding.detailStatus.show()
+                        binding.detailProgress.hide()
+                        binding.detailStatus.showGeneralError()
+                    }
                 }
             }
-        })
+        )
 
-        viewModel.replies.observe(this, Observer {
-            if(it is Success) {
-                repliesAdapter.submitList(it.data)
+        viewModel.replies.observe(
+            this,
+            Observer {
+                if (it is Success) {
+                    repliesAdapter.submitList(it.data)
+                }
             }
-        })
-
+        )
     }
 
     override fun onFavorite(status: StatusEntity) {
@@ -131,5 +135,4 @@ class DetailActivity: BaseActivity(), TimeLineActionListener {
             }
         }
     }
-
 }

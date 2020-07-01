@@ -19,7 +19,14 @@
 
 package at.connyduck.pixelcat.network
 
-import at.connyduck.pixelcat.model.*
+import at.connyduck.pixelcat.model.AccessToken
+import at.connyduck.pixelcat.model.Account
+import at.connyduck.pixelcat.model.AppCredentials
+import at.connyduck.pixelcat.model.Attachment
+import at.connyduck.pixelcat.model.NewStatus
+import at.connyduck.pixelcat.model.Relationship
+import at.connyduck.pixelcat.model.Status
+import at.connyduck.pixelcat.model.StatusContext
 import at.connyduck.pixelcat.network.calladapter.NetworkResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
