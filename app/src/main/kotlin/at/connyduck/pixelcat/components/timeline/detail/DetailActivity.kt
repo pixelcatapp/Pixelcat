@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.graphics.Insets
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ConcatAdapter
 import at.connyduck.pixelcat.R
@@ -20,6 +22,7 @@ import at.connyduck.pixelcat.dagger.ViewModelFactory
 import at.connyduck.pixelcat.databinding.ActivityDetailBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity
 import at.connyduck.pixelcat.util.viewBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import javax.inject.Inject
 
 class DetailActivity : BaseActivity(), TimeLineActionListener {
@@ -40,11 +43,12 @@ class DetailActivity : BaseActivity(), TimeLineActionListener {
         setContentView(binding.root)
 
         binding.root.setOnApplyWindowInsetsListener { _, insets ->
-            val top = insets.systemWindowInsetTop
+            binding.root.setPadding(0, insets.systemWindowInsetTop, 0, 0)
 
-            binding.root.setPadding(0, top, 0, 0)
-
-            insets.consumeSystemWindowInsets()
+            WindowInsetsCompat.Builder(WindowInsetsCompat.toWindowInsetsCompat(insets))
+                .setSystemWindowInsets(Insets.of(insets.systemWindowInsetLeft, 0, insets.systemWindowInsetRight, insets.systemWindowInsetBottom))
+                .build()
+                .toWindowInsets()
         }
 
         binding.detailSwipeRefresh.setColorSchemeColors(
@@ -115,7 +119,9 @@ class DetailActivity : BaseActivity(), TimeLineActionListener {
     }
 
     override fun onReply(status: StatusEntity) {
-        TODO("Not yet implemented")
+        val replyBottomsheet = BottomSheetBehavior.from(binding.detailReplyBottomSheet)
+        replyBottomsheet.state = BottomSheetBehavior.STATE_EXPANDED
+        binding.detailReply.requestFocus()
     }
 
     override fun onMediaVisibilityChanged(status: StatusEntity) {
