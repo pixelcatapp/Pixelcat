@@ -62,14 +62,14 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72")
 
-    implementation("androidx.core:core:1.3.0")
+    implementation("androidx.core:core:1.3.1")
     implementation("androidx.appcompat:appcompat:1.3.0-alpha01")
-    implementation("androidx.activity:activity-ktx:1.2.0-alpha06")
-    implementation("androidx.fragment:fragment-ktx:1.3.0-alpha06")
-    implementation("com.google.android.material:material:1.2.0-beta01")
+    implementation("androidx.activity:activity-ktx:1.2.0-alpha07")
+    implementation("androidx.fragment:fragment-ktx:1.3.0-alpha07")
+    implementation("com.google.android.material:material:1.3.0-alpha02")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation("androidx.recyclerview:recyclerview:1.2.0-alpha04")
+    implementation("androidx.recyclerview:recyclerview:1.2.0-alpha05")
     implementation("androidx.annotation:annotation:1.1.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
@@ -77,7 +77,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation("androidx.preference:preference:1.1.1")
     implementation("androidx.emoji:emoji-bundled:1.1.0")
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha02")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha04")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     implementation("androidx.room:room-ktx:$roomVersion")
