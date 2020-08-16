@@ -60,7 +60,7 @@ dependencies {
     val moshiVersion = "1.9.2"
     val daggerVersion = "2.27"
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.0")
 
     implementation("androidx.core:core:1.3.1")
     implementation("androidx.appcompat:appcompat:1.3.0-alpha01")
@@ -93,7 +93,7 @@ dependencies {
     implementation("com.squareup.moshi:moshi-adapters:$moshiVersion")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
     implementation("com.fxn769:pix:1.4.4")
 
