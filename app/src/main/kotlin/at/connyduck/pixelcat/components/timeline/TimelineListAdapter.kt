@@ -74,12 +74,12 @@ class TimelineListAdapter(
             (holder.binding.postImages.adapter as TimelineImageAdapter).images = status.attachments
 
             val maxImageRatio = status.attachments.map {
-                        if (it.meta?.small?.width == null || it.meta.small.height == null) {
-                            1f
-                        } else {
-                            it.meta.small.height.toFloat() / it.meta.small.width.toFloat()
-                        }
-                    }.maxOrNull()?.coerceAtMost(1f) ?: 1f
+                if (it.meta?.small?.width == null || it.meta.small.height == null) {
+                    1f
+                } else {
+                    it.meta.small.height.toFloat() / it.meta.small.width.toFloat()
+                }
+            }.maxOrNull()?.coerceAtMost(1f) ?: 1f
 
             holder.binding.postImages.layoutParams.height = (displayWidth * maxImageRatio).toInt()
 

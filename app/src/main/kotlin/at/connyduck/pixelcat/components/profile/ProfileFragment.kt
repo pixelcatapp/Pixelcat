@@ -22,7 +22,6 @@ package at.connyduck.pixelcat.components.profile
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
@@ -113,7 +112,7 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
 
         viewModel.profile.observe(
             viewLifecycleOwner,
-            Observer {
+            {
                 when (it) {
                     is Success -> onAccountChanged(it.data)
                     is Error -> showError()
@@ -122,7 +121,7 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
         )
         viewModel.relationship.observe(
             viewLifecycleOwner,
-            Observer {
+            {
                 when (it) {
                     is Success -> onRelationshipChanged(it.data)
                     is Error -> showError()
