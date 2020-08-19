@@ -25,7 +25,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.connyduck.pixelcat.R
@@ -105,14 +104,14 @@ class ComposeActivity : BaseActivity(), OnImageActionClickListener {
 
         viewModel.imageLiveData.observe(
             this,
-            Observer {
+            {
                 adapter.submitList(it)
             }
         )
 
         viewModel.visibility.observe(
             this,
-            Observer {
+            {
                 val visibilityString = when (it) {
                     VISIBILITY.PUBLIC -> R.string.compose_visibility_public
                     VISIBILITY.UNLISTED -> R.string.compose_visibility_unlisted

@@ -24,6 +24,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.SimpleItemAnimator
 import at.connyduck.pixelcat.R
@@ -76,8 +77,11 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
             adapter.refresh()
         }
 
-        adapter.addDataRefreshListener {
-            binding.timelineSwipeRefresh.isRefreshing = false
+        adapter.addLoadStateListener {
+            if (it.refresh != LoadState.Loading) {
+                binding.timelineSwipeRefresh.isRefreshing = false
+
+            }
         }
     }
 
