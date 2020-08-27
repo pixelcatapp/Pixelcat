@@ -80,7 +80,6 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
         adapter.addLoadStateListener {
             if (it.refresh != LoadState.Loading) {
                 binding.timelineSwipeRefresh.isRefreshing = false
-
             }
         }
     }
@@ -94,7 +93,7 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
     }
 
     override fun onReply(status: StatusEntity) {
-        TODO("Not yet implemented")
+        startActivity(DetailActivity.newIntent(requireContext(), status.actionableId, reply = true))
     }
 
     override fun onMediaVisibilityChanged(status: StatusEntity) {

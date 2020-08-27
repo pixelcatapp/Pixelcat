@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.graphics.Insets
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ConcatAdapter
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
@@ -75,7 +74,7 @@ class DetailActivity : BaseActivity(), TimeLineActionListener {
 
         viewModel.currentStatus.observe(
             this,
-            Observer {
+            {
                 when (it) {
                     is Success -> {
                         binding.detailSwipeRefresh.show()
@@ -84,6 +83,12 @@ class DetailActivity : BaseActivity(), TimeLineActionListener {
                         binding.detailSwipeRefresh.isRefreshing = false
                         binding.detailRecyclerView.show()
                         statusAdapter.submitList(listOf(it.data))
+                        it.data?.let { status ->
+                            if (intent.getBooleanExtra(EXTRA_REPLY, false)) {
+                                intent.removeExtra(EXTRA_REPLY)
+                                onReply(status)
+                            }
+                        }
                     }
                     is Loading -> {
                         binding.detailSwipeRefresh.hide()
@@ -102,7 +107,7 @@ class DetailActivity : BaseActivity(), TimeLineActionListener {
 
         viewModel.replies.observe(
             this,
-            Observer {
+            {
                 if (it is Success) {
                     repliesAdapter.submitList(it.data)
                 }
@@ -122,6 +127,12 @@ class DetailActivity : BaseActivity(), TimeLineActionListener {
         val replyBottomsheet = BottomSheetBehavior.from(binding.detailReplyBottomSheet)
         replyBottomsheet.state = BottomSheetBehavior.STATE_EXPANDED
         binding.detailReply.requestFocus()
+        binding.detailReply.setText("@" + status.account.username + " ")
+        binding.detailReply.setSelection(binding.detailReply.text?.length ?: 0)
+
+        binding.detailReplyLayout.setEndIconOnClickListener {
+            viewModel.onReply(status, binding.detailReply.text?.toString().orEmpty())
+        }
     }
 
     override fun onMediaVisibilityChanged(status: StatusEntity) {
@@ -134,10 +145,12 @@ class DetailActivity : BaseActivity(), TimeLineActionListener {
 
     companion object {
         private const val EXTRA_STATUS_ID = "STATUS_ID"
+        private const val EXTRA_REPLY = "REPLY"
 
-        fun newIntent(context: Context, statusId: String): Intent {
+        fun newIntent(context: Context, statusId: String, reply: Boolean = false): Intent {
             return Intent(context, DetailActivity::class.java).apply {
                 putExtra(EXTRA_STATUS_ID, statusId)
+                putExtra(EXTRA_REPLY, reply)
             }
         }
     }

@@ -165,6 +165,11 @@ interface FediverseApi {
         @Body status: NewStatus
     ): NetworkResponse<Status>
 
+    @POST("api/v1/statuses")
+    suspend fun reply(
+        @Body status: NewStatus
+    ): NetworkResponse<Status>
+
     @POST("api/v1/statuses/{id}/favourite")
     suspend fun favouriteStatus(
         @Path("id") statusId: String

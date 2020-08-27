@@ -31,15 +31,18 @@ import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.db.AppDatabase
 import at.connyduck.pixelcat.db.entitity.StatusEntity
 import at.connyduck.pixelcat.db.entitity.toEntity
+import at.connyduck.pixelcat.model.NewStatus
 import at.connyduck.pixelcat.network.FediverseApi
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(
     private val api: FediverseApi,
     private val db: AppDatabase,
     private val accountManager: AccountManager,
-    private val useCases: TimelineUseCases
+    private val useCases: TimelineUseCases,
+    private val fediverseApi: FediverseApi
 ) : ViewModel() {
 
     val currentStatus = MutableLiveData<UiState<StatusEntity>>()
@@ -120,6 +123,21 @@ class DetailViewModel @Inject constructor(
     fun onMediaVisibilityChanged(status: StatusEntity) {
         viewModelScope.launch {
             useCases.onMediaVisibilityChanged(status)
+        }
+    }
+
+    fun onReply(statusToReply: StatusEntity, replyText: String) {
+        viewModelScope.launch {
+
+            fediverseApi.reply(
+                NewStatus(
+                    status = replyText,
+                    inReplyToId = statusToReply.actionableId,
+                    visibility = statusToReply.visibility.name.toLowerCase(Locale.ROOT),
+                    sensitive = statusToReply.sensitive,
+                    mediaIds = null
+                )
+            )
         }
     }
 }
