@@ -72,9 +72,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="replying to @ConnyDuck"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="replying to @ConnyDuck" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/detailReplyLayout"

@@ -126,6 +126,8 @@ class DetailActivity : BaseActivity(), TimeLineActionListener {
     override fun onReply(status: StatusEntity) {
         val replyBottomsheet = BottomSheetBehavior.from(binding.detailReplyBottomSheet)
         replyBottomsheet.state = BottomSheetBehavior.STATE_EXPANDED
+
+        binding.detailReplyingTo.text = getString(R.string.status_details_replying_to, "@" + status.account.username)
         binding.detailReply.requestFocus()
         binding.detailReply.setText("@" + status.account.username + " ")
         binding.detailReply.setSelection(binding.detailReply.text?.length ?: 0)

@@ -79,5 +79,7 @@
     <string name="status_general_error">An unexpected error occurred</string>
     <string name="status_network_error">Failed to connect. Please check your internet connection-</string>
 
+    <string name="status_details_replying_to">Replying to $1%s</string>
+
 
 </resources>
