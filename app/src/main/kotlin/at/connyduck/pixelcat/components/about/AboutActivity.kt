@@ -23,6 +23,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import at.connyduck.pixelcat.BuildConfig
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.about.licenses.LicenseActivity
@@ -37,13 +40,11 @@ class AboutActivity : BaseActivity() {
         val binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.root.setOnApplyWindowInsetsListener { _, insets ->
-            val top = insets.systemWindowInsetTop
-
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val top = insets.getInsets(systemBars()).top
             val toolbarParams = binding.aboutToolbar.layoutParams as ViewGroup.MarginLayoutParams
             toolbarParams.topMargin = top
-
-            insets.consumeSystemWindowInsets()
+            WindowInsetsCompat.CONSUMED
         }
 
         setSupportActionBar(binding.aboutToolbar)

@@ -26,6 +26,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.lifecycle.Observer
 import at.connyduck.pixelcat.components.main.MainActivity
 import at.connyduck.pixelcat.R
@@ -51,13 +54,11 @@ class LoginActivity : BaseActivity(), Observer<LoginModel> {
 
         setContentView(binding.root)
 
-        binding.loginContainer.setOnApplyWindowInsetsListener { _, insets ->
-            val top = insets.systemWindowInsetTop
-
+        ViewCompat.setOnApplyWindowInsetsListener(binding.loginContainer) { _, insets ->
+            val top = insets.getInsets(systemBars()).top
             val toolbarParams = binding.loginToolbar.layoutParams as ViewGroup.MarginLayoutParams
             toolbarParams.topMargin = top
-
-            insets.consumeSystemWindowInsets()
+            WindowInsetsCompat.CONSUMED
         }
 
         setSupportActionBar(binding.loginToolbar)

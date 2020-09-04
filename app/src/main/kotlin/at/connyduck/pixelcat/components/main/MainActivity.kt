@@ -22,8 +22,11 @@ package at.connyduck.pixelcat.components.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.viewModels
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.compose.ComposeActivity
 import at.connyduck.pixelcat.components.general.BaseActivity
@@ -88,13 +91,11 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.container.setOnApplyWindowInsetsListener { _, insets ->
-            val top = insets.systemWindowInsetTop
-
-            val viewPagerParams = binding.mainViewPager.layoutParams as LinearLayout.LayoutParams
+        ViewCompat.setOnApplyWindowInsetsListener(binding.container) { _, insets ->
+            val top = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
+            val viewPagerParams = binding.mainViewPager.layoutParams as ViewGroup.MarginLayoutParams
             viewPagerParams.topMargin = top
-
-            insets.consumeSystemWindowInsets()
+            WindowInsetsCompat.CONSUMED
         }
 
         mainFragmentAdapter = MainFragmentAdapter(this)

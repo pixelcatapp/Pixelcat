@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.recyclerview.widget.ConcatAdapter
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
@@ -41,13 +43,14 @@ class DetailActivity : BaseActivity(), TimeLineActionListener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.root.setOnApplyWindowInsetsListener { _, insets ->
-            binding.root.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemInsets = insets.getInsets(systemBars())
 
-            WindowInsetsCompat.Builder(WindowInsetsCompat.toWindowInsetsCompat(insets))
-                .setSystemWindowInsets(Insets.of(insets.systemWindowInsetLeft, 0, insets.systemWindowInsetRight, insets.systemWindowInsetBottom))
+            binding.root.setPadding(0, systemInsets.top, 0, 0)
+
+            WindowInsetsCompat.Builder(insets)
+                .setInsets(systemBars(), Insets.of(systemInsets.left, 0, systemInsets.right, systemInsets.bottom))
                 .build()
-                .toWindowInsets()
         }
 
         binding.detailSwipeRefresh.setColorSchemeColors(

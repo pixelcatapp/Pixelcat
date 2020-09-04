@@ -40,9 +40,9 @@ class LoginWebViewActivity : AppCompatActivity() {
         binding = ActivityLoginWebViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val domain = intent.getStringExtra(EXTRA_DOMAIN)
-        val clientId = intent.getStringExtra(EXTRA_CLIENT_ID)
-        val clientSecret = intent.getStringExtra(EXTRA_CLIENT_SECRET)
+        val domain = intent.getStringExtra(EXTRA_DOMAIN)!!
+        val clientId = intent.getStringExtra(EXTRA_CLIENT_ID)!!
+        val clientSecret = intent.getStringExtra(EXTRA_CLIENT_SECRET)!!
 
         val endpoint = "/oauth/authorize"
         val parameters = mapOf(

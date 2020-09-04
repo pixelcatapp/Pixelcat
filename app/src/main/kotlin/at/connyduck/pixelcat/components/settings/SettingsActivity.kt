@@ -26,6 +26,9 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.preference.PreferenceFragmentCompat
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
@@ -46,13 +49,11 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.settingsContainer.setOnApplyWindowInsetsListener { _, insets ->
-            val top = insets.systemWindowInsetTop
-
+        ViewCompat.setOnApplyWindowInsetsListener(binding.settingsContainer) { _, insets ->
+            val top = insets.getInsets(systemBars()).top
             val toolbarParams = binding.settingsToolbar.layoutParams as ViewGroup.MarginLayoutParams
             toolbarParams.topMargin = top
-
-            insets.consumeSystemWindowInsets()
+            WindowInsetsCompat.CONSUMED
         }
 
         supportFragmentManager

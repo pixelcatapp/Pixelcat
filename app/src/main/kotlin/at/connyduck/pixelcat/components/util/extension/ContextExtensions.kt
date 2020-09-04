@@ -20,6 +20,7 @@
 package at.connyduck.pixelcat.components.util.extension
 
 import android.content.Context
+import android.os.Build
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.WindowManager
@@ -27,10 +28,15 @@ import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 
 fun Context.getDisplayWidthInPx(): Int {
-    val metrics = DisplayMetrics()
     val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    windowManager.defaultDisplay.getMetrics(metrics)
-    return metrics.widthPixels
+
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        windowManager.currentWindowMetrics.bounds.width()
+    } else {
+        val metrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(metrics)
+        metrics.widthPixels
+    }
 }
 
 @ColorInt

@@ -26,6 +26,9 @@ import android.util.Log
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RawRes
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
 import at.connyduck.pixelcat.databinding.ActivityLicenseBinding
@@ -41,13 +44,11 @@ class LicenseActivity : BaseActivity() {
         val binding = ActivityLicenseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.licenseContainer.setOnApplyWindowInsetsListener { _, insets ->
-            val top = insets.systemWindowInsetTop
-
+        ViewCompat.setOnApplyWindowInsetsListener(binding.licenseContainer) { _, insets ->
+            val top = insets.getInsets(systemBars()).top
             val toolbarParams = binding.licenseToolbar.layoutParams as ViewGroup.MarginLayoutParams
             toolbarParams.topMargin = top
-
-            insets.consumeSystemWindowInsets()
+            WindowInsetsCompat.CONSUMED
         }
 
         setSupportActionBar(binding.licenseToolbar)

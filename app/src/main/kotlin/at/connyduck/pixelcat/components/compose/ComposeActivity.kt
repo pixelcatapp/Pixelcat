@@ -23,8 +23,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.connyduck.pixelcat.R
@@ -56,13 +60,11 @@ class ComposeActivity : BaseActivity(), OnImageActionClickListener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.root.setOnApplyWindowInsetsListener { _, insets ->
-            val top = insets.systemWindowInsetTop
-
-            val toolbarParams = binding.composeAppBar.layoutParams as CoordinatorLayout.LayoutParams
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val top = insets.getInsets(systemBars()).top
+            val toolbarParams = binding.composeAppBar.layoutParams as ViewGroup.MarginLayoutParams
             toolbarParams.topMargin = top
-
-            insets.consumeSystemWindowInsets()
+            WindowInsetsCompat.CONSUMED
         }
 
         if (viewModel.imageLiveData.value.isNullOrEmpty()) {

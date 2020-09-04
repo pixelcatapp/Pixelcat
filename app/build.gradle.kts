@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
     defaultConfig {
         applicationId = "at.connyduck.pixelcat"
         minSdkVersion(24)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode = 1
         versionName = "0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -79,6 +79,7 @@ dependencies {
     implementation("androidx.emoji:emoji-bundled:1.1.0")
     implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha05")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("androidx.window:window:1.0.0-alpha01")
 
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")

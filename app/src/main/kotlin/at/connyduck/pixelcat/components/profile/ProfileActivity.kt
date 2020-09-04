@@ -22,6 +22,10 @@ package at.connyduck.pixelcat.components.profile
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.fragment.app.commit
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
@@ -36,12 +40,11 @@ class ProfileActivity : BaseActivity() {
 
         setContentView(binding.root)
 
-        binding.root.setOnApplyWindowInsetsListener { _, insets ->
-            val top = insets.systemWindowInsetTop
-
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val top = insets.getInsets(systemBars()).top
             binding.root.setPadding(0, top, 0, 0)
 
-            insets.consumeSystemWindowInsets()
+            WindowInsetsCompat.CONSUMED
         }
 
         if (supportFragmentManager.findFragmentById(R.id.layoutContainer) == null) {
