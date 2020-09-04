@@ -28,6 +28,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.SimpleItemAnimator
 import at.connyduck.pixelcat.R
+import at.connyduck.pixelcat.components.timeline.detail.DetailActivity
 import at.connyduck.pixelcat.components.util.extension.getDisplayWidthInPx
 import at.connyduck.pixelcat.components.util.getColorForAttr
 import at.connyduck.pixelcat.dagger.ViewModelFactory
@@ -79,29 +80,31 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
         adapter.addLoadStateListener {
             if (it.refresh != LoadState.Loading) {
                 binding.timelineSwipeRefresh.isRefreshing = false
-
             }
         }
-
     }
 
-    companion object {
-        fun newInstance() = TimelineFragment()
+    override fun onFavorite(status: StatusEntity) {
+        viewModel.onFavorite(status)
     }
 
-    override fun onFavorite(post: StatusEntity) {
-        viewModel.onFavorite(post)
-    }
-
-    override fun onBoost(post: StatusEntity) {
-        viewModel.onBoost(post)
+    override fun onBoost(status: StatusEntity) {
+        viewModel.onBoost(status)
     }
 
     override fun onReply(status: StatusEntity) {
-        TODO("Not yet implemented")
+        startActivity(DetailActivity.newIntent(requireContext(), status.actionableId, reply = true))
     }
 
     override fun onMediaVisibilityChanged(status: StatusEntity) {
         viewModel.onMediaVisibilityChanged(status)
+    }
+
+    override fun onDetailsOpened(status: StatusEntity) {
+        startActivity(DetailActivity.newIntent(requireContext(), status.actionableId))
+    }
+
+    companion object {
+        fun newInstance() = TimelineFragment()
     }
 }

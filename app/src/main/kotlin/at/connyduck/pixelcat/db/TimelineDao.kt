@@ -39,6 +39,9 @@ interface TimelineDao {
     @Delete
     suspend fun delete(status: StatusEntity)
 
+    @Query("SELECT * FROM StatusEntity WHERE id = :statusId AND accountId = :accountId")
+    suspend fun status(statusId: String, accountId: Long): StatusEntity?
+
     @Query("SELECT * FROM StatusEntity WHERE accountId = :accountId ORDER BY LENGTH(id) DESC, id DESC")
     fun statuses(accountId: Long): PagingSource<Int, StatusEntity>
 

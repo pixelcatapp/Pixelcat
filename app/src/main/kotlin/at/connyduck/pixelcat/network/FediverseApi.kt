@@ -26,6 +26,7 @@ import at.connyduck.pixelcat.model.Attachment
 import at.connyduck.pixelcat.model.NewStatus
 import at.connyduck.pixelcat.model.Relationship
 import at.connyduck.pixelcat.model.Status
+import at.connyduck.pixelcat.model.StatusContext
 import at.connyduck.pixelcat.network.calladapter.NetworkResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
@@ -164,6 +165,11 @@ interface FediverseApi {
         @Body status: NewStatus
     ): NetworkResponse<Status>
 
+    @POST("api/v1/statuses")
+    suspend fun reply(
+        @Body status: NewStatus
+    ): NetworkResponse<Status>
+
     @POST("api/v1/statuses/{id}/favourite")
     suspend fun favouriteStatus(
         @Path("id") statusId: String
@@ -183,4 +189,14 @@ interface FediverseApi {
     suspend fun unreblogStatus(
         @Path("id") statusId: String
     ): NetworkResponse<Status>
+
+    @GET("api/v1/statuses/{id}")
+    suspend fun status(
+        @Path("id") statusId: String
+    ): NetworkResponse<Status>
+
+    @GET("api/v1/statuses/{id}/context")
+    suspend fun statusContext(
+        @Path("id") statusId: String
+    ): NetworkResponse<StatusContext>
 }

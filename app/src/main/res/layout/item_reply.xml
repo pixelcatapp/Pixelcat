@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:sparkbutton="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:paddingBottom="8dp">
+
+    <ImageView
+            android:id="@+id/postAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:importantForAccessibility="no"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="#f00" />
+
+    <androidx.emoji.widget.EmojiTextView
+            android:id="@+id/postDisplayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/postName"
+            app:layout_constraintStart_toEndOf="@id/postAvatar"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Conny Duck" />
+
+    <TextView
+            android:id="@+id/postName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:lines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/postDisplayName"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="\@connyduck\@chaos.social" />
+
+    <androidx.emoji.widget.EmojiTextView
+            android:id="@+id/postDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@+id/postAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postDisplayName"
+            tools:text="This is the caption" />
+
+    <TextView
+            android:id="@+id/postDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/postAvatar"
+            app:layout_constraintTop_toBottomOf="@id/postDescription"
+            tools:text="4 hours ago" />
+
+    <at.connyduck.sparkbutton.SparkButton
+            android:id="@+id/postLikeButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@id/postDate"
+            app:layout_constraintTop_toBottomOf="@id/postDescription"
+            sparkbutton:activeImage="@drawable/ic_heart_filled"
+            sparkbutton:iconSize="24dp"
+            sparkbutton:inactiveImage="@drawable/ic_heart"
+            sparkbutton:primaryColor="@color/heart_button_primary"
+            sparkbutton:secondaryColor="@color/heart_button_secondary" />
+
+    <ImageButton
+            android:id="@+id/postReplyButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_message"
+            app:layout_constraintStart_toEndOf="@id/postLikeButton"
+            app:layout_constraintTop_toBottomOf="@id/postDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

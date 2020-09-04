@@ -31,13 +31,15 @@ import at.connyduck.pixelcat.databinding.ItemStatusBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 
 interface TimeLineActionListener {
-    fun onFavorite(post: StatusEntity)
-    fun onBoost(post: StatusEntity)
+    fun onFavorite(status: StatusEntity)
+    fun onBoost(status: StatusEntity)
     fun onReply(status: StatusEntity)
     fun onMediaVisibilityChanged(status: StatusEntity)
+    fun onDetailsOpened(status: StatusEntity)
 }
 
 object TimelineDiffUtil : DiffUtil.ItemCallback<StatusEntity>() {
@@ -66,65 +68,71 @@ class TimelineListAdapter(
     }
 
     override fun onBindViewHolder(holder: BindingHolder<ItemStatusBinding>, position: Int) {
-
         getItem(position)?.let { status ->
-
-            // TODO order the stuff here
-
-            (holder.binding.postImages.adapter as TimelineImageAdapter).images = status.attachments
-
-            val maxImageRatio = status.attachments.map {
-                if (it.meta?.small?.width == null || it.meta.small.height == null) {
-                    1f
-                } else {
-                    it.meta.small.height.toFloat() / it.meta.small.width.toFloat()
-                }
-            }.maxOrNull()?.coerceAtMost(1f) ?: 1f
-
-            holder.binding.postImages.layoutParams.height = (displayWidth * maxImageRatio).toInt()
-
-            holder.binding.postAvatar.load(status.account.avatar) {
-                transformations(RoundedCornersTransformation(25f))
-            }
-
-            holder.binding.postAvatar.setOnClickListener {
-                holder.binding.root.context.startActivity(ProfileActivity.newIntent(holder.binding.root.context, status.account.id))
-            }
-
-            holder.binding.postDisplayName.text = status.account.displayName
-            holder.binding.postName.text = "@${status.account.username}"
-
-            holder.binding.postLikeButton.isChecked = status.favourited
-
-            holder.binding.postLikeButton.setEventListener { _, _ ->
-                listener.onFavorite(status)
-                true
-            }
-
-            holder.binding.postBoostButton.isChecked = status.reblogged
-
-            holder.binding.postBoostButton.setEventListener { _, _ ->
-                listener.onBoost(status)
-                true
-            }
-
-            holder.binding.postReplyButton.setOnClickListener {
-                listener.onReply(status)
-            }
-
-            holder.binding.postIndicator.visible = status.attachments.size > 1
-
-            holder.binding.postImages.visible = status.attachments.isNotEmpty()
-
-            holder.binding.postDescription.text = status.content.parseAsHtml().trim()
-
-            holder.binding.postDate.text = dateTimeFormatter.format(status.createdAt)
-
-            holder.binding.postSensitiveMediaOverlay.visible = status.attachments.isNotEmpty() && !status.mediaVisible
-
-            holder.binding.postSensitiveMediaOverlay.setOnClickListener {
-                listener.onMediaVisibilityChanged(status)
-            }
+            holder.bind(status, displayWidth, listener, dateTimeFormatter)
         }
+    }
+}
+
+fun BindingHolder<ItemStatusBinding>.bind(status: StatusEntity, displayWidth: Int, listener: TimeLineActionListener, dateTimeFormatter: DateFormat) {
+    // TODO order the stuff here
+
+    (binding.postImages.adapter as TimelineImageAdapter).images = status.attachments
+
+    val maxImageRatio = status.attachments.map {
+        if (it.meta?.small?.width == null || it.meta.small.height == null) {
+            1f
+        } else {
+            it.meta.small.height.toFloat() / it.meta.small.width.toFloat()
+        }
+    }.max()?.coerceAtMost(1f) ?: 1f
+
+    binding.postImages.layoutParams.height = (displayWidth * maxImageRatio).toInt()
+
+    binding.postAvatar.load(status.account.avatar) {
+        transformations(RoundedCornersTransformation(25f))
+    }
+
+    binding.postAvatar.setOnClickListener {
+        binding.root.context.startActivity(ProfileActivity.newIntent(binding.root.context, status.account.id))
+    }
+
+    binding.postDisplayName.text = status.account.displayName
+    binding.postName.text = "@${status.account.username}"
+
+    binding.postLikeButton.isChecked = status.favourited
+
+    binding.postLikeButton.setEventListener { _, _ ->
+        listener.onFavorite(status)
+        true
+    }
+
+    binding.postBoostButton.isChecked = status.reblogged
+
+    binding.postBoostButton.setEventListener { _, _ ->
+        listener.onBoost(status)
+        true
+    }
+
+    binding.postReplyButton.setOnClickListener {
+        listener.onReply(status)
+    }
+
+    binding.postIndicator.visible = status.attachments.size > 1
+
+    binding.postImages.visible = status.attachments.isNotEmpty()
+
+    binding.postDescription.text = status.content.parseAsHtml().trim()
+
+    binding.postDate.text = dateTimeFormatter.format(status.createdAt)
+
+    binding.postSensitiveMediaOverlay.visible = status.attachments.isNotEmpty() && !status.mediaVisible
+
+    binding.postSensitiveMediaOverlay.setOnClickListener {
+        listener.onMediaVisibilityChanged(status)
+    }
+
+    binding.root.setOnClickListener {
+        listener.onDetailsOpened(status)
     }
 }

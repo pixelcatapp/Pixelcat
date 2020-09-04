@@ -17,13 +17,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// from https://proandroiddev.com/viewmodel-with-dagger2-architecture-components-2e06f06c9455
-
 package at.connyduck.pixelcat.dagger
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import at.connyduck.pixelcat.components.compose.ComposeViewModel
+import at.connyduck.pixelcat.components.timeline.detail.DetailViewModel
 import at.connyduck.pixelcat.components.login.LoginViewModel
 import at.connyduck.pixelcat.components.main.MainViewModel
 import at.connyduck.pixelcat.components.notifications.NotificationsViewModel
@@ -90,5 +89,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ComposeViewModel::class)
     internal abstract fun composeViewModel(viewModel: ComposeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailViewModel::class)
+    internal abstract fun detailViewModel(viewModel: DetailViewModel): ViewModel
     // Add more ViewModels here
 }
