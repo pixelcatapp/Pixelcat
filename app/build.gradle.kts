@@ -47,27 +47,27 @@ tasks {
 }
 
 ktlint {
-    version.set("0.37.1")
+    version.set("0.38.1")
     disabledRules.set(setOf("import-ordering"))
 }
 
 dependencies {
 
-    val lifecycleVersion = "2.3.0-alpha04"
-    val roomVersion = "2.3.0-alpha01"
-    val okHttpVersion = "4.7.2"
+    val lifecycleVersion = "2.3.0-alpha07"
+    val roomVersion = "2.3.0-alpha02"
+    val okHttpVersion = "4.8.1"
     val retrofitVersion = "2.9.0"
-    val moshiVersion = "1.9.2"
-    val daggerVersion = "2.27"
+    val moshiVersion = "1.10.0"
+    val daggerVersion = "2.28.3"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.0")
 
-    implementation("androidx.core:core:1.3.1")
-    implementation("androidx.appcompat:appcompat:1.3.0-alpha01")
-    implementation("androidx.activity:activity-ktx:1.2.0-alpha07")
-    implementation("androidx.fragment:fragment-ktx:1.3.0-alpha07")
+    implementation("androidx.core:core-ktx:1.5.0-alpha02")
+    implementation("androidx.appcompat:appcompat:1.3.0-alpha02")
+    implementation("androidx.activity:activity-ktx:1.2.0-alpha08")
+    implementation("androidx.fragment:fragment-ktx:1.3.0-alpha08")
     implementation("com.google.android.material:material:1.3.0-alpha02")
-    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.recyclerview:recyclerview:1.2.0-alpha05")
     implementation("androidx.annotation:annotation:1.1.0")
@@ -77,7 +77,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation("androidx.preference:preference:1.1.1")
     implementation("androidx.emoji:emoji-bundled:1.1.0")
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha04")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha05")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     implementation("androidx.room:room-ktx:$roomVersion")
@@ -101,7 +101,7 @@ dependencies {
 
     implementation("me.relex:circleindicator:2.1.4")
 
-    implementation("io.coil-kt:coil:0.11.0")
+    implementation("io.coil-kt:coil:1.0.0-rc2")
 
     implementation("com.github.connyduck:sparkbutton:4.0.0")
 

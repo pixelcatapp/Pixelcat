@@ -29,7 +29,7 @@ import at.connyduck.pixelcat.components.util.BindingHolder
 import at.connyduck.pixelcat.components.util.extension.visible
 import at.connyduck.pixelcat.databinding.ItemStatusBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity
-import coil.api.load
+import coil.load
 import coil.transform.RoundedCornersTransformation
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -85,7 +85,7 @@ fun BindingHolder<ItemStatusBinding>.bind(status: StatusEntity, displayWidth: In
         } else {
             it.meta.small.height.toFloat() / it.meta.small.width.toFloat()
         }
-    }.max()?.coerceAtMost(1f) ?: 1f
+    }.maxOrNull()?.coerceAtMost(1f) ?: 1f
 
     binding.postImages.layoutParams.height = (displayWidth * maxImageRatio).toInt()
 

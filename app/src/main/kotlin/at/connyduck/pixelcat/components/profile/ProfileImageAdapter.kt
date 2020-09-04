@@ -30,7 +30,7 @@ import at.connyduck.pixelcat.components.util.extension.show
 import at.connyduck.pixelcat.databinding.ItemProfileImageBinding
 import at.connyduck.pixelcat.model.Attachment
 import at.connyduck.pixelcat.model.Status
-import coil.api.load
+import coil.load
 
 class ProfileImageAdapter(
     private val imageSizePx: Int

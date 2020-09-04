@@ -28,7 +28,7 @@ import at.connyduck.pixelcat.components.util.extension.hide
 import at.connyduck.pixelcat.components.util.extension.show
 import at.connyduck.pixelcat.databinding.ItemAccountSelectionBinding
 import at.connyduck.pixelcat.db.entitity.AccountEntity
-import coil.api.load
+import coil.load
 import coil.transform.RoundedCornersTransformation
 
 class AccountSelectionAdapter(

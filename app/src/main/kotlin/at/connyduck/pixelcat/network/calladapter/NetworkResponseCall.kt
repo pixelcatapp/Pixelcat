@@ -32,19 +32,32 @@ internal class NetworkResponseCall<S : Any>(
 ) : Call<NetworkResponse<S>> {
 
     override fun enqueue(callback: Callback<NetworkResponse<S>>) {
-        return delegate.enqueue(object : Callback<S> {
-            override fun onResponse(call: Call<S>, response: Response<S>) {
-                val body = response.body()
+        return delegate.enqueue(
+            object : Callback<S> {
+                override fun onResponse(call: Call<S>, response: Response<S>) {
+                    val body = response.body()
 
-                val errorbody = response.errorBody()?.string()
-                if (response.isSuccessful) {
-                    if (body != null) {
-                        callback.onResponse(
-                            this@NetworkResponseCall,
-                            Response.success(NetworkResponse.Success(body))
-                        )
+                    val errorbody = response.errorBody()?.string()
+                    if (response.isSuccessful) {
+                        if (body != null) {
+                            callback.onResponse(
+                                this@NetworkResponseCall,
+                                Response.success(NetworkResponse.Success(body))
+                            )
+                        } else {
+                            // Response is successful but the body is null
+                            callback.onResponse(
+                                this@NetworkResponseCall,
+                                Response.success(
+                                    NetworkResponse.Failure(
+                                        NetworkResponseError.ApiError(
+                                            response.code()
+                                        )
+                                    )
+                                )
+                            )
+                        }
                     } else {
-                        // Response is successful but the body is null
                         callback.onResponse(
                             this@NetworkResponseCall,
                             Response.success(
@@ -56,33 +69,22 @@ internal class NetworkResponseCall<S : Any>(
                             )
                         )
                     }
-                } else {
-                    callback.onResponse(
-                        this@NetworkResponseCall,
-                        Response.success(
-                            NetworkResponse.Failure(
-                                NetworkResponseError.ApiError(
-                                    response.code()
-                                )
+                }
+
+                override fun onFailure(call: Call<S>, throwable: Throwable) {
+                    Log.d("NetworkResponseCall", "Network response failed", throwable)
+                    val networkResponse = when (throwable) {
+                        is IOException -> NetworkResponse.Failure(
+                            NetworkResponseError.NetworkError(
+                                throwable
                             )
                         )
-                    )
+                        else -> NetworkResponse.Failure(NetworkResponseError.UnknownError(throwable))
+                    }
+                    callback.onResponse(this@NetworkResponseCall, Response.success(networkResponse))
                 }
             }
-
-            override fun onFailure(call: Call<S>, throwable: Throwable) {
-                Log.d("NetworkResponseCall", "Network response failed", throwable)
-                val networkResponse = when (throwable) {
-                    is IOException -> NetworkResponse.Failure(
-                        NetworkResponseError.NetworkError(
-                            throwable
-                        )
-                    )
-                    else -> NetworkResponse.Failure(NetworkResponseError.UnknownError(throwable))
-                }
-                callback.onResponse(this@NetworkResponseCall, Response.success(networkResponse))
-            }
-        })
+        )
     }
 
     override fun isExecuted() = delegate.isExecuted

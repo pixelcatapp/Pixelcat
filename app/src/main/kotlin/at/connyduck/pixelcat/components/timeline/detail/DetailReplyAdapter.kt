@@ -9,7 +9,7 @@ import at.connyduck.pixelcat.components.timeline.TimelineDiffUtil
 import at.connyduck.pixelcat.components.util.BindingHolder
 import at.connyduck.pixelcat.databinding.ItemReplyBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity
-import coil.api.load
+import coil.load
 import coil.transform.RoundedCornersTransformation
 import java.text.SimpleDateFormat
 

@@ -28,7 +28,7 @@ import at.connyduck.pixelcat.components.util.extension.visible
 import at.connyduck.pixelcat.databinding.ItemProfileHeaderBinding
 import at.connyduck.pixelcat.model.Account
 import at.connyduck.pixelcat.model.Relationship
-import coil.api.load
+import coil.load
 import coil.transform.RoundedCornersTransformation
 import java.text.NumberFormat
 

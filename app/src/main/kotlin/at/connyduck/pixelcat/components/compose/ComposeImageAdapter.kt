@@ -28,7 +28,7 @@ import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.util.BindingHolder
 import at.connyduck.pixelcat.databinding.ItemComposeImageBinding
 import at.connyduck.sparkbutton.helpers.Utils
-import coil.api.load
+import coil.load
 import java.io.File
 
 interface OnImageActionClickListener {

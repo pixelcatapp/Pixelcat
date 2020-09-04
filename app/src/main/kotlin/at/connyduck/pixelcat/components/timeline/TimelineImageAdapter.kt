@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import at.connyduck.pixelcat.components.util.BindingHolder
 import at.connyduck.pixelcat.databinding.ItemTimelineImageBinding
 import at.connyduck.pixelcat.model.Attachment
-import coil.api.load
+import coil.load
 
 class TimelineImageAdapter : RecyclerView.Adapter<BindingHolder<ItemTimelineImageBinding>>() {
 
