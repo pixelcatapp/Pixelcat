@@ -32,6 +32,7 @@ data class Attachment(
     val description: String?
 ) {
 
+    @JsonClass(generateAdapter = false)
     enum class Type {
         @Json(name = "image")
         IMAGE,

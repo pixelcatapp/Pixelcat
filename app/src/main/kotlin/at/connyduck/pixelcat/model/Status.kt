@@ -51,6 +51,7 @@ data class Status(
     val actionableStatus: Status
         get() = reblog ?: this
 
+    @JsonClass(generateAdapter = false)
     enum class Visibility {
         UNKNOWN,
         @Json(name = "public")
