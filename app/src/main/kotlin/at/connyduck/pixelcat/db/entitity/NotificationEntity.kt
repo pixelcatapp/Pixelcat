@@ -19,24 +19,26 @@
 
 package at.connyduck.pixelcat.db.entitity
 
-import at.connyduck.pixelcat.model.Account
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.TypeConverters
+import at.connyduck.pixelcat.db.Converters
+import at.connyduck.pixelcat.model.Notification
 
-data class TimelineAccountEntity(
+@Entity(primaryKeys = ["accountId", "id"])
+@TypeConverters(Converters::class)
+data class NotificationEntity(
     val accountId: Long,
+    val type: Notification.Type,
     val id: String,
-    val localUsername: String,
-    val username: String,
-    val displayName: String,
-    val url: String,
-    val avatar: String
+    @Embedded(prefix = "a_") val account: TimelineAccountEntity,
+    @Embedded(prefix = "s_") val status: StatusEntity?
 )
 
-fun Account.toEntity(accountId: Long) = TimelineAccountEntity(
+fun Notification.toEntity(accountId: Long) = NotificationEntity(
     accountId = accountId,
+    type = type,
     id = id,
-    localUsername = localUsername,
-    username = username,
-    displayName = displayName,
-    url = url,
-    avatar = avatar
+    account = account.toEntity(accountId),
+    status = status?.toEntity(accountId, 0, false)
 )

@@ -21,12 +21,14 @@ package at.connyduck.pixelcat.dagger
 
 import at.connyduck.pixelcat.BuildConfig
 import at.connyduck.pixelcat.db.AccountManager
+import at.connyduck.pixelcat.model.Notification
 import at.connyduck.pixelcat.network.FediverseApi
 import at.connyduck.pixelcat.network.InstanceSwitchAuthInterceptor
 import at.connyduck.pixelcat.network.RefreshTokenAuthenticator
 import at.connyduck.pixelcat.network.UserAgentInterceptor
 import at.connyduck.pixelcat.network.calladapter.NetworkResponseAdapterFactory
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.EnumJsonAdapter
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module
 import dagger.Provides
@@ -69,6 +71,7 @@ class NetworkModule {
     fun providesMoshi(): Moshi {
         return Moshi.Builder()
             .add(Date::class.java, Rfc3339DateJsonAdapter())
+            .add(Notification.Type::class.java, EnumJsonAdapter.create(Notification.Type::class.java).withUnknownFallback(Notification.Type.UNKNOWN))
             .build()
     }
 

@@ -20,6 +20,35 @@
 package at.connyduck.pixelcat.components.notifications
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import at.connyduck.pixelcat.db.AccountManager
+import at.connyduck.pixelcat.db.AppDatabase
+import at.connyduck.pixelcat.network.FediverseApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flatMapConcat
 import javax.inject.Inject
 
-class NotificationsViewModel @Inject constructor() : ViewModel()
+class NotificationsViewModel @Inject constructor(
+    accountManager: AccountManager,
+    private val db: AppDatabase,
+    private val fediverseApi: FediverseApi
+) : ViewModel() {
+
+    @OptIn(FlowPreview::class)
+    @ExperimentalPagingApi
+    val notificationsFlow = accountManager::activeAccount.asFlow()
+        .flatMapConcat { activeAccount ->
+            Pager(
+                config = PagingConfig(pageSize = 10, enablePlaceholders = false),
+                remoteMediator = NotificationsRemoteMediator(activeAccount?.id!!, fediverseApi, db),
+                pagingSourceFactory = { db.notificationsDao().notifications(activeAccount.id) }
+            ).flow
+        }
+        .cachedIn(viewModelScope)
+
+}

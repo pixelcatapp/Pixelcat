@@ -17,20 +17,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package at.connyduck.pixelcat.db
+package at.connyduck.pixelcat.model
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import at.connyduck.pixelcat.db.entitity.AccountEntity
-import at.connyduck.pixelcat.db.entitity.NotificationEntity
-import at.connyduck.pixelcat.db.entitity.StatusEntity
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Database(entities = [AccountEntity::class, StatusEntity::class, NotificationEntity::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
+@JsonClass(generateAdapter = true)
+data class Notification(
+    val type: Type,
+    val id: String,
+    val account: Account,
+    val status: Status?
+) {
 
-    abstract fun accountDao(): AccountDao
-
-    abstract fun statusDao(): TimelineDao
-
-    abstract fun notificationsDao(): NotificationsDao
+    @JsonClass(generateAdapter = false)
+    enum class Type {
+        UNKNOWN,
+        @Json(name = "mention")
+        MENTION,
+        @Json(name = "reblog")
+        REBLOG,
+        @Json(name = "favourite")
+        FAVOURITE,
+        @Json(name = "follow")
+        FOLLOW,
+        @Json(name = "follow_request")
+        FOLLOW_REQUEST,
+        @Json(name = "poll")
+        POLL
+    }
 }

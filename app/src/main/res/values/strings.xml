@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Pixelcat</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_search">Search</string>
+    <string name="title_compose">Compose new status</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Profile</string>
 
     <string name="login_button">Login</string>
     <string name="instance_input_hint">Which instance?</string>
@@ -79,7 +81,10 @@
     <string name="status_general_error">An unexpected error occurred</string>
     <string name="status_network_error">Failed to connect. Please check your internet connection-</string>
 
-    <string name="status_details_replying_to">Replying to $1%s</string>
+    <string name="status_details_replying_to">Replying to %1$s</string>
 
+    <string name="notification_reblogged">%1$s boosted your post</string>
+    <string name="notification_favourited">%1$s liked your post</string>
+    <string name="notification_followed">%1$s followed you</string>
 
 </resources>

@@ -78,9 +78,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation("androidx.preference:preference:1.1.1")
     implementation("androidx.emoji:emoji-bundled:1.1.0")
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha05")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha06")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
-    implementation("androidx.window:window:1.0.0-alpha01")
 
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")

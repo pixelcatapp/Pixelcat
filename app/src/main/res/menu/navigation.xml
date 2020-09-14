@@ -9,12 +9,12 @@
     <item
             android:id="@+id/navigation_search"
             android:icon="@drawable/ic_search"
-            android:title="@string/title_dashboard"/>
+            android:title="@string/title_search"/>
 
     <item
             android:id="@+id/navigation_compose"
             android:icon="@drawable/ic_plus_square"
-            android:title="@string/title_notifications"/>
+            android:title="@string/title_compose"/>
     <item
             android:id="@+id/navigation_notifications"
             android:icon="@drawable/ic_heart"
@@ -22,6 +22,6 @@
     <item
             android:id="@+id/navigation_profile"
             android:icon="@drawable/ic_user"
-            android:title="@string/title_notifications"/>
+            android:title="@string/title_profile"/>
 
 </menu>

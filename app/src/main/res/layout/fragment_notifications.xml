@@ -15,23 +15,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:navigationIcon="@drawable/ic_cat_small"
-                app:title="@string/app_name"
+                app:title="@string/title_notifications"
                 app:titleTextAppearance="@style/TextAppearanceToolbar"
                 app:titleTextColor="?attr/colorPrimary" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/timelineSwipeRefresh"
+            android:id="@+id/notificationSwipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/timelineRecyclerView"
+                android:id="@+id/notificationRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </LinearLayout>

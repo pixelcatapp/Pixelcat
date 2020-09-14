@@ -21,6 +21,7 @@ package at.connyduck.pixelcat.db
 
 import androidx.room.TypeConverter
 import at.connyduck.pixelcat.model.Attachment
+import at.connyduck.pixelcat.model.Notification
 import at.connyduck.pixelcat.model.Status
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -31,14 +32,10 @@ class Converters {
     private val moshi = Moshi.Builder().build()
 
     @TypeConverter
-    fun visibilityToInt(visibility: Status.Visibility): String {
-        return visibility.name
-    }
+    fun visibilityToString(visibility: Status.Visibility) = visibility.name
 
     @TypeConverter
-    fun stringToVisibility(visibility: String): Status.Visibility {
-        return Status.Visibility.valueOf(visibility)
-    }
+    fun stringToVisibility(visibility: String) = Status.Visibility.valueOf(visibility)
 
     @TypeConverter
     fun attachmentListToJson(attachmentList: List<Attachment>?): String {
@@ -62,12 +59,14 @@ class Converters {
     }
 
     @TypeConverter
-    fun dateToLong(date: Date): Long {
-        return date.time
-    }
+    fun dateToLong(date: Date) = date.time
 
     @TypeConverter
-    fun longToDate(date: Long): Date {
-        return Date(date)
-    }
+    fun longToDate(date: Long) = Date(date)
+
+    @TypeConverter
+    fun notificationTypeToString(type: Notification.Type) = type.name
+
+    @TypeConverter
+    fun stringToNotificationType(type: String) = Notification.Type.valueOf(type)
 }

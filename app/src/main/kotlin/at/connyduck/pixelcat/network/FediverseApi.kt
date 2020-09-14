@@ -24,6 +24,7 @@ import at.connyduck.pixelcat.model.Account
 import at.connyduck.pixelcat.model.AppCredentials
 import at.connyduck.pixelcat.model.Attachment
 import at.connyduck.pixelcat.model.NewStatus
+import at.connyduck.pixelcat.model.Notification
 import at.connyduck.pixelcat.model.Relationship
 import at.connyduck.pixelcat.model.Status
 import at.connyduck.pixelcat.model.StatusContext
@@ -40,6 +41,7 @@ import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+@JvmSuppressWildcards
 interface FediverseApi {
 
     companion object {
@@ -199,4 +201,12 @@ interface FediverseApi {
     suspend fun statusContext(
         @Path("id") statusId: String
     ): NetworkResponse<StatusContext>
+
+    @GET("api/v1/notifications")
+    suspend fun notifications(
+        @Query("max_id") maxId: String? = null,
+        @Query("since_id") sinceId: String? = null,
+        @Query("limit") limit: Int? = null,
+        @Query("exclude_types[]") excludes: Set<String>? = null
+    ): NetworkResponse<List<Notification>>
 }
