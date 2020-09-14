@@ -31,7 +31,7 @@ import android.webkit.MimeTypeMap
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import at.connyduck.pixelcat.R
-import at.connyduck.pixelcat.components.util.getColorForAttr
+import at.connyduck.pixelcat.components.util.extension.getColorForAttr
 import at.connyduck.pixelcat.components.util.getMimeType
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.model.NewStatus

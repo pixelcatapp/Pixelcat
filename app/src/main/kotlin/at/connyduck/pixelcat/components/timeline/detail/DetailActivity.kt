@@ -15,10 +15,10 @@ import at.connyduck.pixelcat.components.timeline.TimeLineActionListener
 import at.connyduck.pixelcat.components.util.Error
 import at.connyduck.pixelcat.components.util.Loading
 import at.connyduck.pixelcat.components.util.Success
+import at.connyduck.pixelcat.components.util.extension.getColorForAttr
 import at.connyduck.pixelcat.components.util.extension.getDisplayWidthInPx
 import at.connyduck.pixelcat.components.util.extension.hide
 import at.connyduck.pixelcat.components.util.extension.show
-import at.connyduck.pixelcat.components.util.getColorForAttr
 import at.connyduck.pixelcat.dagger.ViewModelFactory
 import at.connyduck.pixelcat.databinding.ActivityDetailBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity

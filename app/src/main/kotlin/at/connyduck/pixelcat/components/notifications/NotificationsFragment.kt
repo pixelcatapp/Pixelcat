@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.profile.ProfileActivity
 import at.connyduck.pixelcat.components.timeline.detail.DetailActivity
-import at.connyduck.pixelcat.components.util.getColorForAttr
+import at.connyduck.pixelcat.components.util.extension.getColorForAttr
 import at.connyduck.pixelcat.dagger.ViewModelFactory
 import at.connyduck.pixelcat.databinding.FragmentNotificationsBinding
 import at.connyduck.pixelcat.db.entitity.StatusEntity

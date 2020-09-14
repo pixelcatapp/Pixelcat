@@ -42,9 +42,8 @@ fun Context.getDisplayWidthInPx(): Int {
 @ColorInt
 fun Context.getColorForAttr(@AttrRes attr: Int): Int {
     val value = TypedValue()
-    return if (this.theme.resolveAttribute(attr, value, true)) {
-        value.data
-    } else {
-        throw IllegalArgumentException()
+    if (this.theme.resolveAttribute(attr, value, true)) {
+        return value.data
     }
+    throw IllegalArgumentException("Attribute not found")
 }
