@@ -87,4 +87,6 @@
     <string name="notification_favourited">%1$s liked your post</string>
     <string name="notification_followed">%1$s followed you</string>
 
+    <string name="title_login">Login</string>
+
 </resources>

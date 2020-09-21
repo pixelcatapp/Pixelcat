@@ -19,7 +19,6 @@
 
 package at.connyduck.pixelcat.components.splash
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import at.connyduck.pixelcat.components.login.LoginActivity
@@ -40,12 +39,9 @@ class SplashActivity : DaggerAppCompatActivity() {
         lifecycleScope.launch {
 
             val intent = if (accountManager.activeAccount() != null) {
-                Intent(
-                    this@SplashActivity,
-                    MainActivity::class.java
-                ) // TODO don't create intents here
+                MainActivity.newIntent(this@SplashActivity)
             } else {
-                Intent(this@SplashActivity, LoginActivity::class.java)
+                LoginActivity.newIntent(this@SplashActivity)
             }
             startActivity(intent)
             finish()

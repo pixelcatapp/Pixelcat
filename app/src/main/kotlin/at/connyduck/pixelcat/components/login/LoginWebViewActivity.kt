@@ -23,22 +23,34 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import at.connyduck.pixelcat.config.Config
 import android.webkit.WebViewClient
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import at.connyduck.pixelcat.components.general.BaseActivity
 import at.connyduck.pixelcat.databinding.ActivityLoginWebViewBinding
 
-class LoginWebViewActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityLoginWebViewBinding
+class LoginWebViewActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginWebViewBinding.inflate(layoutInflater)
+        val binding = ActivityLoginWebViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val top = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
+            val toolbarParams = binding.loginToolbar.layoutParams as ViewGroup.MarginLayoutParams
+            toolbarParams.topMargin = top
+            WindowInsetsCompat.CONSUMED
+        }
+
+        binding.loginToolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         val domain = intent.getStringExtra(EXTRA_DOMAIN)!!
         val clientId = intent.getStringExtra(EXTRA_CLIENT_ID)!!

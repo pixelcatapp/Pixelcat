@@ -19,14 +19,8 @@
 
 package at.connyduck.pixelcat.model
 
-import android.os.Parcel
-import android.os.Parcelable
-import android.text.Spanned
-import androidx.core.text.HtmlCompat
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.android.parcel.Parceler
-import kotlinx.android.parcel.Parcelize
 import java.util.Date
 
 @JsonClass(generateAdapter = true)
@@ -55,38 +49,25 @@ data class Account(
         get() = if (displayName.isEmpty()) {
             localUsername
         } else displayName
-
-    fun isRemote(): Boolean = this.username != this.localUsername
 }
 
 @JsonClass(generateAdapter = true)
-@Parcelize
 data class AccountSource(
-    //  val privacy: Status.Visibility,
+    val privacy: Status.Visibility,
     val sensitive: Boolean,
     val note: String,
     val fields: List<StringField>?
-) : Parcelable
+)
 
 @JsonClass(generateAdapter = true)
-@Parcelize
 data class Field(
     val name: String,
-    //  val value: @WriteWith<SpannedParceler>() Spanned,
+    val value: String,
     @Json(name = "verified_at") val verifiedAt: Date?
-) : Parcelable
+)
 
 @JsonClass(generateAdapter = true)
-@Parcelize
 data class StringField(
     val name: String,
     val value: String
-) : Parcelable
-
-object SpannedParceler : Parceler<Spanned> {
-    override fun create(parcel: Parcel): Spanned = HtmlCompat.fromHtml(parcel.readString() ?: "", HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)
-
-    override fun Spanned.write(parcel: Parcel, flags: Int) {
-        parcel.writeString(HtmlCompat.toHtml(this, HtmlCompat.TO_HTML_PARAGRAPH_LINES_INDIVIDUAL))
-    }
-}
+)

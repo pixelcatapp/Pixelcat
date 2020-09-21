@@ -27,7 +27,7 @@
     </style>
 
     <style name="AppTheme.Fullscreen">
-        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="TextAppearanceToolbar" parent="@style/TextAppearance.MaterialComponents.Headline6">

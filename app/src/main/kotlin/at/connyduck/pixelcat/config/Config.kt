@@ -28,5 +28,5 @@ object Config {
     const val oAuthRedirect = "$oAuthScheme://$oAuthHost"
     const val oAuthScopes = "read write follow"
 
-    val domainExceptions = arrayOf("gab.com", "gab.ai", "gabfed.com")
+    val domainExceptions = arrayOf("gab.com", "gab.ai", "spinster.xyz")
 }

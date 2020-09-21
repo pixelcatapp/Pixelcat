@@ -19,52 +19,54 @@
 
 package at.connyduck.pixelcat.components.login
 
-import androidx.annotation.MainThread
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import at.connyduck.pixelcat.config.Config
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.db.entitity.AccountAuthData
 import at.connyduck.pixelcat.network.FediverseApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.launch
 import okhttp3.HttpUrl
 import java.util.Locale
 import javax.inject.Inject
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class LoginViewModel @Inject constructor(
     private val fediverseApi: FediverseApi,
     private val accountManager: AccountManager
 ) : ViewModel() {
 
-    val loginState = MutableLiveData<LoginModel>().apply {
-        value = LoginModel(state = LoginState.NO_ERROR)
-    }
+    private val loginState = ConflatedBroadcastChannel(LoginModel(state = LoginState.NO_ERROR))
 
-    @MainThread
+    fun observe() = loginState.asFlow()
+
     fun startLogin(input: String) {
-
-        val domainInput = canonicalizeDomain(input)
-
-        try {
-            HttpUrl.Builder().host(domainInput).scheme("https").build()
-        } catch (e: IllegalArgumentException) {
-            loginState.value = LoginModel(input, LoginState.INVALID_DOMAIN)
-            return
-        }
-
-        val exceptionMatch = Config.domainExceptions.any { exception ->
-            domainInput.equals(exception, true) || domainInput.endsWith(".$exception", true)
-        }
-
-        if (exceptionMatch) {
-            loginState.value = LoginModel(input, LoginState.AUTH_ERROR)
-            return
-        }
-
-        loginState.value = LoginModel(input, LoginState.LOADING)
-
         viewModelScope.launch {
+            val domainInput = canonicalizeDomain(input)
+
+            try {
+                HttpUrl.Builder().host(domainInput).scheme("https").build()
+            } catch (e: IllegalArgumentException) {
+                loginState.send(LoginModel(input, LoginState.INVALID_DOMAIN))
+                return@launch
+            }
+
+            val exceptionMatch = Config.domainExceptions.any { exception ->
+                domainInput.equals(exception, true) || domainInput.endsWith(".$exception", true)
+            }
+
+            if (exceptionMatch) {
+                loginState.send(LoginModel(input, LoginState.AUTH_ERROR))
+                return@launch
+            }
+
+            loginState.send(LoginModel(input, LoginState.LOADING))
+
             fediverseApi.authenticateAppAsync(
                 domain = domainInput,
                 clientName = "Pixelcat",
@@ -73,19 +75,18 @@ class LoginViewModel @Inject constructor(
                 scopes = Config.oAuthScopes
             ).fold(
                 { appData ->
-                    loginState.postValue(LoginModel(input, LoginState.SUCCESS, domainInput, appData.clientId, appData.clientSecret))
+                    loginState.send(LoginModel(input, LoginState.SUCCESS, domainInput, appData.clientId, appData.clientSecret))
                 },
                 {
-                    loginState.postValue(LoginModel(input, LoginState.AUTH_ERROR))
+                    loginState.send(LoginModel(input, LoginState.AUTH_ERROR))
                 }
             )
         }
     }
 
-    @MainThread
     fun authCode(authCode: String) {
         viewModelScope.launch {
-            val loginModel = loginState.value!!
+            val loginModel = loginState.value
 
             fediverseApi.fetchOAuthToken(
                 domain = loginModel.domain!!,
@@ -106,11 +107,18 @@ class LoginViewModel @Inject constructor(
                         clientSecret = loginModel.clientSecret
                     )
                     accountManager.addAccount(loginModel.domain, authData)
-                    loginState.postValue(loginState.value?.copy(state = LoginState.SUCCESS_FINAL))
+                    loginState.send(loginState.value.copy(state = LoginState.SUCCESS_FINAL))
                 },
                 {
+                    loginState.send(loginState.value.copy(state = LoginState.AUTH_ERROR))
                 }
             )
+        }
+    }
+
+    fun removeError() {
+        viewModelScope.launch {
+            loginState.send(loginState.value.copy(state = LoginState.NO_ERROR))
         }
     }
 

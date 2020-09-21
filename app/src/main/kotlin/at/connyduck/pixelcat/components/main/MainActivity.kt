@@ -20,6 +20,7 @@
 package at.connyduck.pixelcat.components.main
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
@@ -114,5 +115,9 @@ class MainActivity : BaseActivity() {
 
             startActivity(ComposeActivity.newIntent(this, returnValue?.firstOrNull()!!))
         }
+    }
+
+    companion object {
+        fun newIntent(context: Context) = Intent(context, MainActivity::class.java)
     }
 }

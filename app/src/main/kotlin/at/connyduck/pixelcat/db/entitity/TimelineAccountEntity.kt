@@ -36,7 +36,7 @@ fun Account.toEntity(accountId: Long) = TimelineAccountEntity(
     id = id,
     localUsername = localUsername,
     username = username,
-    displayName = displayName,
+    displayName = name,
     url = url,
     avatar = avatar
 )

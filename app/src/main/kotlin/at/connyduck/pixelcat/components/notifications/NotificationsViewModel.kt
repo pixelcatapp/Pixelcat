@@ -50,5 +50,4 @@ class NotificationsViewModel @Inject constructor(
             ).flow
         }
         .cachedIn(viewModelScope)
-
 }

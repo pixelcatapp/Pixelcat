@@ -25,6 +25,7 @@ import at.connyduck.pixelcat.components.about.licenses.LicenseActivity
 import at.connyduck.pixelcat.components.compose.ComposeActivity
 import at.connyduck.pixelcat.components.timeline.detail.DetailActivity
 import at.connyduck.pixelcat.components.login.LoginActivity
+import at.connyduck.pixelcat.components.login.LoginWebViewActivity
 import at.connyduck.pixelcat.components.profile.ProfileActivity
 import at.connyduck.pixelcat.components.settings.SettingsActivity
 import at.connyduck.pixelcat.components.splash.SplashActivity
@@ -61,4 +62,7 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun contributesDetailActivity(): DetailActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributesLoginWebViewActivity(): LoginWebViewActivity
 }
