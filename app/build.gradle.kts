@@ -45,6 +45,7 @@ android {
     }
 
     sourceSets["main"].java.srcDir("src/main/kotlin")
+    sourceSets["test"].java.srcDir("src/test/kotlin")
 }
 
 tasks {
@@ -67,6 +68,7 @@ dependencies {
     val retrofitVersion = "2.9.0"
     val moshiVersion = "1.10.0"
     val daggerVersion = "2.28.3"
+    val jUnitVersion = "5.7.0"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.0")
 
@@ -118,5 +120,8 @@ dependencies {
     implementation("com.google.dagger:dagger-android-support:$daggerVersion")
     kapt("com.google.dagger:dagger-android-processor:$daggerVersion")
 
-    testImplementation("junit:junit:4.13")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
+
+    testImplementation("com.squareup.okhttp3:mockwebserver:$okHttpVersion")
 }

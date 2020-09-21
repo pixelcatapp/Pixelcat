@@ -19,7 +19,6 @@
 
 package at.connyduck.pixelcat.network.calladapter
 
-import android.util.Log
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call
@@ -37,7 +36,6 @@ internal class NetworkResponseCall<S : Any>(
                 override fun onResponse(call: Call<S>, response: Response<S>) {
                     val body = response.body()
 
-                    val errorbody = response.errorBody()?.string()
                     if (response.isSuccessful) {
                         if (body != null) {
                             callback.onResponse(
@@ -72,7 +70,6 @@ internal class NetworkResponseCall<S : Any>(
                 }
 
                 override fun onFailure(call: Call<S>, throwable: Throwable) {
-                    Log.d("NetworkResponseCall", "Network response failed", throwable)
                     val networkResponse = when (throwable) {
                         is IOException -> NetworkResponse.Failure(
                             NetworkResponseError.NetworkError(
