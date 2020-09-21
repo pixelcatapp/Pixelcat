@@ -36,9 +36,16 @@ android {
     buildFeatures {
         viewBinding = true
     }
-}
 
-android.sourceSets["main"].java.srcDir("src/main/kotlin")
+    packagingOptions {
+        exclude("LICENSE_OFL")
+        exclude("LICENSE_UNICODE")
+        exclude("okhttp3/internal/publicsuffix/NOTICE")
+        exclude("DebugProbesKt.bin")
+    }
+
+    sourceSets["main"].java.srcDir("src/main/kotlin")
+}
 
 tasks {
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -63,7 +70,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.0")
 
-    implementation("androidx.core:core-ktx:1.5.0-alpha02")
+    implementation("androidx.core:core-ktx:1.5.0-alpha03")
     implementation("androidx.appcompat:appcompat:1.3.0-alpha02")
     implementation("androidx.activity:activity-ktx:1.2.0-alpha08")
     implementation("androidx.fragment:fragment-ktx:1.3.0-alpha08")
@@ -77,7 +84,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation("androidx.preference:preference:1.1.1")
-    implementation("androidx.emoji:emoji-bundled:1.1.0")
+    implementation("androidx.emoji:emoji-bundled:1.2.0-alpha01")
     implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha06")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
