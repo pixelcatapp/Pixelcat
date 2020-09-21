@@ -41,15 +41,15 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
     @Inject
     lateinit var preferences: SharedPreferences
 
-    private val binding by viewBinding(ActivitySettingsBinding::inflate)
-
     private var restartActivitiesOnExit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val binding by viewBinding(ActivitySettingsBinding::inflate)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.settingsContainer) { _, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val top = insets.getInsets(systemBars()).top
             val toolbarParams = binding.settingsToolbar.layoutParams as ViewGroup.MarginLayoutParams
             toolbarParams.topMargin = top
