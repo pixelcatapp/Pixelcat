@@ -4,7 +4,7 @@
     <gradient
             android:angle="0"
             android:endColor="@color/pixelcat_gradient_warm_end"
-            android:centerColor="#E94057"
+            android:centerColor="@color/pixelcat_gradient_warm_middle"
             android:startColor="@color/pixelcat_gradient_warm_start"
             android:type="linear" />
 </shape>

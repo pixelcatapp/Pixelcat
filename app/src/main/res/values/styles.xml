@@ -3,15 +3,15 @@
     <style name="Warm">
         <item name="colorPrimary">@color/pixelcat_gradient_warm_middle</item>
         <item name="colorSecondary">@color/pixelcat_gradient_warm_middle</item>
-        <item name="pixelcat_gradient_color_start">@color/pixelcat_gradient_warm_start</item>
         <item name="pixelcat_gradient_color_end">@color/pixelcat_gradient_warm_end</item>
+        <item name="pixelcat_gradient_color_start">@color/pixelcat_gradient_warm_start</item>
     </style>
 
     <style name="Cold">
         <item name="colorPrimary">@color/pixelcat_gradient_cold_middle</item>
         <item name="colorSecondary">@color/pixelcat_gradient_cold_middle</item>
-        <item name="pixelcat_gradient_color_start">@color/pixelcat_gradient_cold_start</item>
-        <item name="pixelcat_gradient_color_end">@color/pixelcat_gradient_cold_end</item>
+        <item name="pixelcat_gradient_color_end">@color/pixelcat_gradient_cold_start</item>
+        <item name="pixelcat_gradient_color_start">@color/pixelcat_gradient_cold_end</item>
     </style>
 
     <style name="NunitoFont">

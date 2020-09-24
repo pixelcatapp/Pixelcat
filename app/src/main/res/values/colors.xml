@@ -7,15 +7,15 @@
     <color name="pixelcat_gradient_cold_end">#1A2980</color>
     <color name="pixelcat_gradient_cold_middle">#207da7</color>
 
-    <color name="pixelcat_gradient_warm_start">#F27121</color>
-    <color name="pixelcat_gradient_warm_end">#8A2387</color>
+    <color name="pixelcat_gradient_warm_start">#8A2387</color>
+    <color name="pixelcat_gradient_warm_end">#F27121</color>
     <color name="pixelcat_gradient_warm_middle">#E94057</color>
 
 
     <color name="divider_color">#e0e0e0</color>
 
-    <color name="heart_button_primary">@color/pixelcat_gradient_warm_end</color>
-    <color name="heart_button_secondary">@color/pixelcat_gradient_warm_start</color>
+    <color name="heart_button_primary">@color/pixelcat_gradient_warm_start</color>
+    <color name="heart_button_secondary">@color/pixelcat_gradient_warm_end</color>
 
     <color name="boost_button_primary">@color/pixelcat_gradient_cold_end</color>
     <color name="boost_button_secondary">@color/pixelcat_gradient_cold_start</color>

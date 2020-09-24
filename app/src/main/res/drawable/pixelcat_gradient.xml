@@ -3,8 +3,9 @@
        android:shape="rectangle" >
     <gradient
             android:angle="0"
-            android:endColor="?attr/pixelcat_gradient_color_start"
-            android:startColor="?attr/pixelcat_gradient_color_end"
+            android:endColor="?attr/pixelcat_gradient_color_end"
+            android:centerColor="?attr/colorPrimary"
+            android:startColor="?attr/pixelcat_gradient_color_start"
             android:type="linear" />
 
 </shape>

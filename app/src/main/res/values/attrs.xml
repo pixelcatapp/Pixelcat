@@ -7,6 +7,6 @@
         <attr name="description" format="string|reference" />
     </declare-styleable>
 
-    <attr name="pixelcat_gradient_color_start" format="reference|color" />
     <attr name="pixelcat_gradient_color_end" format="reference|color" />
+    <attr name="pixelcat_gradient_color_start" format="reference|color" />
 </resources>
