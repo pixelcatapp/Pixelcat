@@ -38,7 +38,7 @@ import javax.inject.Inject
 class TimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     private val db: AppDatabase,
-    private val fediverseApi: FediverseApi,
+    private val api: FediverseApi,
     private val useCases: TimelineUseCases
 ) : ViewModel() {
 
@@ -48,7 +48,7 @@ class TimelineViewModel @Inject constructor(
         .flatMapConcat { activeAccount ->
             Pager(
                 config = PagingConfig(pageSize = 10, enablePlaceholders = false),
-                remoteMediator = TimelineRemoteMediator(activeAccount?.id!!, fediverseApi, db),
+                remoteMediator = TimelineRemoteMediator(activeAccount?.id!!, api, db),
                 pagingSourceFactory = { db.statusDao().statuses(activeAccount.id) }
             ).flow
         }

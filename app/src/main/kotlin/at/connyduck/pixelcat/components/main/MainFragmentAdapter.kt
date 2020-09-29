@@ -35,9 +35,7 @@ class MainFragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAda
             1 -> SearchFragment.newInstance()
             2 -> NotificationsFragment.newInstance()
             3 -> ProfileFragment.newInstance()
-            else -> {
-                throw IllegalStateException()
-            }
+            else -> throw IllegalStateException()
         }
     }
 

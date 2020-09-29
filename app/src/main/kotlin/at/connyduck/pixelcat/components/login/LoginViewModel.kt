@@ -37,7 +37,7 @@ import javax.inject.Inject
 @FlowPreview
 @ExperimentalCoroutinesApi
 class LoginViewModel @Inject constructor(
-    private val fediverseApi: FediverseApi,
+    private val api: FediverseApi,
     private val accountManager: AccountManager
 ) : ViewModel() {
 
@@ -67,7 +67,7 @@ class LoginViewModel @Inject constructor(
 
             loginState.send(LoginModel(input, LoginState.LOADING))
 
-            fediverseApi.authenticateAppAsync(
+            api.authenticateAppAsync(
                 domain = domainInput,
                 clientName = "Pixelcat",
                 clientWebsite = Config.website,
@@ -88,7 +88,7 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             val loginModel = loginState.value
 
-            fediverseApi.fetchOAuthToken(
+            api.fetchOAuthToken(
                 domain = loginModel.domain!!,
                 clientId = loginModel.clientId!!,
                 clientSecret = loginModel.clientSecret!!,

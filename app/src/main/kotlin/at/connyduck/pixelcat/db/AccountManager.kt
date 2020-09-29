@@ -26,10 +26,7 @@ import at.connyduck.pixelcat.model.Account
 
 /**
  * This class caches the account database and handles all account related operations
- * @author ConnyDuck
  */
-
-// TODO check if the comments are up to date
 
 private const val TAG = "AccountManager"
 
@@ -55,8 +52,8 @@ class AccountManager(db: AppDatabase) {
      * Adds a new empty account and makes it the active account.
      * More account information has to be added later with [updateActiveAccount]
      * or the account wont be saved to the database.
-     * @param accessToken the access token for the new account
-     * @param domain the domain of the accounts Mastodon instance
+     * @param domain the domain of the accounts instance
+     * @param authData the auth data of the new account
      */
     suspend fun addAccount(domain: String, authData: AccountAuthData) {
 
@@ -114,8 +111,7 @@ class AccountManager(db: AppDatabase) {
     }
 
     /**
-     * updates the current account with new information from the mastodon api
-     * and saves it in the database
+     * updates the current account with new information from the api and saves it in the database
      * @param account the [Account] object returned from the api
      */
     suspend fun updateActiveAccount(account: Account) {
@@ -124,9 +120,6 @@ class AccountManager(db: AppDatabase) {
             it.username = account.username
             it.displayName = account.name
             it.profilePictureUrl = account.avatar
-            //  it.defaultPostPrivacy = account.source?.privacy ?: Status.Visibility.PUBLIC
-            it.defaultMediaSensitivity = account.source?.sensitive ?: false
-            //  it.emojis = account.emojis ?: emptyList()
 
             Log.d(TAG, "updateActiveAccount: saving account with id " + it.id)
             it.id = accountDao.insertOrReplace(it)
@@ -166,7 +159,7 @@ class AccountManager(db: AppDatabase) {
     }
 
     /**
-     * @return an immutable list of all accounts in the database with the active account first
+     * @return an immutable list of all accounts in the database
      */
     suspend fun getAllAccounts(): List<AccountEntity> {
 
@@ -178,13 +171,6 @@ class AccountManager(db: AppDatabase) {
         }
 
         return accounts.toList()
-    }
-
-    /**
-     * @return true if at least one account has notifications enabled
-     */
-    fun areNotificationsEnabled(): Boolean {
-        return accounts.any { it.notificationsEnabled }
     }
 
     /**

@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type.systemBars
+import androidx.fragment.app.commit
 import androidx.preference.PreferenceFragmentCompat
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
@@ -56,10 +57,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
             WindowInsetsCompat.CONSUMED
         }
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.settings, SettingsFragment())
-            .commit()
+        supportFragmentManager.commit {
+            replace(R.id.settings, SettingsFragment())
+        }
 
         binding.settingsToolbar.setNavigationOnClickListener {
             onBackPressed()

@@ -34,6 +34,7 @@ fun Context.getDisplayWidthInPx(): Int {
         windowManager.currentWindowMetrics.bounds.width()
     } else {
         val metrics = DisplayMetrics()
+        @Suppress("DEPRECATION")
         windowManager.defaultDisplay.getMetrics(metrics)
         metrics.widthPixels
     }

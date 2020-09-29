@@ -41,8 +41,7 @@ class DetailViewModel @Inject constructor(
     private val api: FediverseApi,
     private val db: AppDatabase,
     private val accountManager: AccountManager,
-    private val useCases: TimelineUseCases,
-    private val fediverseApi: FediverseApi
+    private val useCases: TimelineUseCases
 ) : ViewModel() {
 
     val currentStatus = MutableLiveData<UiState<StatusEntity>>()
@@ -129,7 +128,7 @@ class DetailViewModel @Inject constructor(
     fun onReply(statusToReply: StatusEntity, replyText: String) {
         viewModelScope.launch {
 
-            fediverseApi.reply(
+            api.reply(
                 NewStatus(
                     status = replyText,
                     inReplyToId = statusToReply.actionableId,

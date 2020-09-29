@@ -35,10 +35,9 @@ class StatusView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    val binding: ViewStatusBinding
+    val binding: ViewStatusBinding = ViewStatusBinding.inflate(LayoutInflater.from(context), this)
 
     init {
-        binding = ViewStatusBinding.inflate(LayoutInflater.from(context), this)
         gravity = Gravity.CENTER
         setBackgroundColor(context.getColorForAttr(R.attr.colorSurface))
         orientation = VERTICAL

@@ -32,7 +32,6 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-// @TypeConverters(Converters::class)
 data class AccountEntity(
     @field:PrimaryKey(autoGenerate = true) var id: Long,
     val domain: String,
@@ -41,21 +40,7 @@ data class AccountEntity(
     var accountId: String = "",
     var username: String = "",
     var displayName: String = "",
-    var profilePictureUrl: String = "",
-    var notificationsEnabled: Boolean = true,
-    var notificationsMentioned: Boolean = true,
-    var notificationsFollowed: Boolean = true,
-    var notificationsReblogged: Boolean = true,
-    var notificationsFavorited: Boolean = true,
-    var notificationSound: Boolean = true,
-    var notificationVibration: Boolean = true,
-    var notificationLight: Boolean = true,
-    var defaultMediaSensitivity: Boolean = false,
-    var alwaysShowSensitiveMedia: Boolean = false,
-    var mediaPreviewEnabled: Boolean = true,
-    var lastNotificationId: String = "0",
-    var activeNotifications: String = "[]",
-    var notificationsFilter: String = "[]"
+    var profilePictureUrl: String = ""
 ) {
 
     val identifier: String

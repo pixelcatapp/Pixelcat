@@ -36,7 +36,7 @@ import javax.inject.Inject
 class NotificationsViewModel @Inject constructor(
     accountManager: AccountManager,
     private val db: AppDatabase,
-    private val fediverseApi: FediverseApi
+    private val api: FediverseApi
 ) : ViewModel() {
 
     @OptIn(FlowPreview::class)
@@ -45,7 +45,7 @@ class NotificationsViewModel @Inject constructor(
         .flatMapConcat { activeAccount ->
             Pager(
                 config = PagingConfig(pageSize = 10, enablePlaceholders = false),
-                remoteMediator = NotificationsRemoteMediator(activeAccount?.id!!, fediverseApi, db),
+                remoteMediator = NotificationsRemoteMediator(activeAccount?.id!!, api, db),
                 pagingSourceFactory = { db.notificationsDao().notifications(activeAccount.id) }
             ).flow
         }

@@ -42,7 +42,6 @@ class TimelineImageAdapter : RecyclerView.Adapter<BindingHolder<ItemTimelineImag
     override fun getItemCount() = images.size
 
     override fun onBindViewHolder(holder: BindingHolder<ItemTimelineImageBinding>, position: Int) {
-
         holder.binding.timelineImageView.load(images[position].previewUrl)
     }
 }

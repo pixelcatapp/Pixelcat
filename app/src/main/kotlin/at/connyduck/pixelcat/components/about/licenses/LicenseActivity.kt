@@ -22,7 +22,6 @@ package at.connyduck.pixelcat.components.about.licenses
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RawRes
@@ -33,7 +32,6 @@ import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.general.BaseActivity
 import at.connyduck.pixelcat.databinding.ActivityLicenseBinding
 import java.io.BufferedReader
-import java.io.IOException
 import java.io.InputStreamReader
 
 class LicenseActivity : BaseActivity() {
@@ -62,24 +60,16 @@ class LicenseActivity : BaseActivity() {
 
     private fun loadFileIntoTextView(@RawRes fileId: Int, textView: TextView) {
 
-        val sb = StringBuilder()
-
-        val br = BufferedReader(InputStreamReader(resources.openRawResource(fileId)))
-
-        try {
-            var line: String? = br.readLine()
-            while (line != null) {
-                sb.append(line)
-                sb.append('\n')
-                line = br.readLine()
+        textView.text = buildString {
+            BufferedReader(InputStreamReader(resources.openRawResource(fileId))).use { br ->
+                var line: String? = br.readLine()
+                while (line != null) {
+                    append(line)
+                    append('\n')
+                    line = br.readLine()
+                }
             }
-        } catch (e: IOException) {
-            Log.w("LicenseActivity", e)
         }
-
-        br.close()
-
-        textView.text = sb.toString()
     }
 
     companion object {

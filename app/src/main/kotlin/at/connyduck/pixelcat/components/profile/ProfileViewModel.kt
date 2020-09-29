@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
-    private val fediverseApi: FediverseApi,
+    private val api: FediverseApi,
     private val accountManager: AccountManager
 ) : ViewModel() {
 
@@ -49,7 +49,7 @@ class ProfileViewModel @Inject constructor(
     @ExperimentalPagingApi
     val imageFlow = Pager(
         config = PagingConfig(pageSize = 10, enablePlaceholders = false),
-        pagingSourceFactory = { ProfileImagePagingSource(fediverseApi, accountId, accountManager) }
+        pagingSourceFactory = { ProfileImagePagingSource(api, accountId, accountManager) }
     ).flow
         .cachedIn(viewModelScope)
 
@@ -73,7 +73,7 @@ class ProfileViewModel @Inject constructor(
     private fun loadAccount(reload: Boolean = false) {
         if (profile.value == null || reload) {
             viewModelScope.launch {
-                fediverseApi.account(getAccountId()).fold(
+                api.account(getAccountId()).fold(
                     {
                         profile.value = Success(it)
                     },
@@ -88,7 +88,7 @@ class ProfileViewModel @Inject constructor(
     private fun loadRelationship(reload: Boolean = false) {
         if (relationship.value == null || reload) {
             viewModelScope.launch {
-                fediverseApi.relationships(listOf(getAccountId())).fold(
+                api.relationships(listOf(getAccountId())).fold(
                     {
                         relationship.value = Success(it.first())
                     },

@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val fediverseApi: FediverseApi,
+    private val api: FediverseApi,
     private val accountManager: AccountManager
 ) : ViewModel() {
 
@@ -37,7 +37,7 @@ class MainViewModel @Inject constructor(
     init {
         viewModelScope.launch {
 
-            fediverseApi.accountVerifyCredentials().fold(
+            api.accountVerifyCredentials().fold(
                 { account ->
                     accountManager.updateActiveAccount(account)
                 },

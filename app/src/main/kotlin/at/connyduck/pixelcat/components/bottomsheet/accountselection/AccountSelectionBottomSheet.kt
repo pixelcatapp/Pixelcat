@@ -29,6 +29,7 @@ import at.connyduck.pixelcat.components.login.LoginActivity
 import at.connyduck.pixelcat.components.main.MainActivity
 import at.connyduck.pixelcat.databinding.BottomsheetAccountsBinding
 import at.connyduck.pixelcat.db.AccountManager
+import at.connyduck.pixelcat.util.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
@@ -36,22 +37,18 @@ class AccountSelectionBottomSheet(
     private val accountManager: AccountManager
 ) : BottomSheetDialogFragment() {
 
-    private var _binding: BottomsheetAccountsBinding? = null
-    private val binding
-        get() = _binding!!
+    private val binding by viewBinding(BottomsheetAccountsBinding::bind)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = BottomsheetAccountsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lifecycleScope.launch {
-            binding.accountsRecyclerView.adapter = AccountSelectionAdapter(accountManager.getAllAccounts(), ::onAccountSelected, ::onNewAccount)
+            binding.accountsRecyclerView.adapter =
+                AccountSelectionAdapter(
+                    accountManager.getAllAccounts(),
+                    ::onAccountSelected,
+                    ::onNewAccount
+                )
         }
     }
 
@@ -67,12 +64,6 @@ class AccountSelectionBottomSheet(
     }
 
     private fun onNewAccount() {
-        // TODO don't create intent here
-        startActivity(Intent(requireContext(), LoginActivity::class.java))
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        startActivity(LoginActivity.newIntent(requireContext()))
     }
 }
