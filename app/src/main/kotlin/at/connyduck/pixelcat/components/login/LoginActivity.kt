@@ -31,10 +31,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.lifecycle.lifecycleScope
-import at.connyduck.pixelcat.components.main.MainActivity
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.about.AboutActivity
 import at.connyduck.pixelcat.components.general.BaseActivity
+import at.connyduck.pixelcat.components.main.MainActivity
 import at.connyduck.pixelcat.components.settings.SettingsActivity
 import at.connyduck.pixelcat.components.util.extension.visible
 import at.connyduck.pixelcat.dagger.ViewModelFactory

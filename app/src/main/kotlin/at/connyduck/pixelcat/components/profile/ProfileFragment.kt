@@ -24,8 +24,8 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.bottomsheet.accountselection.AccountSelectionBottomSheet
 import at.connyduck.pixelcat.components.bottomsheet.menu.MenuBottomSheet

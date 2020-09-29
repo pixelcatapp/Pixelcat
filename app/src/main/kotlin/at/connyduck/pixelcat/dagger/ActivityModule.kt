@@ -19,16 +19,16 @@
 
 package at.connyduck.pixelcat.dagger
 
-import at.connyduck.pixelcat.components.main.MainActivity
 import at.connyduck.pixelcat.components.about.AboutActivity
 import at.connyduck.pixelcat.components.about.licenses.LicenseActivity
 import at.connyduck.pixelcat.components.compose.ComposeActivity
-import at.connyduck.pixelcat.components.timeline.detail.DetailActivity
 import at.connyduck.pixelcat.components.login.LoginActivity
 import at.connyduck.pixelcat.components.login.LoginWebViewActivity
+import at.connyduck.pixelcat.components.main.MainActivity
 import at.connyduck.pixelcat.components.profile.ProfileActivity
 import at.connyduck.pixelcat.components.settings.SettingsActivity
 import at.connyduck.pixelcat.components.splash.SplashActivity
+import at.connyduck.pixelcat.components.timeline.detail.DetailActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

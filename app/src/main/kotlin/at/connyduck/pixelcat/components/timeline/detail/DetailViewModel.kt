@@ -23,10 +23,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import at.connyduck.pixelcat.components.timeline.TimelineUseCases
+import at.connyduck.pixelcat.components.util.Error
 import at.connyduck.pixelcat.components.util.Loading
 import at.connyduck.pixelcat.components.util.Success
 import at.connyduck.pixelcat.components.util.UiState
-import at.connyduck.pixelcat.components.util.Error
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.db.AppDatabase
 import at.connyduck.pixelcat.db.entitity.StatusEntity

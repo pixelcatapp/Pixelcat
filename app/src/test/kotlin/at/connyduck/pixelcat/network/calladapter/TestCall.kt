@@ -19,12 +19,12 @@
 
 package at.connyduck.pixelcat.network.calladapter
 
-import java.io.InterruptedIOException
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.InterruptedIOException
 
 class TestCall<T> : Call<T> {
     private var executed = false

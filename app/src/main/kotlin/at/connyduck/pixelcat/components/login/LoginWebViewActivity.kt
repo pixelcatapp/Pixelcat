@@ -27,11 +27,11 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
-import at.connyduck.pixelcat.config.Config
 import android.webkit.WebViewClient
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import at.connyduck.pixelcat.components.general.BaseActivity
+import at.connyduck.pixelcat.config.Config
 import at.connyduck.pixelcat.databinding.ActivityLoginWebViewBinding
 
 class LoginWebViewActivity : BaseActivity() {

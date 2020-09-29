@@ -55,10 +55,6 @@ tasks {
     }
 }
 
-ktlint {
-    disabledRules.set(setOf("import-ordering"))
-}
-
 dependencies {
 
     val lifecycleVersion = "2.3.0-alpha07"

@@ -22,13 +22,13 @@ package at.connyduck.pixelcat.dagger
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import at.connyduck.pixelcat.components.compose.ComposeViewModel
-import at.connyduck.pixelcat.components.timeline.detail.DetailViewModel
 import at.connyduck.pixelcat.components.login.LoginViewModel
 import at.connyduck.pixelcat.components.main.MainViewModel
 import at.connyduck.pixelcat.components.notifications.NotificationsViewModel
 import at.connyduck.pixelcat.components.profile.ProfileViewModel
 import at.connyduck.pixelcat.components.search.SearchViewModel
 import at.connyduck.pixelcat.components.timeline.TimelineViewModel
+import at.connyduck.pixelcat.components.timeline.detail.DetailViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
