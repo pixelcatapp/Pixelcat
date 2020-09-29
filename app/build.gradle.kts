@@ -56,7 +56,6 @@ tasks {
 }
 
 ktlint {
-    version.set("0.38.1")
     disabledRules.set(setOf("import-ordering"))
 }
 
@@ -70,7 +69,7 @@ dependencies {
     val daggerVersion = "2.28.3"
     val jUnitVersion = "5.7.0"
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.0")
+    implementation(kotlin("stdlib-jdk7"))
 
     implementation("androidx.core:core-ktx:1.5.0-alpha03")
     implementation("androidx.appcompat:appcompat:1.3.0-alpha02")
@@ -111,7 +110,7 @@ dependencies {
 
     implementation("me.relex:circleindicator:2.1.4")
 
-    implementation("io.coil-kt:coil:1.0.0-rc2")
+    implementation("io.coil-kt:coil:1.0.0-rc3")
 
     implementation("com.github.connyduck:sparkbutton:4.0.0")
 
