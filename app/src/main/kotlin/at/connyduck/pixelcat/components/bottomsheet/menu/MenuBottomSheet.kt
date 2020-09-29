@@ -26,18 +26,21 @@ import android.view.ViewGroup
 import at.connyduck.pixelcat.components.about.AboutActivity
 import at.connyduck.pixelcat.components.settings.SettingsActivity
 import at.connyduck.pixelcat.databinding.BottomsheetMenuBinding
-import at.connyduck.pixelcat.util.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MenuBottomSheet : BottomSheetDialogFragment() {
 
-    private val binding by viewBinding(BottomsheetMenuBinding::bind)
+    private var _binding: BottomsheetMenuBinding? = null
+    private val binding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = binding.root
+        savedInstanceState: Bundle?) : View {
+        _binding = BottomsheetMenuBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 

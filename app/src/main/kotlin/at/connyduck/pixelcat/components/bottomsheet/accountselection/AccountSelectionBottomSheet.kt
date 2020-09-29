@@ -29,7 +29,6 @@ import at.connyduck.pixelcat.components.login.LoginActivity
 import at.connyduck.pixelcat.components.main.MainActivity
 import at.connyduck.pixelcat.databinding.BottomsheetAccountsBinding
 import at.connyduck.pixelcat.db.AccountManager
-import at.connyduck.pixelcat.util.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
@@ -37,9 +36,17 @@ class AccountSelectionBottomSheet(
     private val accountManager: AccountManager
 ) : BottomSheetDialogFragment() {
 
-    private val binding by viewBinding(BottomsheetAccountsBinding::bind)
+    private var _binding: BottomsheetAccountsBinding? = null
+    private val binding
+        get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = binding.root
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?) : View {
+        _binding = BottomsheetAccountsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lifecycleScope.launch {
@@ -65,5 +72,10 @@ class AccountSelectionBottomSheet(
 
     private fun onNewAccount() {
         startActivity(LoginActivity.newIntent(requireContext()))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
