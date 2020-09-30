@@ -1,6 +1,8 @@
 # Pixelcat
 
-Pixelcat is a beautiful and fast Android client to access the Fediverse. It focuses on images and is primarily intended to be used with Pixelfed, but it works with Mastodon and Pleroma as well.
+<img src="/assets/icon.png" alt="pixelcat icon" height="150" />
+
+Pixelcat is a beautiful and fast Android client to access the Fediverse. It focuses on images and is primarily intended to be used with [Pixelfed](https://pixelfed.org/), but it works with Mastodon and Pleroma as well.
 
 Pixelcat is currently in development, snapshot builds are available from the release page.
 
@@ -9,11 +11,12 @@ Pixelcat is currently in development, snapshot builds are available from the rel
 - take images right from the app ✅
 - view user profiles ✅
 - notifications 🟠
-- favourites
+- favourites 🟠
 - edit images 🟠
 - search 🟠
 - local timelines 🟠
 - viewing status details and replying 🟠
+- reporting users 🟠
 - system notifications 🔴
 
 ✅ implemented
