@@ -72,7 +72,7 @@ class ApiTest {
             200,
             """
                 {
-                    "lets": "not",
+                    "lets": "test",
                     "test": 1
                 }
             """
