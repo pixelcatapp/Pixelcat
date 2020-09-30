@@ -67,7 +67,7 @@ class TimelineListAdapter(
         return BindingHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BindingHolder<ItemStatusBinding>, position: Int) {
+                      override fun onBindViewHolder(holder: BindingHolder<ItemStatusBinding>, position: Int) {
         getItem(position)?.let { status ->
             holder.bind(status, displayWidth, listener, dateTimeFormatter)
         }
