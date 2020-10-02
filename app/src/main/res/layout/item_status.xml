@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:background="#f00" />
 
-    <androidx.emoji.widget.EmojiTextView
+    <androidx.emoji.widget.EmojiAppCompatTextView
         android:id="@+id/postDisplayName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
         app:layout_constraintStart_toEndOf="@id/postReplyButton"
         app:layout_constraintTop_toTopOf="@id/postReplyButton" />
 
-    <androidx.emoji.widget.EmojiTextView
+    <androidx.emoji.widget.EmojiAppCompatTextView
         android:id="@+id/postDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

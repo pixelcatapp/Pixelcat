@@ -19,7 +19,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:background="#f00" />
 
-    <androidx.emoji.widget.EmojiTextView
+    <androidx.emoji.widget.EmojiAppCompatTextView
             android:id="@+id/postDisplayName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="\@connyduck\@chaos.social" />
 
-    <androidx.emoji.widget.EmojiTextView
+    <androidx.emoji.widget.EmojiAppCompatTextView
             android:id="@+id/postDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

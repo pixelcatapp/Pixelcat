@@ -61,6 +61,7 @@ tasks {
 dependencies {
 
     val lifecycleVersion = "2.3.0-alpha07"
+    val emojiCompatVersion = "1.2.0-alpha01"
     val roomVersion = "2.3.0-alpha02"
     val okHttpVersion = "4.8.1"
     val retrofitVersion = "2.9.0"
@@ -84,7 +85,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation("androidx.preference:preference:1.1.1")
-    implementation("androidx.emoji:emoji-bundled:1.2.0-alpha01")
+    implementation("androidx.emoji:emoji-bundled:$emojiCompatVersion")
+    implementation("androidx.emoji:emoji-appcompat:$emojiCompatVersion")
     implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha06")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
