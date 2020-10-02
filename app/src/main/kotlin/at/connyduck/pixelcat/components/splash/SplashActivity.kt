@@ -19,6 +19,7 @@
 
 package at.connyduck.pixelcat.components.splash
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import at.connyduck.pixelcat.components.login.LoginActivity
@@ -35,6 +36,8 @@ class SplashActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         lifecycleScope.launch {
 

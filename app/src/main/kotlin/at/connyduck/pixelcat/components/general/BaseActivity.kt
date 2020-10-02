@@ -19,6 +19,7 @@
 
 package at.connyduck.pixelcat.components.general
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.settings.AppSettings
@@ -32,6 +33,8 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         theme.applyStyle(appSettings.getAppColorStyle(), true)
         if (!appSettings.useSystemFont()) {
