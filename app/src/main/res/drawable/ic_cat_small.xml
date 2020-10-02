@@ -10,8 +10,8 @@
           android:strokeWidth="1.0">
         <aapt:attr name="android:fillColor">
             <gradient
-                    android:endColor="?attr/pixelcat_gradient_color_start"
-                    android:startColor="?attr/pixelcat_gradient_color_end"
+                    android:endColor="?attr/pixelcat_gradient_color_end"
+                    android:startColor="?attr/pixelcat_gradient_color_start"
                     android:endX="500"
                     android:endY="0"
                     android:startX="0"
