@@ -35,7 +35,8 @@
         </activity>
         <activity
                 android:name=".components.login.LoginActivity"
-                android:theme="@style/AppTheme.Fullscreen">
+                android:theme="@style/AppTheme.Fullscreen"
+                android:windowSoftInputMode="adjustResize">
 
         </activity>
         <activity

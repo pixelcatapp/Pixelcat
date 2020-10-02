@@ -19,6 +19,7 @@
 
 package at.connyduck.pixelcat.components.login
 
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -29,7 +30,9 @@ import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type.ime
 import androidx.core.view.WindowInsetsCompat.Type.systemBars
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.about.AboutActivity
@@ -63,9 +66,23 @@ class LoginActivity : BaseActivity() {
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
-            val top = insets.getInsets(systemBars()).top
+            val insetTop = insets.getInsets(systemBars()).top
             val toolbarParams = binding.loginToolbar.layoutParams as ViewGroup.MarginLayoutParams
-            toolbarParams.topMargin = top
+            toolbarParams.topMargin = insetTop
+
+            val insetBottom = insets.getInsets(ime()).bottom
+            val paddingBottom = binding.root.paddingBottom
+
+            if (paddingBottom != insetBottom) {
+                // animate the bottom padding when the soft keyboard visibility changed
+                val animator = ValueAnimator.ofInt(paddingBottom, insetBottom)
+                animator.addUpdateListener { valueAnimator ->
+                    binding.root.updatePadding(bottom = valueAnimator.animatedValue as Int)
+                }
+                animator.duration = 200
+                animator.start()
+            }
+
             WindowInsetsCompat.CONSUMED
         }
 
@@ -155,7 +172,15 @@ class LoginActivity : BaseActivity() {
             }
             LoginState.SUCCESS -> {
                 setLoading(true)
-                startActivityForResult(LoginWebViewActivity.newIntent(loginModel.domain!!, loginModel.clientId!!, loginModel.clientSecret!!, this), REQUEST_CODE)
+                startActivityForResult(
+                    LoginWebViewActivity.newIntent(
+                        loginModel.domain!!,
+                        loginModel.clientId!!,
+                        loginModel.clientSecret!!,
+                        this
+                    ),
+                    REQUEST_CODE
+                )
             }
             LoginState.SUCCESS_FINAL -> {
                 setLoading(true)
