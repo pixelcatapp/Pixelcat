@@ -23,6 +23,8 @@ import android.util.Log
 import at.connyduck.pixelcat.db.entitity.AccountAuthData
 import at.connyduck.pixelcat.db.entitity.AccountEntity
 import at.connyduck.pixelcat.model.Account
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * This class caches the account database and handles all account related operations
@@ -30,7 +32,8 @@ import at.connyduck.pixelcat.model.Account
 
 private const val TAG = "AccountManager"
 
-class AccountManager(db: AppDatabase) {
+@Singleton
+class AccountManager @Inject constructor(db: AppDatabase) {
 
     private var activeAccount: AccountEntity? = null
 

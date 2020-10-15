@@ -19,13 +19,11 @@
 
 package at.connyduck.pixelcat.dagger
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import at.connyduck.pixelcat.PixelcatApplication
-import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.db.AppDatabase
 import at.connyduck.pixelcat.db.RoomConverter
 import dagger.Module
@@ -36,14 +34,12 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
-    fun providesApp(app: PixelcatApplication): Application = app
+    fun providesContext(app: PixelcatApplication): Context = app
 
     @Provides
-    fun providesContext(app: Application): Context = app
-
-    @Provides
-    fun providesSharedPreferences(app: Application): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(app)
+    @Singleton
+    fun providesSharedPreferences(context: Context): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
     }
 
     @Provides
@@ -53,11 +49,5 @@ class AppModule {
             .databaseBuilder(context, AppDatabase::class.java, "pixelcat.db")
             .addTypeConverter(converter)
             .build()
-    }
-
-    @Provides
-    @Singleton
-    fun providesAccountManager(db: AppDatabase): AccountManager {
-        return AccountManager(db)
     }
 }
