@@ -19,6 +19,7 @@
 
 package at.connyduck.pixelcat.db
 
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import at.connyduck.pixelcat.model.Attachment
 import at.connyduck.pixelcat.model.Notification
@@ -26,10 +27,14 @@ import at.connyduck.pixelcat.model.Status
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import java.util.Date
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class Converters {
-
-    private val moshi = Moshi.Builder().build()
+@ProvidedTypeConverter
+@Singleton
+class RoomConverter @Inject constructor (
+    private val moshi: Moshi
+) {
 
     @TypeConverter
     fun visibilityToString(visibility: Status.Visibility) = visibility.name

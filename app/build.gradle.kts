@@ -62,7 +62,7 @@ dependencies {
 
     val lifecycleVersion = "2.3.0-alpha07"
     val emojiCompatVersion = "1.2.0-alpha01"
-    val roomVersion = "2.3.0-alpha02"
+    val roomVersion = "2.3.0-alpha03"
     val okHttpVersion = "4.8.1"
     val retrofitVersion = "2.9.0"
     val moshiVersion = "1.10.0"

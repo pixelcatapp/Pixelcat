@@ -27,6 +27,7 @@ import androidx.room.Room
 import at.connyduck.pixelcat.PixelcatApplication
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.db.AppDatabase
+import at.connyduck.pixelcat.db.RoomConverter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -47,9 +48,10 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesDatabase(app: PixelcatApplication): AppDatabase {
+    fun providesDatabase(context: Context, converter: RoomConverter): AppDatabase {
         return Room
-            .databaseBuilder(app, AppDatabase::class.java, "pixelcat.db")
+            .databaseBuilder(context, AppDatabase::class.java, "pixelcat.db")
+            .addTypeConverter(converter)
             .build()
     }
 

@@ -22,11 +22,11 @@ package at.connyduck.pixelcat.db.entitity
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.TypeConverters
-import at.connyduck.pixelcat.db.Converters
+import at.connyduck.pixelcat.db.RoomConverter
 import at.connyduck.pixelcat.model.Notification
 
 @Entity(primaryKeys = ["accountId", "id"])
-@TypeConverters(Converters::class)
+@TypeConverters(RoomConverter::class)
 data class NotificationEntity(
     val accountId: Long,
     val type: Notification.Type,
