@@ -38,7 +38,7 @@ import at.connyduck.pixelcat.model.NewStatus
 import at.connyduck.pixelcat.network.FediverseApi
 import at.connyduck.pixelcat.network.calladapter.NetworkResponseError
 import dagger.android.DaggerService
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

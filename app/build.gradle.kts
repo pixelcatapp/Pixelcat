@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-android-extensions")
     id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -27,10 +27,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    androidExtensions {
-        features = setOf("parcelize")
     }
 
     buildFeatures {
