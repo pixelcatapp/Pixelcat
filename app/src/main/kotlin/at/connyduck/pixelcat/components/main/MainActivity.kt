@@ -35,8 +35,7 @@ import at.connyduck.pixelcat.databinding.ActivityMainBinding
 import at.connyduck.pixelcat.db.AccountManager
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
-import com.fxn.utility.ImageQuality
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -54,8 +53,8 @@ class MainActivity : BaseActivity() {
     private lateinit var mainFragmentAdapter: MainFragmentAdapter
 
     private val onNavigationItemSelectedListener =
-        BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            return@OnNavigationItemSelectedListener when (item.itemId) {
+        NavigationBarView.OnItemSelectedListener { item ->
+            return@OnItemSelectedListener when (item.itemId) {
                 R.id.navigation_home -> {
                     binding.mainViewPager.setCurrentItem(0, false)
                     true
@@ -67,7 +66,6 @@ class MainActivity : BaseActivity() {
                 R.id.navigation_compose -> {
                     val options = Options.init()
                         .setRequestCode(100)
-                        .setImageQuality(ImageQuality.HIGH)
                         .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
 
                     Pix.start(this, options)
@@ -102,7 +100,7 @@ class MainActivity : BaseActivity() {
         binding.mainViewPager.adapter = mainFragmentAdapter
         binding.mainViewPager.isUserInputEnabled = false
 
-        binding.navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        binding.navigation.setOnItemSelectedListener(onNavigationItemSelectedListener)
 
         mainViewModel.whatever()
     }

@@ -43,14 +43,9 @@ import at.connyduck.pixelcat.components.util.extension.visible
 import at.connyduck.pixelcat.dagger.ViewModelFactory
 import at.connyduck.pixelcat.databinding.ActivityLoginBinding
 import at.connyduck.pixelcat.util.viewBinding
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 class LoginActivity : BaseActivity() {
 
     @Inject

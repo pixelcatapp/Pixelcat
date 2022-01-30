@@ -27,6 +27,6 @@ import java.util.Locale
  * @return the mime type, or null if it couldn't be determined
  */
 fun getMimeType(filePath: String): String? {
-    val extension = filePath.split('.').lastOrNull()?.toLowerCase(Locale.ROOT) ?: return null
+    val extension = filePath.split('.').lastOrNull()?.lowercase(Locale.ROOT) ?: return null
     return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
 }

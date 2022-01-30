@@ -23,7 +23,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -49,7 +48,6 @@ class TimelineFragment : DaggerFragment(R.layout.fragment_timeline), TimeLineAct
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
-    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding.timelineSwipeRefresh.setColorSchemeColors(

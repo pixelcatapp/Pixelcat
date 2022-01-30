@@ -23,13 +23,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import at.connyduck.pixelcat.R
 import at.connyduck.pixelcat.components.bottomsheet.accountselection.AccountSelectionBottomSheet
 import at.connyduck.pixelcat.components.bottomsheet.menu.MenuBottomSheet
 import at.connyduck.pixelcat.components.main.MainActivity
+import at.connyduck.pixelcat.components.util.Error
 import at.connyduck.pixelcat.components.util.Success
 import at.connyduck.pixelcat.components.util.extension.getDisplayWidthInPx
 import at.connyduck.pixelcat.dagger.ViewModelFactory
@@ -63,7 +63,6 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
     private val headerAdapter = ProfileHeaderAdapter()
     private lateinit var imageAdapter: ProfileImageAdapter
 
-    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         if (activity is MainActivity) {
@@ -111,23 +110,22 @@ class ProfileFragment : DaggerFragment(R.layout.fragment_profile) {
         viewModel.setAccountInfo(arg(ACCOUNT_ID))
 
         viewModel.profile.observe(
-            viewLifecycleOwner,
-            {
-                when (it) {
-                    is Success -> onAccountChanged(it.data)
-                    is Error -> showError()
-                }
+            viewLifecycleOwner
+        ) {
+            when (it) {
+                is Success -> onAccountChanged(it.data)
+                is Error -> showError()
+                else -> {}
             }
-        )
+        }
         viewModel.relationship.observe(
-            viewLifecycleOwner,
-            {
-                when (it) {
-                    is Success -> onRelationshipChanged(it.data)
-                    is Error -> showError()
-                }
+            viewLifecycleOwner
+        ) {
+            when (it) {
+                is Success -> onRelationshipChanged(it.data)
+                is Error -> showError()
             }
-        )
+        }
         lifecycleScope.launch {
             viewModel.imageFlow.collectLatest { imageAdapter.submitData(it) }
         }

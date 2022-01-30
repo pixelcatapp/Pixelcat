@@ -35,6 +35,7 @@ import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(FlowPreview::class, ExperimentalPagingApi::class)
 class TimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     private val db: AppDatabase,
@@ -42,8 +43,6 @@ class TimelineViewModel @Inject constructor(
     private val useCases: TimelineUseCases
 ) : ViewModel() {
 
-    @OptIn(FlowPreview::class)
-    @ExperimentalPagingApi
     val statusFlow = accountManager::activeAccount.asFlow()
         .flatMapConcat { activeAccount ->
             Pager(

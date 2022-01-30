@@ -33,14 +33,13 @@ import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flatMapConcat
 import javax.inject.Inject
 
+@OptIn(ExperimentalPagingApi::class, FlowPreview::class)
 class NotificationsViewModel @Inject constructor(
     accountManager: AccountManager,
     private val db: AppDatabase,
     private val api: FediverseApi
 ) : ViewModel() {
 
-    @OptIn(FlowPreview::class)
-    @ExperimentalPagingApi
     val notificationsFlow = accountManager::activeAccount.asFlow()
         .flatMapConcat { activeAccount ->
             Pager(

@@ -37,6 +37,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(FlowPreview::class, ExperimentalPagingApi::class)
 class ProfileViewModel @Inject constructor(
     private val api: FediverseApi,
     private val accountManager: AccountManager
@@ -45,8 +46,6 @@ class ProfileViewModel @Inject constructor(
     val profile = MutableLiveData<UiState<Account>>()
     val relationship = MutableLiveData<UiState<Relationship>>()
 
-    @OptIn(FlowPreview::class)
-    @ExperimentalPagingApi
     val imageFlow = Pager(
         config = PagingConfig(pageSize = 10, enablePlaceholders = false),
         pagingSourceFactory = { ProfileImagePagingSource(api, accountId, accountManager) }
