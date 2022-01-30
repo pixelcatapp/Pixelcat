@@ -37,7 +37,6 @@ import at.connyduck.pixelcat.databinding.ActivityComposeBinding
 import at.connyduck.pixelcat.util.viewBinding
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
-import com.fxn.utility.ImageQuality
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -104,24 +103,23 @@ class ComposeActivity : BaseActivity(), OnImageActionClickListener {
         }
 
         viewModel.imageLiveData.observe(
-            this,
-            {
-                adapter.submitList(it)
-            }
-        )
+            this
+        ) {
+            adapter.submitList(it)
+        }
 
         viewModel.visibility.observe(
-            this,
-            {
-                val visibilityString = when (it) {
-                    VISIBILITY.PUBLIC -> R.string.compose_visibility_public
-                    VISIBILITY.UNLISTED -> R.string.compose_visibility_unlisted
-                    VISIBILITY.FOLLOWERS_ONLY -> R.string.compose_visibility_followers_only
-                }
-
-                binding.composeVisibilityButton.text = getString(R.string.compose_visibility, getString(visibilityString))
+            this
+        ) {
+            val visibilityString = when (it) {
+                VISIBILITY.PUBLIC -> R.string.compose_visibility_public
+                VISIBILITY.UNLISTED -> R.string.compose_visibility_unlisted
+                VISIBILITY.FOLLOWERS_ONLY -> R.string.compose_visibility_followers_only
             }
-        )
+
+            binding.composeVisibilityButton.text =
+                getString(R.string.compose_visibility, getString(visibilityString))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -141,7 +139,6 @@ class ComposeActivity : BaseActivity(), OnImageActionClickListener {
     override fun onAddImage() {
         val options = Options.init()
             .setRequestCode(REQUEST_CODE_PICK_MEDIA)
-            .setImageQuality(ImageQuality.HIGH)
             .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
 
         Pix.start(this, options)

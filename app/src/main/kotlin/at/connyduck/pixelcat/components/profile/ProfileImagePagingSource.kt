@@ -20,6 +20,7 @@
 package at.connyduck.pixelcat.components.profile
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.model.Status
 import at.connyduck.pixelcat.network.FediverseApi
@@ -54,4 +55,6 @@ class ProfileImagePagingSource(
             }
         )
     }
+
+    override fun getRefreshKey(state: PagingState<String, Status>): String? = null
 }

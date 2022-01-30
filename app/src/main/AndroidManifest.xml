@@ -17,7 +17,8 @@
             android:usesCleartextTraffic="false"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 <!-- TODO order activities -->
-        <activity android:name=".components.splash.SplashActivity">
+        <activity android:name=".components.splash.SplashActivity"
+            android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN"/>
 

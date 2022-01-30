@@ -23,7 +23,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -52,7 +51,6 @@ class NotificationsFragment :
 
     private val binding by viewBinding(FragmentNotificationsBinding::bind)
 
-    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding.notificationSwipeRefresh.setColorSchemeColors(

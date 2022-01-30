@@ -25,25 +25,21 @@ import at.connyduck.pixelcat.config.Config
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.db.entitity.AccountAuthData
 import at.connyduck.pixelcat.network.FediverseApi
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import okhttp3.HttpUrl
 import java.util.Locale
 import javax.inject.Inject
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 class LoginViewModel @Inject constructor(
     private val api: FediverseApi,
     private val accountManager: AccountManager
 ) : ViewModel() {
 
-    private val loginState = ConflatedBroadcastChannel(LoginModel(state = LoginState.NO_ERROR))
+    private val loginState = MutableStateFlow(LoginModel(state = LoginState.NO_ERROR))
 
-    fun observe() = loginState.asFlow()
+    fun observe(): Flow<LoginModel> = loginState
 
     fun startLogin(input: String) {
         viewModelScope.launch {
@@ -52,7 +48,7 @@ class LoginViewModel @Inject constructor(
             try {
                 HttpUrl.Builder().host(domainInput).scheme("https").build()
             } catch (e: IllegalArgumentException) {
-                loginState.send(LoginModel(input, LoginState.INVALID_DOMAIN))
+                loginState.value = LoginModel(input, LoginState.INVALID_DOMAIN)
                 return@launch
             }
 
@@ -61,11 +57,11 @@ class LoginViewModel @Inject constructor(
             }
 
             if (exceptionMatch) {
-                loginState.send(LoginModel(input, LoginState.AUTH_ERROR))
+                loginState.value = LoginModel(input, LoginState.AUTH_ERROR)
                 return@launch
             }
 
-            loginState.send(LoginModel(input, LoginState.LOADING))
+            loginState.value = LoginModel(input, LoginState.LOADING)
 
             api.authenticateAppAsync(
                 domain = domainInput,
@@ -75,10 +71,10 @@ class LoginViewModel @Inject constructor(
                 scopes = Config.oAuthScopes
             ).fold(
                 { appData ->
-                    loginState.send(LoginModel(input, LoginState.SUCCESS, domainInput, appData.clientId, appData.clientSecret))
+                    loginState.value = LoginModel(input, LoginState.SUCCESS, domainInput, appData.clientId, appData.clientSecret)
                 },
                 {
-                    loginState.send(LoginModel(input, LoginState.AUTH_ERROR))
+                    loginState.value = LoginModel(input, LoginState.AUTH_ERROR)
                 }
             )
         }
@@ -107,19 +103,17 @@ class LoginViewModel @Inject constructor(
                         clientSecret = loginModel.clientSecret
                     )
                     accountManager.addAccount(loginModel.domain, authData)
-                    loginState.send(loginState.value.copy(state = LoginState.SUCCESS_FINAL))
+                    loginState.value = loginState.value.copy(state = LoginState.SUCCESS_FINAL)
                 },
                 {
-                    loginState.send(loginState.value.copy(state = LoginState.AUTH_ERROR))
+                    loginState.value = loginState.value.copy(state = LoginState.AUTH_ERROR)
                 }
             )
         }
     }
 
     fun removeError() {
-        viewModelScope.launch {
-            loginState.send(loginState.value.copy(state = LoginState.NO_ERROR))
-        }
+        loginState.value = loginState.value.copy(state = LoginState.NO_ERROR)
     }
 
     private fun canonicalizeDomain(domain: String): String {
@@ -131,6 +125,6 @@ class LoginViewModel @Inject constructor(
         if (at != -1) {
             s = s.substring(at + 1)
         }
-        return s.trim().toLowerCase(Locale.ROOT)
+        return s.trim().lowercase(Locale.ROOT)
     }
 }

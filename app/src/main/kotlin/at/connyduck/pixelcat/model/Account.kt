@@ -46,9 +46,9 @@ data class Account(
 ) {
 
     val name: String
-        get() = if (displayName.isEmpty()) {
+        get() = displayName.ifEmpty {
             localUsername
-        } else displayName
+        }
 }
 
 @JsonClass(generateAdapter = true)

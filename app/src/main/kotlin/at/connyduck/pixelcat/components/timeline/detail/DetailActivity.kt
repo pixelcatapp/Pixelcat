@@ -76,46 +76,44 @@ class DetailActivity : BaseActivity(), TimeLineActionListener {
         binding.detailRecyclerView.adapter = ConcatAdapter(statusAdapter, repliesAdapter)
 
         viewModel.currentStatus.observe(
-            this,
-            {
-                when (it) {
-                    is Success -> {
-                        binding.detailSwipeRefresh.show()
-                        binding.detailStatus.hide()
-                        binding.detailProgress.hide()
-                        binding.detailSwipeRefresh.isRefreshing = false
-                        binding.detailRecyclerView.show()
-                        statusAdapter.submitList(listOf(it.data))
-                        it.data?.let { status ->
-                            if (intent.getBooleanExtra(EXTRA_REPLY, false)) {
-                                intent.removeExtra(EXTRA_REPLY)
-                                onReply(status)
-                            }
+            this
+        ) {
+            when (it) {
+                is Success -> {
+                    binding.detailSwipeRefresh.show()
+                    binding.detailStatus.hide()
+                    binding.detailProgress.hide()
+                    binding.detailSwipeRefresh.isRefreshing = false
+                    binding.detailRecyclerView.show()
+                    statusAdapter.submitList(listOf(it.data))
+                    it.data?.let { status ->
+                        if (intent.getBooleanExtra(EXTRA_REPLY, false)) {
+                            intent.removeExtra(EXTRA_REPLY)
+                            onReply(status)
                         }
                     }
-                    is Loading -> {
-                        binding.detailSwipeRefresh.hide()
-                        binding.detailStatus.hide()
-                        binding.detailProgress.show()
-                    }
-                    is Error -> {
-                        binding.detailSwipeRefresh.hide()
-                        binding.detailStatus.show()
-                        binding.detailProgress.hide()
-                        binding.detailStatus.showGeneralError()
-                    }
+                }
+                is Loading -> {
+                    binding.detailSwipeRefresh.hide()
+                    binding.detailStatus.hide()
+                    binding.detailProgress.show()
+                }
+                is Error -> {
+                    binding.detailSwipeRefresh.hide()
+                    binding.detailStatus.show()
+                    binding.detailProgress.hide()
+                    binding.detailStatus.showGeneralError()
                 }
             }
-        )
+        }
 
         viewModel.replies.observe(
-            this,
-            {
-                if (it is Success) {
-                    repliesAdapter.submitList(it.data)
-                }
+            this
+        ) {
+            if (it is Success) {
+                repliesAdapter.submitList(it.data)
             }
-        )
+        }
     }
 
     override fun onFavorite(status: StatusEntity) {

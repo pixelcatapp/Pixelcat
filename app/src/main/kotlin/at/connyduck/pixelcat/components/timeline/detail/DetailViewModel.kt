@@ -132,7 +132,7 @@ class DetailViewModel @Inject constructor(
                 NewStatus(
                     status = replyText,
                     inReplyToId = statusToReply.actionableId,
-                    visibility = statusToReply.visibility.name.toLowerCase(Locale.ROOT),
+                    visibility = statusToReply.visibility.name.lowercase(Locale.ROOT),
                     sensitive = statusToReply.sensitive,
                     mediaIds = null
                 )
