@@ -38,13 +38,13 @@ import at.connyduck.pixelcat.model.NewStatus
 import at.connyduck.pixelcat.network.FediverseApi
 import at.connyduck.pixelcat.network.calladapter.NetworkResponseError
 import dagger.android.DaggerService
-import kotlinx.parcelize.Parcelize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
