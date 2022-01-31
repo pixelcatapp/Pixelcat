@@ -19,6 +19,7 @@
 
 package at.connyduck.pixelcat.dagger
 
+import at.connyduck.calladapter.kotlinresult.KotlinResultCallAdapterFactory
 import at.connyduck.pixelcat.BuildConfig
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.model.Notification
@@ -26,7 +27,6 @@ import at.connyduck.pixelcat.network.FediverseApi
 import at.connyduck.pixelcat.network.InstanceSwitchAuthInterceptor
 import at.connyduck.pixelcat.network.RefreshTokenAuthenticator
 import at.connyduck.pixelcat.network.UserAgentInterceptor
-import at.connyduck.pixelcat.network.calladapter.NetworkResponseAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.EnumJsonAdapter
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
@@ -82,7 +82,7 @@ class NetworkModule {
         return Retrofit.Builder()
             .baseUrl("https://" + FediverseApi.PLACEHOLDER_DOMAIN)
             .client(httpClient)
-            .addCallAdapterFactory(NetworkResponseAdapterFactory())
+            .addCallAdapterFactory(KotlinResultCallAdapterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }

@@ -36,7 +36,6 @@ import at.connyduck.pixelcat.components.util.getMimeType
 import at.connyduck.pixelcat.db.AccountManager
 import at.connyduck.pixelcat.model.NewStatus
 import at.connyduck.pixelcat.network.FediverseApi
-import at.connyduck.pixelcat.network.calladapter.NetworkResponseError
 import dagger.android.DaggerService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +48,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import java.io.IOException
 import java.util.Timer
 import java.util.TimerTask
 import java.util.UUID
@@ -173,7 +173,7 @@ class SendStatusService : DaggerService(), CoroutineScope {
                 account.domain,
                 statusToSend.idempotencyKey,
                 newStatus
-            ).fold<Any?>(
+            ).fold(
                 {
                     statusesToSend.remove(id)
                     stopSelfWhenDone()
@@ -192,20 +192,8 @@ class SendStatusService : DaggerService(), CoroutineScope {
         val statusToSend = statusesToSend[id] ?: return
 
         when (error) {
-            is NetworkResponseError.ApiError, is UnrecoverableError -> {
-                // the server refused to accept the status, save toot & show error message
-                // TODO saveToDrafts
-
-                val builder = NotificationCompat.Builder(this@SendStatusService, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_cat)
-                    .setContentTitle(getString(R.string.send_status_notification_error_title))
-                    // .setContentText(getString(R.string.send_toot_notification_saved_content))
-                    .setColor(getColorForAttr(android.R.attr.colorPrimary))
-
-                notificationManager.cancel(id)
-                notificationManager.notify(errorNotificationId--, builder.build())
-            }
-            else -> {
+            is IOException -> {
+                // possibly a network problem, we might still have a chance sending the status
                 var backoff = TimeUnit.SECONDS.toMillis(statusToSend.retries.toLong())
                 if (backoff > MAX_RETRY_INTERVAL) {
                     backoff = MAX_RETRY_INTERVAL
@@ -219,6 +207,19 @@ class SendStatusService : DaggerService(), CoroutineScope {
                     },
                     backoff
                 )
+            }
+            else -> {
+                // the server refused to accept the status, save toot & show error message
+                // TODO saveToDrafts
+
+                val builder = NotificationCompat.Builder(this@SendStatusService, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_cat)
+                    .setContentTitle(getString(R.string.send_status_notification_error_title))
+                    // .setContentText(getString(R.string.send_toot_notification_saved_content))
+                    .setColor(getColorForAttr(android.R.attr.colorPrimary))
+
+                notificationManager.cancel(id)
+                notificationManager.notify(errorNotificationId--, builder.build())
             }
         }
     }

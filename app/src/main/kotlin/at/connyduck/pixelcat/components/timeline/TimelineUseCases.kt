@@ -6,7 +6,6 @@ import at.connyduck.pixelcat.db.entitity.StatusEntity
 import at.connyduck.pixelcat.db.entitity.toEntity
 import at.connyduck.pixelcat.model.Status
 import at.connyduck.pixelcat.network.FediverseApi
-import at.connyduck.pixelcat.network.calladapter.NetworkResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -43,8 +42,8 @@ class TimelineUseCases @Inject constructor(
         )
     }
 
-    private suspend fun NetworkResponse<Status>.updateStatusInDb() {
-        fold<Any?>(
+    private suspend fun Result<Status>.updateStatusInDb() {
+        fold(
             { updatedStatus ->
                 val accountId = accountManager.activeAccount()?.id!!
                 val updatedStatusEntity = updatedStatus.toEntity(accountId)

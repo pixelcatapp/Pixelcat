@@ -65,6 +65,8 @@ dependencies {
     val daggerVersion = "2.40.5"
     val jUnitVersion = "5.8.2"
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.activity:activity-ktx:1.4.0")
@@ -98,7 +100,7 @@ dependencies {
     implementation("com.squareup.moshi:moshi-adapters:$moshiVersion")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation("at.connyduck:kotlin-result-calladapter:1.0.0")
 
     implementation("com.fxn769:pix:1.5.6")
 
